@@ -35,8 +35,8 @@ fn run_sha(n_thousands: usize) {
         });
 
     println!(
-        "sha, {} bytes, took {}ms for {cycles} cycles ({insn_cycles} instruction cycles)",
+        "SHA256 of {} bytes took {:?} for {cycles} cycles ({insn_cycles} instruction cycles)",
         n_thousands * 1000,
-        (end - start).as_millis(),
+        end - start,
     );
 }
