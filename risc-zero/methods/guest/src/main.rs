@@ -9,6 +9,7 @@ use risc0_zkvm::{
 
 risc0_zkvm::guest::entry!(main);
 
+#[allow(dead_code)]
 fn bench_rpo() {
     let arr = [123u8; 10];
     Rpo256::hash(&arr);
