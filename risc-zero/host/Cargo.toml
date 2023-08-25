@@ -1,0 +1,13 @@
+[package]
+name = "host"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+methods = { path = "../methods" }
+risc0-zkvm = { version = "0.17.0", features = ["metal"] }
+serde = "1.0"
+
+[[bench]]
+name = "sha"
+harness = false

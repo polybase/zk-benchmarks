@@ -1,0 +1,5 @@
+{
+    "rust-analyzer.linkedProjects": [
+        "./risc-zero/methods/guest/Cargo.toml"
+    ]
+}
