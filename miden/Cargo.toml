@@ -10,6 +10,9 @@ miden-vm = { git = "https://github.com/0xPolygonMiden/miden-vm", tag = "v0.6.1" 
 miden-processor = { git = "https://github.com/0xPolygonMiden/miden-vm", tag = "v0.6.1" }
 miden-stdlib = { git = "https://github.com/0xPolygonMiden/miden-vm", tag = "v0.6.1" }
 
+[dev-dependencies]
+bench = { path = "../bench" }
+
 [[bench]]
 harness = false
 name = "bench"
