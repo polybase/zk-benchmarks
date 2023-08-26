@@ -8,6 +8,9 @@ methods = { path = "../methods" }
 risc0-zkvm = { version = "0.17.0", features = ["metal"] }
 serde = "1.0"
 
+[dev-dependencies]
+bench = { path = "../../bench" }
+
 [[bench]]
 name = "sha"
 harness = false
