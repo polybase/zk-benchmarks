@@ -1,62 +1,59 @@
+// use std::borrow::Cow;
+use serde::{Deserialize, Serialize};
+use serde_json::json;
+use std::fmt::Debug;
 use std::time::{Duration, Instant};
 
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Benchmark<'a> {
+    name: &'a str,
     timings: Vec<BenchmarkResult<'a>>,
 }
 
 impl<'a> Benchmark<'a> {
-    pub fn new() -> Self {
+    pub fn new(name: &'a str) -> Self {
         Benchmark {
+            name,
             timings: Vec::new(),
         }
     }
 
     pub fn benchmark<F: Fn(&mut BenchmarkRun)>(&mut self, name: &'a str, func: F) {
-        let mut run = BenchmarkRun::new();
+        let mut run = BenchmarkRun::new(name);
         func(&mut run);
         self.timings.push(BenchmarkResult { name, run });
     }
 
-    pub fn benchmark_with<F: Fn(&mut BenchmarkRun, &P) -> T, T, P>(
+    pub fn benchmark_with<F: Fn(&mut BenchmarkRun, &P) -> T, T, P: Debug>(
         &mut self,
         name: &'a str,
         params: &[P],
         func: F,
     ) {
         for p in params {
-            let mut run = BenchmarkRun::new();
+            let mut run = BenchmarkRun::new(name);
             func(&mut run, p);
             self.timings.push(BenchmarkResult { name, run });
         }
     }
 
     pub fn output(&self) {
-        for res in &self.timings {
-            println!("{}: {:?}", res.name, res.run.time);
-            if !res.run.metrics.is_empty() {
-                println!("  Metrics:");
-                for (metric, value) in &res.run.metrics {
-                    println!("    {}: {}", metric, value);
-                }
-            }
-        }
+        let output = json!(self);
+        println!("{}", output);
     }
 }
 
-impl<'a> Default for Benchmark<'a> {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
+#[derive(Debug, Deserialize, Serialize)]
 pub struct BenchmarkRun<'a> {
+    pub name: &'a str,
     pub time: Duration,
     pub metrics: std::collections::HashMap<&'a str, usize>,
 }
 
 impl<'a> BenchmarkRun<'a> {
-    fn new() -> Self {
+    fn new(name: &'a str) -> Self {
         BenchmarkRun {
+            name,
             time: Duration::new(0, 0),
             metrics: std::collections::HashMap::new(),
         }
@@ -74,6 +71,7 @@ impl<'a> BenchmarkRun<'a> {
     }
 }
 
+#[derive(Debug, Deserialize, Serialize)]
 pub struct BenchmarkResult<'a> {
     pub name: &'a str,
     pub run: BenchmarkRun<'a>,
