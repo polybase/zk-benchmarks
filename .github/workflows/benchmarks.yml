@@ -12,9 +12,27 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+  
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
 
-    - name: Run benchmarks
+    - name: Install Firebase Admin SDK
+      run: pip install firebase-admin
+
+    - name: Create benchmarks directory
+      run: mkdir .benchmarks
+    
+    - name: Run Miden benchmarks
       working-directory: ./miden
       run: |
-        cargo bench
-  
+        cargo bench -q --bench bench > ../.benchmarks/miden.json
+
+    - name: Run Risc-Zero benchmarks
+      working-directory: ./risc-zero/host
+      run: |
+        cargo bench -q --bench bench > ../.benchmarks/risc_zero.json
+
+    - name: Upload to Firestore
+      run: python upload.py "${{ secrets.FIRESTORE_CREDENTIALS }}"
