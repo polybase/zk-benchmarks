@@ -2,6 +2,14 @@ name: Bench
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - miden/Cargo.lock
+      - miden/benches/bench.rs
+      - risc-zero/host/Cargo.toml
+      - risc-zero/host/benches/bench.rs
 
 jobs:
   miden:
