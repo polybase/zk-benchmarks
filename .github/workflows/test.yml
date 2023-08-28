@@ -29,5 +29,5 @@ jobs:
       - name: Run Risc-Zero benchmarks
         working-directory: ./risc-zero/host
         run: |
-          cargo bench
+          cargo bench metal
   
