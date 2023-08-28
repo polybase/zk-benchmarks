@@ -16,6 +16,9 @@ jobs:
       run: |
         cargo bench -q --bench bench > ../.benchmarks/miden.json
 
+    - name: Install risczero
+      run: cargo install cargo-risczero && cargo risczero install
+
     - name: Run Risc-Zero benchmarks
       working-directory: ./risc-zero/host
       run: |
@@ -31,3 +34,4 @@ jobs:
         && git config --global user.name "Polybase CI"
         && git add .
         && git commit -m "Update benchmarks" 
+        && git push
