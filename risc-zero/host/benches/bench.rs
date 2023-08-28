@@ -7,7 +7,7 @@ use risc0_zkvm::Session;
 fn main() {
     let mut bench = Benchmark::new("risc_zero");
 
-    bench.benchmark_with("SHA256", &[1, 100, 1000], |b, n| {
+    bench.benchmark_with("SHA256", &[1, 10, 100, 1000], |b, n| {
         let prove = sha(*n);
         log_session(&b.run(prove), b);
     });
