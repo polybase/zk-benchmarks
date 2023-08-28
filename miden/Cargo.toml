@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 miden-vm = { git = "https://github.com/0xPolygonMiden/miden-vm", tag = "v0.6.1" }
-miden-processor = { git = "https://github.com/0xPolygonMiden/miden-vm", tag = "v0.6.1" }
+miden-processor = { git = "https://github.com/0xPolygonMiden/miden-vm", tag = "v0.6.1", features = ["concurrent"] }
 miden-stdlib = { git = "https://github.com/0xPolygonMiden/miden-vm", tag = "v0.6.1" }
 
 [dev-dependencies]
