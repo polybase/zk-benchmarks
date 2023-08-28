@@ -4,6 +4,7 @@ use bench::Benchmark;
 use miden_bench::{rpo::rpo, sha::sha};
 
 fn main() {
+    #[allow(unused_variables)]
     let bench_name = "miden-single-cpu";
     #[cfg(feature = "multi-cpu")]
     let bench_name = "miden-multi-cpu";

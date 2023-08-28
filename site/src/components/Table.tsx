@@ -1,5 +1,8 @@
-import miden from '@/fixtures/miden.json'
-import riskzero from '@/fixtures/risc_zero.json'
+import midenSingleCPU from '@/fixtures/miden-single-cpu.json'
+import midenMultiCPU from '@/fixtures/miden-multi-cpu.json'
+import midenMetal from '@/fixtures/miden-metal.json'
+import riscZeroMultiCPU from '@/fixtures/risc_zero-multi-cpu.json'
+import riscZeroMetal from '@/fixtures/risc_zero-metal.json'
 
 interface Duration {
   secs: number;
@@ -36,7 +39,7 @@ const data = [
     zk: 'STARK',
     existingLibSupport: false,
     gpu: ['Metal'],
-    metrics: miden.timings,
+    metrics: { singleCPU: midenSingleCPU.timings, multiCPU: midenMultiCPU.timings, metal: midenMetal.timings },
   },
   {
     name: 'Risc Zero',
@@ -45,7 +48,7 @@ const data = [
     zk: 'STARK',
     existingLibSupport: true,
     gpu: ['Metal', 'CUDA'],
-    metrics: riskzero.timings,
+    metrics: { multiCPU: riscZeroMultiCPU.timings, metal: riscZeroMetal.timings },
   },
   {
     name: 'Noir',
