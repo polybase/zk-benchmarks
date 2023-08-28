@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  benchmark:
+  miden:
     runs-on: ubuntu-latest-16-cores
 
     steps:
@@ -16,22 +16,34 @@ jobs:
       run: |
         cargo bench -q --bench bench > ../.benchmarks/miden.json
 
-    - name: Install risczero
-      run: cargo install cargo-risczero && cargo risczero install
+  risc_zero:
+    runs-on: ubuntu-latest-16-cores
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Run Risc-Zero benchmarks
-      working-directory: ./risc-zero/host
-      run: |
-        cargo bench -q --bench bench > ../../.benchmarks/risc_zero.json
+      - name: Install risczero
+        run: cargo install cargo-risczero && cargo risczero install
 
-    - name: Copy benchmark results to site
-      run: |
-        cp -R .benchmarks/* site/src/fixtures
+      - name: Run Risc-Zero benchmarks
+        working-directory: ./risc-zero/host
+        run: |
+          cargo bench -q --bench bench > ../../.benchmarks/risc_zero.json
+  
+  commit:
+    runs-on: ubuntu-latest
+    needs: [miden, risc_zero]
 
-    - name: Commit benchmark results
-      run: |
-       git config --global user.email "hello@polybase.xyz" 
-        && git config --global user.name "Polybase CI"
-        && git add .
-        && git commit -m "Update benchmarks" 
-        && git push
+    steps:
+      - name: Copy benchmark results to site
+        run: |
+          cp -R .benchmarks/* site/src/fixtures
+
+      - name: Commit benchmark results
+        run: |
+          git config --global user.email "hello@polybase.xyz" 
+            && git config --global user.name "Polybase CI"
+            && git add .
+            && git commit -m "Update benchmarks" 
+            && git push
