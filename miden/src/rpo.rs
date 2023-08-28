@@ -26,7 +26,7 @@ pub fn rpo(n_bytes: usize) -> (impl Fn(), VmStateIterator) {
 
     (
         move || {
-            let (_stack, _proof) = miden::prove(
+            let (_stack, _proof) = miden_prover::prove(
                 &program,
                 StackInputs::default(),
                 MemAdviceProvider::default(),
