@@ -10,8 +10,9 @@ fn main() {
     let (bench_name, prover) = match std::env::args().nth(1) {
         Some(prover) if prover == "multi-cpu" => ("risc_zero-multi-cpu", get_prover("cpu")),
         Some(prover) if prover == "metal" => ("risc_zero-metal", get_prover("metal")),
+        Some(prover) if prover == "cuda" => ("risc_zero-cuda", get_prover("cuda")),
         Some(_) | None => {
-            println!("Usage: bench <multi-cpu or metal>");
+            println!("Usage: bench <multi-cpu, metal or cuda>");
             std::process::exit(1);
         }
     };
