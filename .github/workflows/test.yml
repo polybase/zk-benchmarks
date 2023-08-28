@@ -16,6 +16,9 @@ jobs:
       run: |
         cargo bench
 
+    - name: Install risczero
+      run: cargo install cargo-risczero && cargo risczero install
+
     - name: Run Risc-Zero benchmarks
       working-directory: ./risc-zero/host
       run: |
