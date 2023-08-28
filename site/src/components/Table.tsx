@@ -27,7 +27,7 @@ const properties = [{
   value: (val?: string[]) => val ? `✅ ${val.join(', ')}` : "❌",
 }, {
   name: 'SHA-256',
-  prop: 'metrics.SHA256.run.time',
+  prop: 'metrics.singleCPU.SHA256.run.time',
   value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
 }]
 
@@ -90,7 +90,6 @@ export function Table() {
                       {
                         data.map((fw: any) => {
                           let value = prop.value ? prop.value(getPathValue(fw, prop.prop)) : getPathValue(fw, prop.prop);
-                          console.log(value)
                           return (
                             <td key={fw.name} className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                               {value}

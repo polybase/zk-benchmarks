@@ -1,26 +1,24 @@
 name: Bench
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
+    paths:
+      - miden/Cargo.lock
+      - miden/benches/bench.rs
+      - risc-zero/host/Cargo.toml
+      - risc-zero/host/benches/bench.rs
 
 jobs:
-  benchmark:
+  miden:
     runs-on: ubuntu-latest-16-cores
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
   
-    - name: Setup Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-
-    - name: Install Firebase Admin SDK
-      run: pip install firebase-admin
-
     - name: Create benchmarks directory
       run: mkdir .benchmarks
     
@@ -40,16 +38,52 @@ jobs:
       run: |
         cargo bench -q --bench bench -F metal > ../.benchmarks/miden-metal.json
 
-    - name: Run Risc-Zero Multi CPU benchmarks
-      working-directory: ./risc-zero/host
-      run: |
-        cargo bench -q --bench bench multi-cpu > ../.benchmarks/risc_zero-multi-cpu.json
+  risc_zero:
+    runs-on: ubuntu-latest-16-cores
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Run Risc-Zero Metal benchmarks
-      if: false # No Metal on Ubuntu, GitHub Actions doesn't have Mac runners
-      working-directory: ./risc-zero/host
-      run: |
-        cargo bench -q --bench bench metal > ../.benchmarks/risc_zero-metal.json
+      - name: Create benchmarks directory
+        run: mkdir .benchmarks
 
-    - name: Upload to Firestore
-      run: python upload.py "${{ secrets.FIRESTORE_CREDENTIALS }}"
+      - name: Install risczero
+        run: cargo install cargo-risczero && cargo risczero install
+
+      - name: Run Risc-Zero benchmarks
+        working-directory: ./risc-zero/host
+        run: |
+          cargo bench -q --bench bench > ../../.benchmarks/risc_zero.json
+
+      - name: Run Risc-Zero Multi CPU benchmarks
+        working-directory: ./risc-zero/host
+        run: |
+          cargo bench -q --bench bench multi-cpu > ../.benchmarks/risc_zero-multi-cpu.json
+
+      - name: Run Risc-Zero Metal benchmarks
+        if: false # No Metal on Ubuntu, GitHub Actions doesn't have Mac runners
+        working-directory: ./risc-zero/host
+        run: |
+          cargo bench -q -F metal --bench bench metal > ../.benchmarks/risc_zero-metal.json
+  
+  commit:
+    runs-on: ubuntu-latest
+    needs: [miden, risc_zero]
+
+    steps:
+      - name: Copy benchmark results to site
+        run: |
+          cp -R .benchmarks/* site/src/fixtures
+
+      - name: Commit benchmark results
+        run: |
+          git config --global user.email "hello@polybase.xyz" 
+            && git config --global user.name "Polybase CI"
+            && git add .
+            && git commit -m "Update benchmarks" 
+            && git push
+
+
+
+    

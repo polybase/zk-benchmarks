@@ -1,0 +1,1 @@
+{"name":"risc_zero","timings":{"SHA256":{"name":"SHA256","run":{"metrics":{"cycles":2097152,"instructions":1506161},"name":"SHA256","time":{"nanos":287547000,"secs":284}}}}}

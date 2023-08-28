@@ -1,0 +1,33 @@
+name: Test
+
+on:
+  push:
+
+jobs:
+  miden:
+    runs-on: ubuntu-latest-16-cores
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+  
+    - name: Run Miden benchmarks
+      working-directory: ./miden
+      run: |
+        cargo bench -F multi-cpu
+
+  risc_zero:
+    runs-on: ubuntu-latest-16-cores
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+    
+      - name: Install risczero
+        run: cargo install cargo-risczero && cargo risczero install
+  
+      - name: Run Risc-Zero benchmarks
+        working-directory: ./risc-zero/host
+        run: |
+          cargo bench multi-cpu
+  
