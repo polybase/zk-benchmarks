@@ -65,7 +65,7 @@ jobs:
         if: false # No Metal on Ubuntu, GitHub Actions doesn't have Mac runners
         working-directory: ./risc-zero/host
         run: |
-          cargo bench -q --bench bench metal > ../.benchmarks/risc_zero-metal.json
+          cargo bench -q -F metal --bench bench metal > ../.benchmarks/risc_zero-metal.json
   
   commit:
     runs-on: ubuntu-latest
