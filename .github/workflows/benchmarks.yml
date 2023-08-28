@@ -1,9 +1,7 @@
 name: Bench
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   benchmark:
@@ -13,17 +11,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
   
-    - name: Setup Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-
-    - name: Install Firebase Admin SDK
-      run: pip install firebase-admin
-
-    - name: Create benchmarks directory
-      run: mkdir .benchmarks
-    
     - name: Run Miden benchmarks
       working-directory: ./miden
       run: |
@@ -32,7 +19,15 @@ jobs:
     - name: Run Risc-Zero benchmarks
       working-directory: ./risc-zero/host
       run: |
-        cargo bench -q --bench bench > ../.benchmarks/risc_zero.json
+        cargo bench -q --bench bench > ../../.benchmarks/risc_zero.json
 
-    - name: Upload to Firestore
-      run: python upload.py "${{ secrets.FIRESTORE_CREDENTIALS }}"
+    - name: Copy benchmark results to site
+      run: |
+        cp -R .benchmarks/* site/src/fixtures
+
+    - name: Commit benchmark results
+      run: |
+       git config --global user.email "hello@polybase.xyz" 
+        && git config --global user.name "Polybase CI"
+        && git add .
+        && git commit -m "Update benchmarks" 
