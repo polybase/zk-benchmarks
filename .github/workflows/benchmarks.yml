@@ -24,15 +24,32 @@ jobs:
     - name: Create benchmarks directory
       run: mkdir .benchmarks
     
-    - name: Run Miden benchmarks
+    - name: Run Miden Single CPU benchmarks
       working-directory: ./miden
       run: |
-        cargo bench -q --bench bench > ../.benchmarks/miden.json
+        cargo bench -q --bench bench > ../.benchmarks/miden-single-cpu.json
 
-    - name: Run Risc-Zero benchmarks
+    - name: Run Miden Multi CPU benchmarks
+      working-directory: ./miden
+      run: |
+        cargo bench -q --bench bench -F multi-cpu > ../.benchmarks/miden-multi-cpu.json
+
+    - name: Run Miden Metal benchmarks
+      if: false # No Metal on Ubuntu, GitHub Actions doesn't have Mac runners
+      working-directory: ./miden
+      run: |
+        cargo bench -q --bench bench -F metal > ../.benchmarks/miden-metal.json
+
+    - name: Run Risc-Zero Multi CPU benchmarks
       working-directory: ./risc-zero/host
       run: |
-        cargo bench -q --bench bench > ../.benchmarks/risc_zero.json
+        cargo bench -q --bench bench multi-cpu > ../.benchmarks/risc_zero-multi-cpu.json
+
+    - name: Run Risc-Zero Metal benchmarks
+      if: false # No Metal on Ubuntu, GitHub Actions doesn't have Mac runners
+      working-directory: ./risc-zero/host
+      run: |
+        cargo bench -q --bench bench metal > ../.benchmarks/risc_zero-metal.json
 
     - name: Upload to Firestore
       run: python upload.py "${{ secrets.FIRESTORE_CREDENTIALS }}"

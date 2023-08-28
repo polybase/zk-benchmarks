@@ -8,21 +8,21 @@ use std::time::{Duration, Instant};
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Benchmark<'a> {
     name: &'a str,
-    timings: HashMap<&'a str, BenchmarkResult<'a>>,
+    timings: Vec<(&'a str, BenchmarkResult<'a>)>,
 }
 
 impl<'a> Benchmark<'a> {
     pub fn new(name: &'a str) -> Self {
         Benchmark {
             name,
-            timings: HashMap::new(),
+            timings: Vec::new(),
         }
     }
 
     pub fn benchmark<F: Fn(&mut BenchmarkRun)>(&mut self, name: &'a str, func: F) {
         let mut run = BenchmarkRun::new(name);
         func(&mut run);
-        self.timings.insert(name, BenchmarkResult { name, run });
+        self.timings.push((name, BenchmarkResult { name, run }));
     }
 
     pub fn benchmark_with<F: Fn(&mut BenchmarkRun, &P) -> T, T, P: Debug>(
@@ -34,7 +34,7 @@ impl<'a> Benchmark<'a> {
         for p in params {
             let mut run = BenchmarkRun::new(name);
             func(&mut run, p);
-            self.timings.insert(name, BenchmarkResult { name, run });
+            self.timings.push((name, BenchmarkResult { name, run }));
         }
     }
 

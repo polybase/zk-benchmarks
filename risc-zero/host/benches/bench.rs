@@ -1,14 +1,26 @@
 extern crate host;
 
+use std::rc::Rc;
+
 use bench::{Benchmark, BenchmarkRun};
 use host::sha::sha;
-use risc0_zkvm::Session;
+use risc0_zkvm::{prove::get_prover, Session};
 
 fn main() {
-    let mut bench = Benchmark::new("risc_zero");
+    let (bench_name, prover) = match std::env::args().nth(1) {
+        Some(prover) if prover == "multi-cpu" => ("risc_zero-multi-cpu", get_prover("cpu")),
+        Some(prover) if prover == "metal" => ("risc_zero-metal", get_prover("metal")),
+        Some(prover) if prover == "cuda" => ("risc_zero-cuda", get_prover("cuda")),
+        Some(_) | None => {
+            println!("Usage: bench <multi-cpu, metal or cuda>");
+            std::process::exit(1);
+        }
+    };
+
+    let mut bench = Benchmark::new(bench_name);
 
     bench.benchmark_with("SHA256", &[1, 10, 100, 1000], |b, n| {
-        let prove = sha(*n);
+        let prove = sha(Rc::clone(&prover), *n);
         log_session(&b.run(prove), b);
     });
 
