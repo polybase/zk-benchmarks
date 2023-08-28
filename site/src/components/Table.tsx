@@ -1,6 +1,9 @@
+import miden from '@/fixtures/miden.json'
+import riskzero from '@/fixtures/risc_zero.json'
+
 interface Duration {
-  seconds: number;
-  nanoseconds: number;
+  secs: number;
+  nanos: number;
 }
 
 const properties = [{
@@ -21,8 +24,8 @@ const properties = [{
   value: (val?: string[]) => val ? `✅ ${val.join(', ')}` : "❌",
 }, {
   name: 'SHA-256',
-  prop: 'metrics.sha256',
-  value: (val?: Duration) => val ? `${(val.seconds + val?.nanoseconds / 1000000000).toFixed(2)}s` : null,
+  prop: 'metrics.SHA256.run.time',
+  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
 }]
 
 const data = [
@@ -33,9 +36,7 @@ const data = [
     zk: 'STARK',
     existingLibSupport: false,
     gpu: ['Metal'],
-    metrics: {
-      sha256: { seconds: 1, nanoseconds: 230001023 },
-    }
+    metrics: miden.timings,
   },
   {
     name: 'Risc Zero',
@@ -44,9 +45,7 @@ const data = [
     zk: 'STARK',
     existingLibSupport: true,
     gpu: ['Metal', 'CUDA'],
-    metrics: {
-      sha256: { seconds: 1, nanoseconds: 130001023 },
-    }
+    metrics: riskzero.timings,
   },
   {
     name: 'Noir',
@@ -54,9 +53,7 @@ const data = [
     frontend: 'Rust-like',
     zk: 'SNARK',
     existingLibSupport: false,
-    metrics: {
-      sha256: { seconds: 1, nanoseconds: 670001023 },
-    }
+    metrics: {}
   }
 ]
 
@@ -84,17 +81,20 @@ export function Table() {
                 {properties.map((prop) => {
                   return (
                     <tr key={prop.name}>
-                      <td key={prop.prop} className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                         {prop.name}
                       </td>
-                      {data.map((item: any) => {
-                        let value = prop.value ? prop.value(getPathValue(item, prop.prop)) : getPathValue(item, prop.prop);
-                        return (
-                          <td key={prop.prop} className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                            {value}
-                          </td>
-                        )
-                      })}
+                      {
+                        data.map((fw: any) => {
+                          let value = prop.value ? prop.value(getPathValue(fw, prop.prop)) : getPathValue(fw, prop.prop);
+                          console.log(value)
+                          return (
+                            <td key={fw.name} className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                              {value}
+                            </td>
+                          )
+                        })
+                      }
                     </tr>
                   )
                 })}
@@ -103,7 +103,7 @@ export function Table() {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 
@@ -111,6 +111,7 @@ function getPathValue(data: any, path: string) {
   let current = data;
   for (const part of path.split('.')) {
     if (!current) return undefined;
+    console.log(current, part)
     current = current[part]
   }
   return current;

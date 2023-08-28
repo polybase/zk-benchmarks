@@ -12,5 +12,5 @@ serde = "1.0"
 bench = { path = "../../bench" }
 
 [[bench]]
-name = "sha"
+name = "bench"
 harness = false

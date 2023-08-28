@@ -1,0 +1,19 @@
+{
+  "name": "risc_zero",
+  "timings": {
+    "SHA256": {
+      "name": "SHA256",
+      "run": {
+        "metrics": {
+          "cycles": 2097152,
+          "instructions": 1498161
+        },
+        "name": "SHA256",
+        "time": {
+          "nanos": 77273334,
+          "secs": 297
+        }
+      }
+    }
+  }
+}
