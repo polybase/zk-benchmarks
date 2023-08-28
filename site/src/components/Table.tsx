@@ -1,5 +1,8 @@
-import miden from '@/fixtures/miden.json'
-import riskzero from '@/fixtures/risc_zero.json'
+import midenSingleCPU from '@/fixtures/miden-single-cpu.json'
+import midenMultiCPU from '@/fixtures/miden-multi-cpu.json'
+import midenMetal from '@/fixtures/miden-metal.json'
+import riscZeroMultiCPU from '@/fixtures/risc_zero-multi-cpu.json'
+import riscZeroMetal from '@/fixtures/risc_zero-metal.json'
 
 interface Duration {
   secs: number;
@@ -24,7 +27,7 @@ const properties = [{
   value: (val?: string[]) => val ? `✅ ${val.join(', ')}` : "❌",
 }, {
   name: 'SHA-256',
-  prop: 'metrics.SHA256.run.time',
+  prop: 'metrics.singleCPU.SHA256.run.time',
   value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
 }]
 
@@ -36,7 +39,7 @@ const data = [
     zk: 'STARK',
     existingLibSupport: false,
     gpu: ['Metal'],
-    metrics: miden.timings,
+    metrics: { singleCPU: midenSingleCPU.timings, multiCPU: midenMultiCPU.timings, metal: midenMetal.timings },
   },
   {
     name: 'Risc Zero',
@@ -45,7 +48,7 @@ const data = [
     zk: 'STARK',
     existingLibSupport: true,
     gpu: ['Metal', 'CUDA'],
-    metrics: riskzero.timings,
+    metrics: { multiCPU: riscZeroMultiCPU.timings, metal: riscZeroMetal.timings },
   },
   {
     name: 'Noir',
@@ -87,7 +90,6 @@ export function Table() {
                       {
                         data.map((fw: any) => {
                           let value = prop.value ? prop.value(getPathValue(fw, prop.prop)) : getPathValue(fw, prop.prop);
-                          console.log(value)
                           return (
                             <td key={fw.name} className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                               {value}
