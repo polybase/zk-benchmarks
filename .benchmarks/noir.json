@@ -1,0 +1,19 @@
+{
+  "name": "noir",
+  "timings": [
+    [
+      "assert",
+      {
+        "name": "assert",
+        "run": {
+          "metrics": {},
+          "name": "assert",
+          "time": {
+            "nanos": 8437375,
+            "secs": 0
+          }
+        }
+      }
+    ]
+  ]
+}

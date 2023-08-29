@@ -44,4 +44,33 @@ jobs:
           BENCH_QUICK: "1"
         run: |
           cargo bench multi-cpu
-  
+
+  noir:
+    runs-on: ubuntu-latest-64-cores
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Cache Nix packages
+        uses: actions/cache@v2
+        with:
+          path: /nix/store
+          key: ${{ runner.os }}-nix-${{ hashFiles('**/shell.nix') }}
+          restore-keys: |
+            ${{ runner.os }}-nix-
+
+      - name: Install Nix
+        run: |
+          sh <(curl -L https://nixos.org/nix/install)
+          source $HOME/.nix-profile/etc/profile.d/nix.sh
+
+      - name: Run cargo bench in Nix shell
+        working-directory: ./noir
+        env:
+          BENCH_QUICK: "1"
+        run: |
+          source $HOME/.nix-profile/etc/profile.d/nix.sh
+          nix-shell --run "cargo bench -q"

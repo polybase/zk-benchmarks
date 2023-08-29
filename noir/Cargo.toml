@@ -1,0 +1,30 @@
+[package]
+name = "noir"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+nargo = { git = "https://github.com/noir-lang/noir.git", package = "nargo" }
+noirc_abi = { git = "https://github.com/noir-lang/noir.git", package = "noirc_abi" }
+noirc_frontend = { git = "https://github.com/noir-lang/noir.git", package = "noirc_frontend" }
+noirc_driver = { git = "https://github.com/noir-lang/noir.git", package = "noirc_driver" }
+acvm = "0.22.0"
+acvm-backend-barretenberg = { version = "0.11.0", default-features = false }
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+tokio = { version = "1.0", features = ["io-std"] }
+
+[dev-dependencies]
+bench = { path = "../bench" }
+
+[features]
+default = ["plonk_bn254"]
+# The plonk backend can only use bn254, so we do not specify the field
+plonk_bn254 = ["acvm-backend-barretenberg/native"]
+# plonk_bn254_wasm = ["acvm-backend-barretenberg/wasm"]
+
+[[bench]]
+harness = false
+name = "bench"
