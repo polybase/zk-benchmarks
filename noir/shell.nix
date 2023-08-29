@@ -17,6 +17,7 @@ in mkShell {
         libbarretenberg
         pkgs.libiconv
         pkgs.llvmPackages.openmp
+        pkgs.llvmPackages.libllvm
         pkgs.pkg-config
     ] ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [ pkgs.darwin.apple_sdk.frameworks.Security ];
 }
