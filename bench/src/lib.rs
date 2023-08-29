@@ -39,7 +39,7 @@ impl<'a> Benchmark<'a> {
     }
 
     pub fn benchmark<F: Fn(&mut BenchmarkRun)>(&mut self, name: &'a str, func: F) {
-        let mut run = BenchmarkRun::new(name);
+        let mut run = BenchmarkRun::new(name, "");
         func(&mut run);
         self.timings.push((name, BenchmarkResult { name, run }));
     }
@@ -47,15 +47,15 @@ impl<'a> Benchmark<'a> {
     pub fn benchmark_with<F: Fn(&mut BenchmarkRun, &P) -> T, T, P: Debug>(
         &mut self,
         name: &'a str,
-        params: &[P],
+        params: &[(&'a str, P)],
         func: F,
     ) {
         for p in params
             .iter()
             .take(if self.config.quick { 1 } else { usize::MAX })
         {
-            let mut run = BenchmarkRun::new(name);
-            func(&mut run, p);
+            let mut run = BenchmarkRun::new(name, p.0);
+            func(&mut run, &p.1);
             self.timings.push((name, BenchmarkResult { name, run }));
         }
     }
@@ -95,14 +95,16 @@ impl<'a> BenchmarkResult<'a> {
 #[derive(Debug, Deserialize, Serialize)]
 pub struct BenchmarkRun<'a> {
     pub name: &'a str,
+    pub param: &'a str,
     pub time: Duration,
     pub metrics: HashMap<&'a str, usize>,
 }
 
 impl<'a> BenchmarkRun<'a> {
-    fn new(name: &'a str) -> Self {
+    fn new(name: &'a str, param: &'a str) -> Self {
         BenchmarkRun {
             name,
+            param,
             time: Duration::new(0, 0),
             metrics: HashMap::new(),
         }
