@@ -17,5 +17,5 @@ in mkShell {
         libbarretenberg
         pkgs.llvmPackages.openmp
         pkgs.pkg-config
-    ] ++ (if isDarwin then [ pkgs.darwin.apple_sdk.frameworks.Security,  pkgs.libiconv ] else []);
+    ] ++ (if isDarwin then [ pkgs.darwin.apple_sdk.frameworks.Security pkgs.libiconv ] else []);
 }
