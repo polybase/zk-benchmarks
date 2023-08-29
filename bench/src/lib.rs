@@ -2,12 +2,14 @@
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use std::collections::HashMap;
+use std::env;
 use std::fmt::Debug;
 use std::time::{Duration, Instant};
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug)]
 pub struct Benchmark<'a> {
     name: &'a str,
+    config: BenchmarkConfig,
     timings: Vec<(&'a str, BenchmarkResult<'a>)>,
 }
 
@@ -15,6 +17,23 @@ impl<'a> Benchmark<'a> {
     pub fn new(name: &'a str) -> Self {
         Benchmark {
             name,
+            config: BenchmarkConfig::default(),
+            timings: Vec::new(),
+        }
+    }
+
+    pub fn with_config(name: &'a str, config: BenchmarkConfig) -> Self {
+        Benchmark {
+            name,
+            config,
+            timings: Vec::new(),
+        }
+    }
+
+    pub fn from_env(name: &'a str) -> Self {
+        Benchmark {
+            name,
+            config: BenchmarkConfig::from_env(),
             timings: Vec::new(),
         }
     }
@@ -31,7 +50,10 @@ impl<'a> Benchmark<'a> {
         params: &[P],
         func: F,
     ) {
-        for p in params {
+        for p in params
+            .iter()
+            .take(if self.config.quick { 1 } else { usize::MAX })
+        {
             let mut run = BenchmarkRun::new(name);
             func(&mut run, p);
             self.timings.push((name, BenchmarkResult { name, run }));
@@ -39,8 +61,22 @@ impl<'a> Benchmark<'a> {
     }
 
     pub fn output(&self) {
-        let output = json!(self);
-        println!("{}", output);
+        let output = json!(self.timings);
+        println!("{}", json!({ "name": self.name, "timings": output }));
+    }
+}
+
+#[derive(Debug, Default)]
+pub struct BenchmarkConfig {
+    pub quick: bool,
+}
+
+impl BenchmarkConfig {
+    pub fn from_env() -> Self {
+        let quick = env::var("BENCH_QUICK").unwrap_or("false".to_string());
+        BenchmarkConfig {
+            quick: quick == "true" || quick == "1",
+        }
     }
 }
 
