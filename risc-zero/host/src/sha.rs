@@ -1,19 +1,15 @@
 use std::rc::Rc;
 
-use methods::METHOD_NAME_ELF;
+use methods::SHA_ELF;
 use risc0_zkvm::{prove::Prover, Executor, ExecutorEnv, Session, VerifierContext};
 
 pub fn sha(prover: Rc<dyn Prover>, n_thousands: usize) -> impl FnMut() -> Session {
     let env = ExecutorEnv::builder()
-        .add_input(&[
-            // program 0 = sha256
-            0,
-        ])
         .add_input(&[n_thousands])
         .build()
         .unwrap();
 
-    let mut exec = Executor::from_elf(env, METHOD_NAME_ELF).unwrap();
+    let mut exec = Executor::from_elf(env, SHA_ELF).unwrap();
 
     move || {
         let session = exec.run().unwrap();

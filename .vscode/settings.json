@@ -3,7 +3,8 @@
         "./bench/Cargo.toml",
         "./miden/Cargo.toml",
         "./risc-zero/methods/Cargo.toml",
-        "./risc-zero/methods/guest/Cargo.toml",
+        "./risc-zero/methods/sha/Cargo.toml",
+        "./risc-zero/methods/blake3/Cargo.toml",
         "./risc-zero/host/Cargo.toml",
     ]
 }
