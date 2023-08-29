@@ -10,3 +10,4 @@ edition = "2021"
 # If you want to try (experimental) std support, add `features = [ "std" ]` to risc0-zkvm
 risc0-zkvm = { version = "0.17.0", default-features = false }
 crypto = { package = "miden-crypto", version = "0.6", default-features = false }
+blake3 = { version = "1.4.1", default-features = false }

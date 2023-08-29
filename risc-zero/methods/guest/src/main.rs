@@ -22,7 +22,26 @@ fn bench_sha_n(n_thousands: usize) {
     }
 }
 
+fn bench_blake3_n(n_thousands: usize) {
+    let arr = [123u8; 1000];
+    for _ in 0..n_thousands {
+        blake3::hash(&arr);
+    }
+}
+
 pub fn main() {
-    let n = env::read();
-    bench_sha_n(n);
+    let program = env::read::<u8>();
+    match program {
+        // sha256
+        0 => {
+            let n = env::read();
+            bench_sha_n(n);
+        }
+        // blake3
+        1 => {
+            let n = env::read();
+            bench_blake3_n(n);
+        }
+        x => panic!("unknown program {x:?}"),
+    }
 }
