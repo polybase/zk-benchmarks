@@ -10,7 +10,7 @@ fn main() {
     let bench_name = "miden-multi-cpu";
     #[cfg(feature = "metal")]
     let bench_name = "miden-metal";
-    let mut bench = Benchmark::new(bench_name);
+    let mut bench = Benchmark::from_env(bench_name);
 
     bench.benchmark_with("SHA256", &[1, 10, 100, 1000], |b, p| {
         let (setup, vm) = sha(*p);

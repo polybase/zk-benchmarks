@@ -13,6 +13,8 @@ jobs:
   
     - name: Run Miden benchmarks
       working-directory: ./miden
+      env:
+        BENCH_QUICK: "1"
       run: |
         cargo bench -F multi-cpu
 
@@ -28,6 +30,8 @@ jobs:
   
       - name: Run Risc-Zero benchmarks
         working-directory: ./risc-zero/host
+        env:
+          BENCH_QUICK: "1"
         run: |
           cargo bench multi-cpu
   
