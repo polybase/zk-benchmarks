@@ -19,9 +19,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
   
-    - name: Create benchmarks directory
-      run: mkdir .benchmarks
-    
     - name: Run Miden Single CPU benchmarks
       working-directory: ./miden
       run: |
@@ -44,9 +41,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Create benchmarks directory
-        run: mkdir .benchmarks
 
       - name: Install risczero
         run: cargo install cargo-risczero && cargo risczero install
