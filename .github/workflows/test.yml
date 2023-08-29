@@ -5,11 +5,13 @@ on:
 
 jobs:
   miden:
-    runs-on: ubuntu-latest-16-cores
+    runs-on: ubuntu-latest-64-cores
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - uses: Swatinem/rust-cache@v2
   
     - name: Run Miden benchmarks
       working-directory: ./miden
@@ -19,11 +21,19 @@ jobs:
         cargo bench -F multi-cpu
 
   risc_zero:
-    runs-on: ubuntu-latest-16-cores
+    runs-on: ubuntu-latest-64-cores
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Cache cargo bin
+        uses: actions/cache@v2
+        with:
+          path: ~/.cargo/bin
+          key: ${{ runner.os }}-cargo-bin-${{ hashFiles('**/Cargo.lock') }}
     
       - name: Install risczero
         run: cargo install cargo-risczero && cargo risczero install
