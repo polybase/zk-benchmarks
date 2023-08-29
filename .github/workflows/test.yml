@@ -62,6 +62,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nix-
 
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libllvm14
+
       - name: Install Nix
         run: |
           sh <(curl -L https://nixos.org/nix/install)
