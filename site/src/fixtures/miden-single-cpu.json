@@ -1,1 +1,117 @@
-{"name":"miden-single-cpu","timings":[["SHA256",{"name":"SHA256","run":{"metrics":{"cycles":15},"name":"SHA256","time":{"nanos":62573125,"secs":0}}}],["SHA256",{"name":"SHA256","run":{"metrics":{"cycles":15},"name":"SHA256","time":{"nanos":58840584,"secs":0}}}],["SHA256",{"name":"SHA256","run":{"metrics":{"cycles":14534},"name":"SHA256","time":{"nanos":967159458,"secs":1}}}],["SHA256",{"name":"SHA256","run":{"metrics":{"cycles":217814},"name":"SHA256","time":{"nanos":859262708,"secs":16}}}],["RPO",{"name":"RPO","run":{"metrics":{"cycles":8693},"name":"RPO","time":{"nanos":987222208,"secs":0}}}],["RPO",{"name":"RPO","run":{"metrics":{"cycles":86900},"name":"RPO","time":{"nanos":128556792,"secs":8}}}],["RPO",{"name":"RPO","run":{"metrics":{"cycles":869048},"name":"RPO","time":{"nanos":535452083,"secs":80}}}]]}
+{
+  "name": "miden-single-cpu",
+  "timings": [
+    [
+      "SHA256",
+      {
+        "name": "SHA256",
+        "run": {
+          "metrics": {
+            "cycles": 15
+          },
+          "name": "SHA256",
+          "time": {
+            "nanos": 62573125,
+            "secs": 0
+          }
+        }
+      }
+    ],
+    [
+      "SHA256",
+      {
+        "name": "SHA256",
+        "run": {
+          "metrics": {
+            "cycles": 15
+          },
+          "name": "SHA256",
+          "time": {
+            "nanos": 58840584,
+            "secs": 0
+          }
+        }
+      }
+    ],
+    [
+      "SHA256",
+      {
+        "name": "SHA256",
+        "run": {
+          "metrics": {
+            "cycles": 14534
+          },
+          "name": "SHA256",
+          "time": {
+            "nanos": 967159458,
+            "secs": 1
+          }
+        }
+      }
+    ],
+    [
+      "SHA256",
+      {
+        "name": "SHA256",
+        "run": {
+          "metrics": {
+            "cycles": 217814
+          },
+          "name": "SHA256",
+          "time": {
+            "nanos": 859262708,
+            "secs": 16
+          }
+        }
+      }
+    ],
+    [
+      "RPO",
+      {
+        "name": "RPO",
+        "run": {
+          "metrics": {
+            "cycles": 8693
+          },
+          "name": "RPO",
+          "time": {
+            "nanos": 987222208,
+            "secs": 0
+          }
+        }
+      }
+    ],
+    [
+      "RPO",
+      {
+        "name": "RPO",
+        "run": {
+          "metrics": {
+            "cycles": 86900
+          },
+          "name": "RPO",
+          "time": {
+            "nanos": 128556792,
+            "secs": 8
+          }
+        }
+      }
+    ],
+    [
+      "RPO",
+      {
+        "name": "RPO",
+        "run": {
+          "metrics": {
+            "cycles": 869048
+          },
+          "name": "RPO",
+          "time": {
+            "nanos": 535452083,
+            "secs": 80
+          }
+        }
+      }
+    ]
+  ]
+}

@@ -1,1 +1,73 @@
-{"name":"risc_zero-multi-cpu","timings":[["SHA256",{"name":"SHA256","run":{"metrics":{"cycles":65536,"instructions":2658},"name":"SHA256","time":{"nanos":609090542,"secs":4}}}],["SHA256",{"name":"SHA256","run":{"metrics":{"cycles":65536,"instructions":16131},"name":"SHA256","time":{"nanos":734368375,"secs":4}}}],["SHA256",{"name":"SHA256","run":{"metrics":{"cycles":262144,"instructions":150861},"name":"SHA256","time":{"nanos":158195917,"secs":19}}}],["SHA256",{"name":"SHA256","run":{"metrics":{"cycles":2097152,"instructions":1498161},"name":"SHA256","time":{"nanos":184868125,"secs":156}}}]]}
+{
+  "name": "risc_zero-multi-cpu",
+  "timings": [
+    [
+      "SHA256",
+      {
+        "name": "SHA256",
+        "run": {
+          "metrics": {
+            "cycles": 65536,
+            "instructions": 2658
+          },
+          "name": "SHA256",
+          "time": {
+            "nanos": 609090542,
+            "secs": 4
+          }
+        }
+      }
+    ],
+    [
+      "SHA256",
+      {
+        "name": "SHA256",
+        "run": {
+          "metrics": {
+            "cycles": 65536,
+            "instructions": 16131
+          },
+          "name": "SHA256",
+          "time": {
+            "nanos": 734368375,
+            "secs": 4
+          }
+        }
+      }
+    ],
+    [
+      "SHA256",
+      {
+        "name": "SHA256",
+        "run": {
+          "metrics": {
+            "cycles": 262144,
+            "instructions": 150861
+          },
+          "name": "SHA256",
+          "time": {
+            "nanos": 158195917,
+            "secs": 19
+          }
+        }
+      }
+    ],
+    [
+      "SHA256",
+      {
+        "name": "SHA256",
+        "run": {
+          "metrics": {
+            "cycles": 2097152,
+            "instructions": 1498161
+          },
+          "name": "SHA256",
+          "time": {
+            "nanos": 184868125,
+            "secs": 156
+          }
+        }
+      }
+    ]
+  ]
+}
