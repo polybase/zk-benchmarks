@@ -100,6 +100,11 @@ jobs:
     needs: [miden, risc_zero, noir]
 
     steps:
+      - name: Format benchmark JSONs
+        run: |
+          for f in .benchmarks/*.json; do
+            jq . $f > $f.tmp && mv $f.tmp $f
+          done
       - name: Copy benchmark results to site
         run: |
           cp -R .benchmarks/* site/src/fixtures

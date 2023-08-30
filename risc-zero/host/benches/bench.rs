@@ -3,7 +3,7 @@ extern crate host;
 use std::rc::Rc;
 
 use bench::{Benchmark, BenchmarkRun};
-use host::sha::sha;
+use host::{blake3::blake3, sha::sha};
 use risc0_zkvm::{prove::get_prover, Session};
 
 fn main() {
@@ -19,10 +19,31 @@ fn main() {
 
     let mut bench = Benchmark::from_env(bench_name);
 
-    bench.benchmark_with("SHA256", &[1, 10, 100, 1000], |b, n| {
-        let prove = sha(Rc::clone(&prover), *n);
-        log_session(&b.run(prove), b);
-    });
+    bench.benchmark_with(
+        "SHA256",
+        &[
+            ("1000 bytes", 1),
+            ("10000 bytes", 10),
+            ("100000 bytes", 100),
+        ],
+        |b, n| {
+            let prove = sha(Rc::clone(&prover), *n);
+            log_session(&b.run(prove), b);
+        },
+    );
+
+    bench.benchmark_with(
+        "Blake3",
+        &[
+            ("1000 bytes", 1),
+            ("10000 bytes", 10),
+            ("100000 bytes", 100),
+        ],
+        |b, n| {
+            let prove = blake3(Rc::clone(&prover), *n);
+            log_session(&b.run(prove), b);
+        },
+    );
 
     bench.output();
 }

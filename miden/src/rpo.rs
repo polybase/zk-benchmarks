@@ -3,7 +3,7 @@ use miden_processor::{MemAdviceProvider, StackInputs, VmStateIterator};
 
 pub fn rpo(n_bytes: usize) -> (impl Fn(), VmStateIterator) {
     // We can pack 7 bytes into each field element and hash 4 field elements at a time.
-    let hmerges = f64::floor(n_bytes as f64 / 4. / f64::floor(63. / 8.));
+    let hmerges = f64::ceil(n_bytes as f64 / 4. / f64::floor(63. / 8.));
     let code = format!(
         r#"
         begin

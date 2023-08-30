@@ -11,25 +11,34 @@ fn main() {
     let backend = noir::backends::ConcreteBackend::default();
     let dir = std::env::current_dir().expect("current dir to exist");
 
-    bench.benchmark_with("SHA256", &[1, 10, 100, 1000], |b, p| {
-        let mut inputs = InputMap::new();
+    bench.benchmark_with(
+        "SHA256",
+        &[
+            ("1 byte", 1),
+            ("10 bytes", 10),
+            ("100 bytes", 100),
+            ("1000 bytes", 1000),
+        ],
+        |b, p| {
+            let mut inputs = InputMap::new();
 
-        // Generate random bytes
-        let bytes = generate_random_u8_slice(*p)
-            .iter()
-            .map(|b| InputValue::Field((*b as u128).into()))
-            .collect::<Vec<_>>();
+            // Generate random bytes
+            let bytes = generate_random_u8_slice(*p)
+                .iter()
+                .map(|b| InputValue::Field((*b as u128).into()))
+                .collect::<Vec<_>>();
 
-        inputs.insert("x".to_string(), InputValue::Vec(bytes));
+            inputs.insert("x".to_string(), InputValue::Vec(bytes));
 
-        let proof = Proof::new(
-            &backend,
-            "sha256",
-            dir.join(format!("pkgs/sha256/{}", p)),
-            &inputs,
-        );
-        b.run(|| proof.prove());
-    });
+            let proof = Proof::new(
+                &backend,
+                "sha256",
+                dir.join(format!("pkgs/sha256/{}", p)),
+                &inputs,
+            );
+            b.run(|| proof.prove());
+        },
+    );
 
     bench.benchmark("assert", |b| {
         let mut inputs = InputMap::new();
