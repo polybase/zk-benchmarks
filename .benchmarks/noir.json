@@ -1,0 +1,75 @@
+{
+  "name": "noir",
+  "timings": [
+    [
+      "SHA256",
+      {
+        "name": "SHA256",
+        "run": {
+          "metrics": {},
+          "name": "SHA256",
+          "time": {
+            "nanos": 199448875,
+            "secs": 1
+          }
+        }
+      }
+    ],
+    [
+      "SHA256",
+      {
+        "name": "SHA256",
+        "run": {
+          "metrics": {},
+          "name": "SHA256",
+          "time": {
+            "nanos": 192434041,
+            "secs": 1
+          }
+        }
+      }
+    ],
+    [
+      "SHA256",
+      {
+        "name": "SHA256",
+        "run": {
+          "metrics": {},
+          "name": "SHA256",
+          "time": {
+            "nanos": 336380042,
+            "secs": 2
+          }
+        }
+      }
+    ],
+    [
+      "SHA256",
+      {
+        "name": "SHA256",
+        "run": {
+          "metrics": {},
+          "name": "SHA256",
+          "time": {
+            "nanos": 462348417,
+            "secs": 2
+          }
+        }
+      }
+    ],
+    [
+      "assert",
+      {
+        "name": "assert",
+        "run": {
+          "metrics": {},
+          "name": "assert",
+          "time": {
+            "nanos": 15838584,
+            "secs": 0
+          }
+        }
+      }
+    ]
+  ]
+}

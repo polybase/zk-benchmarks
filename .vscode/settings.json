@@ -1,5 +1,6 @@
 {
     "rust-analyzer.linkedProjects": [
+        "./noir/Cargo.toml",
         "./bench/Cargo.toml",
         "./miden/Cargo.toml",
         "./risc-zero/methods/Cargo.toml",

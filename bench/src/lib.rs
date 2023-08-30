@@ -61,14 +61,21 @@ impl<'a> Benchmark<'a> {
     }
 
     pub fn output(&self) {
-        let output = json!(self.timings);
-        println!("{}", json!({ "name": self.name, "timings": output }));
+        let output = json!({ "name": self.name, "timings": json!(self.timings) });
+        let output_str = serde_json::to_string_pretty(&output).expect("failed to serialize");
+        if let Some(path) = &self.config.output_dir {
+            let path = std::path::Path::new(path);
+            std::fs::write(path.join(self.name).with_extension("json"), &output_str)
+                .expect("failed to write output");
+        }
+        println!("{}", &output_str);
     }
 }
 
 #[derive(Debug, Default)]
 pub struct BenchmarkConfig {
     pub quick: bool,
+    pub output_dir: Option<String>,
 }
 
 impl BenchmarkConfig {
@@ -76,6 +83,7 @@ impl BenchmarkConfig {
         let quick = env::var("BENCH_QUICK").unwrap_or("false".to_string());
         BenchmarkConfig {
             quick: quick == "true" || quick == "1",
+            output_dir: env::var("BENCH_OUTPUT_DIR").ok(),
         }
     }
 }
