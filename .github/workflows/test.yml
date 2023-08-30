@@ -78,4 +78,4 @@ jobs:
           BENCH_QUICK: "1"
         run: |
           source $HOME/.nix-profile/etc/profile.d/nix.sh
-          nix-shell --run "cargo bench -q"
+          nix-shell --run "nix-shell -p clang --run 'cargo bench -q'"

@@ -93,7 +93,7 @@ jobs:
           BENCH_OUTPUT_DIR: "../.benchmarks"
         run: |
           source $HOME/.nix-profile/etc/profile.d/nix.sh
-          nix-shell --run "cargo bench"
+          nix-shell --run "nix-shell -p clang --run 'cargo bench'"
   
   commit:
     runs-on: ubuntu-latest

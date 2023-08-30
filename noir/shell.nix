@@ -13,11 +13,15 @@
     libbarretenberg = callPackage "${barretenberg}/barretenberg.nix" {};
     isDarwin = pkgs.stdenv.isDarwin;
 in mkShell {
-    packages = [
+    buildInputs = [
         libbarretenberg
         pkgs.libiconv
         pkgs.llvmPackages.openmp
         pkgs.llvmPackages.libllvm
+        pkgs.llvmPackages.libclang
+        pkgs.llvmPackages.clang
         pkgs.pkg-config
     ] ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [ pkgs.darwin.apple_sdk.frameworks.Security ];
+
+    LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
 }
