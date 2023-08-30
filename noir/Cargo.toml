@@ -18,6 +18,7 @@ tokio = { version = "1.0", features = ["io-std"] }
 
 [dev-dependencies]
 bench = { path = "../bench" }
+rand = "0.8.4"
 
 [features]
 default = ["plonk_bn254"]
