@@ -1,0 +1,85 @@
+{
+  "name": "noir",
+  "timings": [
+    [
+      "SHA256",
+      {
+        "name": "SHA256",
+        "run": {
+          "memory_usage_bytes": 1899184128,
+          "metrics": {},
+          "name": "SHA256",
+          "param": "1 byte",
+          "time": {
+            "nanos": 348882541,
+            "secs": 1
+          }
+        }
+      }
+    ],
+    [
+      "SHA256",
+      {
+        "name": "SHA256",
+        "run": {
+          "memory_usage_bytes": 1856339968,
+          "metrics": {},
+          "name": "SHA256",
+          "param": "10 bytes",
+          "time": {
+            "nanos": 418216750,
+            "secs": 1
+          }
+        }
+      }
+    ],
+    [
+      "SHA256",
+      {
+        "name": "SHA256",
+        "run": {
+          "memory_usage_bytes": 1873412096,
+          "metrics": {},
+          "name": "SHA256",
+          "param": "100 bytes",
+          "time": {
+            "nanos": 46467000,
+            "secs": 1
+          }
+        }
+      }
+    ],
+    [
+      "SHA256",
+      {
+        "name": "SHA256",
+        "run": {
+          "memory_usage_bytes": 3182755840,
+          "metrics": {},
+          "name": "SHA256",
+          "param": "1000 bytes",
+          "time": {
+            "nanos": 989032125,
+            "secs": 1
+          }
+        }
+      }
+    ],
+    [
+      "assert",
+      {
+        "name": "assert",
+        "run": {
+          "memory_usage_bytes": 39026688,
+          "metrics": {},
+          "name": "assert",
+          "param": "",
+          "time": {
+            "nanos": 41802625,
+            "secs": 0
+          }
+        }
+      }
+    ]
+  ]
+}

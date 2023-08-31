@@ -10,34 +10,41 @@ on:
       - miden/benches/bench.rs
       - risc-zero/host/Cargo.toml
       - risc-zero/host/benches/bench.rs
+      - noir/benches/bench.rs
+      - noir/Cargo.lock
 
 jobs:
   miden:
     runs-on: ubuntu-latest-16-cores
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
   
     - name: Run Miden Single CPU benchmarks
       working-directory: ./miden
+      env:
+        BENCH_OUTPUT_DIR: "../.benchmarks"
       run: |
-        cargo bench -q --bench bench > ../.benchmarks/miden-single-cpu.json
+        cargo bench -q --bench bench
 
     - name: Run Miden Multi CPU benchmarks
       working-directory: ./miden
+      env:
+        BENCH_OUTPUT_DIR: "../.benchmarks"
       run: |
-        cargo bench -q --bench bench -F multi-cpu > ../.benchmarks/miden-multi-cpu.json
+        cargo bench -q --bench bench -F multi-cpu
 
     - name: Run Miden Metal benchmarks
       if: false # No Metal on Ubuntu, GitHub Actions doesn't have Mac runners
       working-directory: ./miden
+      env:
+        BENCH_OUTPUT_DIR: "../.benchmarks"
       run: |
-        cargo bench -q --bench bench -F metal > ../.benchmarks/miden-metal.json
+        cargo bench -q --bench bench -F metal
+
 
   risc_zero:
     runs-on: ubuntu-latest-16-cores
-    
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -45,20 +52,52 @@ jobs:
       - name: Install risczero
         run: cargo install cargo-risczero && cargo risczero install
 
+      - name: Run Risc-Zero benchmarks
+        working-directory: ./risc-zero/host
+        env:
+          BENCH_OUTPUT_DIR: "../../.benchmarks"
+        run: |
+          cargo bench -q --bench bench
+
       - name: Run Risc-Zero Multi CPU benchmarks
         working-directory: ./risc-zero/host
+        env:
+          BENCH_OUTPUT_DIR: "../../.benchmarks"
         run: |
-          cargo bench -q --bench bench multi-cpu > ../../.benchmarks/risc_zero-multi-cpu.json
+          cargo bench -q --bench bench multi-cpu
 
       - name: Run Risc-Zero Metal benchmarks
         if: false # No Metal on Ubuntu, GitHub Actions doesn't have Mac runners
         working-directory: ./risc-zero/host
+        env:
+          BENCH_OUTPUT_DIR: "../../.benchmarks"
         run: |
-          cargo bench -q -F metal --bench bench metal > ../../.benchmarks/risc_zero-metal.json
+          cargo bench -q -F metal --bench bench metal
+
+  noir:
+    runs-on: ubuntu-latest-16-cores
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Install Nix
+        run: |
+          sh <(curl -L https://nixos.org/nix/install)
+          source $HOME/.nix-profile/etc/profile.d/nix.sh
+
+      - name: Run cargo bench in Nix shell
+        working-directory: ./noir
+        env:
+          BENCH_OUTPUT_DIR: "../.benchmarks"
+        run: |
+          source $HOME/.nix-profile/etc/profile.d/nix.sh
+          nix-shell --run "nix-shell -p clang --run 'cargo bench'"
   
   commit:
     runs-on: ubuntu-latest
-    needs: [miden, risc_zero]
+    needs: [miden, risc_zero, noir]
 
     steps:
       - name: Format benchmark JSONs

@@ -8,3 +8,7 @@ edition = "2021"
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
+
+[target.'cfg(unix)'.dependencies]
+nix = { version = "0.27.1", features = ["process"] }
+memory-stats = "1.1.0"

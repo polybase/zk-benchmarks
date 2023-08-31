@@ -6,6 +6,7 @@
       {
         "name": "SHA256",
         "run": {
+          "memory_usage_bytes": 475873280,
           "metrics": {
             "cycles": 65536,
             "instructions": 2658
@@ -13,7 +14,7 @@
           "name": "SHA256",
           "param": "1000 bytes",
           "time": {
-            "nanos": 164099750,
+            "nanos": 166066959,
             "secs": 1
           }
         }
@@ -24,6 +25,7 @@
       {
         "name": "SHA256",
         "run": {
+          "memory_usage_bytes": 474906624,
           "metrics": {
             "cycles": 65536,
             "instructions": 16131
@@ -31,7 +33,7 @@
           "name": "SHA256",
           "param": "10000 bytes",
           "time": {
-            "nanos": 147517625,
+            "nanos": 244373709,
             "secs": 1
           }
         }
@@ -42,6 +44,7 @@
       {
         "name": "SHA256",
         "run": {
+          "memory_usage_bytes": 1256456192,
           "metrics": {
             "cycles": 262144,
             "instructions": 150861
@@ -49,7 +52,7 @@
           "name": "SHA256",
           "param": "100000 bytes",
           "time": {
-            "nanos": 760820958,
+            "nanos": 901786542,
             "secs": 4
           }
         }
@@ -60,6 +63,7 @@
       {
         "name": "Blake3",
         "run": {
+          "memory_usage_bytes": 747388928,
           "metrics": {
             "cycles": 131072,
             "instructions": 38283
@@ -67,7 +71,7 @@
           "name": "Blake3",
           "param": "1000 bytes",
           "time": {
-            "nanos": 281817083,
+            "nanos": 306878875,
             "secs": 2
           }
         }
@@ -78,6 +82,7 @@
       {
         "name": "Blake3",
         "run": {
+          "memory_usage_bytes": 2270609408,
           "metrics": {
             "cycles": 524288,
             "instructions": 372381
@@ -85,7 +90,7 @@
           "name": "Blake3",
           "param": "10000 bytes",
           "time": {
-            "nanos": 532260875,
+            "nanos": 117194375,
             "secs": 9
           }
         }
@@ -96,6 +101,7 @@
       {
         "name": "Blake3",
         "run": {
+          "memory_usage_bytes": 4333355008,
           "metrics": {
             "cycles": 4194304,
             "instructions": 3713361
@@ -103,8 +109,8 @@
           "name": "Blake3",
           "param": "100000 bytes",
           "time": {
-            "nanos": 675734291,
-            "secs": 75
+            "nanos": 323687000,
+            "secs": 80
           }
         }
       }

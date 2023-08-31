@@ -1,4 +1,7 @@
-// use std::borrow::Cow;
+mod fork;
+mod memory;
+
+use fork::fork;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use std::collections::HashMap;
@@ -10,7 +13,7 @@ use std::time::{Duration, Instant};
 pub struct Benchmark<'a> {
     name: &'a str,
     config: BenchmarkConfig,
-    timings: Vec<(&'a str, BenchmarkResult<'a>)>,
+    timings: Vec<(String, BenchmarkResult)>,
 }
 
 impl<'a> Benchmark<'a> {
@@ -38,37 +41,90 @@ impl<'a> Benchmark<'a> {
         }
     }
 
-    pub fn benchmark<F: Fn(&mut BenchmarkRun)>(&mut self, name: &'a str, func: F) {
-        let mut run = BenchmarkRun::new(name, "");
-        func(&mut run);
-        self.timings.push((name, BenchmarkResult { name, run }));
+    pub fn benchmark<F: Fn(&mut BenchmarkRun, ST), SF: Fn() -> ST, ST>(
+        &mut self,
+        name: &'a str,
+        setup_func: SF,
+        func: F,
+    ) {
+        let run = fork(|| {
+            let stop_monitoring_memory = memory::monitor();
+
+            let mut run = BenchmarkRun::new(name.to_owned(), String::new());
+            let setup_param = setup_func();
+            func(&mut run, setup_param);
+
+            run.memory_usage_bytes = stop_monitoring_memory();
+
+            run
+        })
+        .unwrap();
+
+        self.timings.push((
+            name.to_owned(),
+            BenchmarkResult {
+                name: name.to_owned(),
+                run,
+            },
+        ));
     }
 
-    pub fn benchmark_with<F: Fn(&mut BenchmarkRun, &P) -> T, T, P: Debug>(
+    pub fn benchmark_with<
+        F: Fn(&mut BenchmarkRun, ST, &P) -> T,
+        SF: Fn() -> ST,
+        T,
+        ST,
+        P: Debug,
+    >(
         &mut self,
         name: &'a str,
         params: &[(&'a str, P)],
+        setup_func: SF,
         func: F,
     ) {
         for p in params
             .iter()
             .take(if self.config.quick { 1 } else { usize::MAX })
         {
-            let mut run = BenchmarkRun::new(name, p.0);
-            func(&mut run, &p.1);
-            self.timings.push((name, BenchmarkResult { name, run }));
+            let run = fork(|| {
+                let stop_monitoring_memory = memory::monitor();
+
+                let mut run = BenchmarkRun::new(name.to_owned(), p.0.to_owned());
+                let setup_param = setup_func();
+                func(&mut run, setup_param, &p.1);
+
+                run.memory_usage_bytes = stop_monitoring_memory();
+
+                run
+            })
+            .unwrap();
+
+            self.timings.push((
+                name.to_owned(),
+                BenchmarkResult {
+                    name: name.to_owned(),
+                    run,
+                },
+            ));
         }
     }
 
     pub fn output(&self) {
-        let output = json!(self.timings);
-        println!("{}", json!({ "name": self.name, "timings": output }));
+        let output = json!({ "name": self.name, "timings": json!(self.timings) });
+        let output_str = serde_json::to_string_pretty(&output).expect("failed to serialize");
+        if let Some(path) = &self.config.output_dir {
+            let path = std::path::Path::new(path);
+            std::fs::write(path.join(self.name).with_extension("json"), &output_str)
+                .expect("failed to write output");
+        }
+        println!("{}", &output_str);
     }
 }
 
 #[derive(Debug, Default)]
 pub struct BenchmarkConfig {
     pub quick: bool,
+    pub output_dir: Option<String>,
 }
 
 impl BenchmarkConfig {
@@ -76,36 +132,39 @@ impl BenchmarkConfig {
         let quick = env::var("BENCH_QUICK").unwrap_or("false".to_string());
         BenchmarkConfig {
             quick: quick == "true" || quick == "1",
+            output_dir: env::var("BENCH_OUTPUT_DIR").ok(),
         }
     }
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-pub struct BenchmarkResult<'a> {
-    pub name: &'a str,
-    pub run: BenchmarkRun<'a>,
+pub struct BenchmarkResult {
+    pub name: String,
+    pub run: BenchmarkRun,
 }
 
-impl<'a> BenchmarkResult<'a> {
-    pub fn new(name: &'a str, run: BenchmarkRun<'a>) -> Self {
+impl BenchmarkResult {
+    pub fn new(name: String, run: BenchmarkRun) -> Self {
         BenchmarkResult { name, run }
     }
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-pub struct BenchmarkRun<'a> {
-    pub name: &'a str,
-    pub param: &'a str,
+pub struct BenchmarkRun {
+    pub name: String,
+    pub param: String,
     pub time: Duration,
-    pub metrics: HashMap<&'a str, usize>,
+    pub memory_usage_bytes: Option<usize>,
+    pub metrics: HashMap<String, usize>,
 }
 
-impl<'a> BenchmarkRun<'a> {
-    fn new(name: &'a str, param: &'a str) -> Self {
+impl BenchmarkRun {
+    fn new(name: String, param: String) -> Self {
         BenchmarkRun {
             name,
             param,
             time: Duration::new(0, 0),
+            memory_usage_bytes: None,
             metrics: HashMap::new(),
         }
     }
@@ -121,7 +180,7 @@ impl<'a> BenchmarkRun<'a> {
         out
     }
 
-    pub fn log(&mut self, metric: &'a str, value: usize) {
-        self.metrics.insert(metric, value);
+    pub fn log(&mut self, metric: &str, value: usize) {
+        self.metrics.insert(metric.to_owned(), value);
     }
 }

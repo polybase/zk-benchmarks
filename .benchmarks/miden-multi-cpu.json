@@ -6,13 +6,14 @@
       {
         "name": "SHA256",
         "run": {
+          "memory_usage_bytes": 526073856,
           "metrics": {
             "cycles": 14534
           },
           "name": "SHA256",
           "param": "1 byte",
           "time": {
-            "nanos": 457294416,
+            "nanos": 449222791,
             "secs": 0
           }
         }
@@ -23,13 +24,14 @@
       {
         "name": "SHA256",
         "run": {
+          "memory_usage_bytes": 519815168,
           "metrics": {
             "cycles": 14534
           },
           "name": "SHA256",
           "param": "10 bytes",
           "time": {
-            "nanos": 526307583,
+            "nanos": 439026292,
             "secs": 0
           }
         }
@@ -40,13 +42,14 @@
       {
         "name": "SHA256",
         "run": {
+          "memory_usage_bytes": 2086699008,
           "metrics": {
             "cycles": 58094
           },
           "name": "SHA256",
           "param": "100 bytes",
           "time": {
-            "nanos": 642262208,
+            "nanos": 548111666,
             "secs": 1
           }
         }
@@ -57,14 +60,15 @@
       {
         "name": "SHA256",
         "run": {
+          "memory_usage_bytes": 11567071232,
           "metrics": {
             "cycles": 464654
           },
           "name": "SHA256",
           "param": "1000 bytes",
           "time": {
-            "nanos": 881739000,
-            "secs": 14
+            "nanos": 954125208,
+            "secs": 15
           }
         }
       }
@@ -74,13 +78,14 @@
       {
         "name": "Blake3",
         "run": {
+          "memory_usage_bytes": 129564672,
           "metrics": {
             "cycles": 4823
           },
           "name": "Blake3",
           "param": "1 byte",
           "time": {
-            "nanos": 161854541,
+            "nanos": 145984292,
             "secs": 0
           }
         }
@@ -91,13 +96,14 @@
       {
         "name": "Blake3",
         "run": {
+          "memory_usage_bytes": 129138688,
           "metrics": {
             "cycles": 4823
           },
           "name": "Blake3",
           "param": "10 bytes",
           "time": {
-            "nanos": 125681417,
+            "nanos": 145618708,
             "secs": 0
           }
         }
@@ -108,13 +114,14 @@
       {
         "name": "Blake3",
         "run": {
+          "memory_usage_bytes": 527810560,
           "metrics": {
             "cycles": 19244
           },
           "name": "Blake3",
           "param": "100 bytes",
           "time": {
-            "nanos": 392096125,
+            "nanos": 426817875,
             "secs": 0
           }
         }
@@ -125,13 +132,14 @@
       {
         "name": "Blake3",
         "run": {
+          "memory_usage_bytes": 4087971840,
           "metrics": {
             "cycles": 153854
           },
           "name": "Blake3",
           "param": "1000 bytes",
           "time": {
-            "nanos": 959442250,
+            "nanos": 995336083,
             "secs": 2
           }
         }
@@ -142,13 +150,14 @@
       {
         "name": "RPO",
         "run": {
+          "memory_usage_bytes": 252329984,
           "metrics": {
             "cycles": 8717
           },
           "name": "RPO",
           "param": "10000 bytes",
           "time": {
-            "nanos": 227950417,
+            "nanos": 236729625,
             "secs": 0
           }
         }
@@ -159,13 +168,14 @@
       {
         "name": "RPO",
         "run": {
+          "memory_usage_bytes": 2065268736,
           "metrics": {
             "cycles": 86926
           },
           "name": "RPO",
           "param": "100000 bytes",
           "time": {
-            "nanos": 561574833,
+            "nanos": 528030792,
             "secs": 1
           }
         }
@@ -176,14 +186,15 @@
       {
         "name": "RPO",
         "run": {
+          "memory_usage_bytes": 11727765504,
           "metrics": {
             "cycles": 869071
           },
           "name": "RPO",
           "param": "1000000 bytes",
           "time": {
-            "nanos": 416497084,
-            "secs": 16
+            "nanos": 398085041,
+            "secs": 14
           }
         }
       }
