@@ -25,8 +25,8 @@ pub(crate) fn fork<T: serde::Serialize + serde::de::DeserializeOwned>(
 }
 
 #[cfg(not(unix))]
-pub fn fork<T: serde::Serialize + serde::de::DeserializeOwned>(
+pub(crate) fn fork<T: serde::Serialize + serde::de::DeserializeOwned>(
     f: impl FnOnce() -> T,
-) -> std::io::Result<T> {
+) -> nix::Result<T> {
     Ok(f())
 }
