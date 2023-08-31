@@ -43,7 +43,7 @@ impl<'a> Benchmark<'a> {
 
     pub fn benchmark<F: Fn(&mut BenchmarkRun, ST), SF: Fn() -> ST, ST>(
         &mut self,
-        name: &'a str,
+        name: &str,
         setup_func: SF,
         func: F,
     ) {
@@ -77,8 +77,8 @@ impl<'a> Benchmark<'a> {
         P: Debug,
     >(
         &mut self,
-        name: &'a str,
-        params: &[(&'a str, P)],
+        name: &str,
+        params: &[(&str, P)],
         setup_func: SF,
         func: F,
     ) {
