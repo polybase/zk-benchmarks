@@ -98,6 +98,8 @@ checksum = "414dcefbc63d77c526a76b3afcf6fbb9b5e2791c19c3aa2297733208750c6e53"
 name = "bench"
 version = "0.1.0"
 dependencies = [
+ "memory-stats",
+ "nix",
  "serde",
  "serde_json",
 ]
@@ -1009,6 +1011,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "memory-stats"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "34f79cf9964c5c9545493acda1263f1912f8d2c56c8a2ffee2606cb960acaacc"
+dependencies = [
+ "libc",
+ "winapi",
+]
+
+[[package]]
 name = "metal"
 version = "0.25.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1092,6 +1104,17 @@ dependencies = [
  "num-traits",
  "rawpointer",
  "rayon",
+]
+
+[[package]]
+name = "nix"
+version = "0.27.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2eb04e9c688eff1c89d72b407f168cf79bb9e867a9d3323ed6c01519eb9cc053"
+dependencies = [
+ "bitflags 2.4.0",
+ "cfg-if",
+ "libc",
 ]
 
 [[package]]

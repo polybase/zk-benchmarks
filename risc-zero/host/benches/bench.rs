@@ -7,10 +7,11 @@ use host::{blake3::blake3, sha::sha};
 use risc0_zkvm::{prove::get_prover, Session};
 
 fn main() {
+    let prover_getter = |name: &'static str| || get_prover(name);
     let (bench_name, prover) = match std::env::args().nth(1) {
-        Some(prover) if prover == "multi-cpu" => ("risc_zero-multi-cpu", get_prover("cpu")),
-        Some(prover) if prover == "metal" => ("risc_zero-metal", get_prover("metal")),
-        Some(prover) if prover == "cuda" => ("risc_zero-cuda", get_prover("cuda")),
+        Some(prover) if prover == "multi-cpu" => ("risc_zero-multi-cpu", prover_getter("cpu")),
+        Some(prover) if prover == "metal" => ("risc_zero-metal", prover_getter("metal")),
+        Some(prover) if prover == "cuda" => ("risc_zero-cuda", prover_getter("cuda")),
         Some(_) | None => {
             println!("Usage: bench <multi-cpu, metal or cuda>");
             std::process::exit(1);
@@ -20,6 +21,8 @@ fn main() {
     let mut bench = Benchmark::from_env(bench_name);
 
     bench.benchmark("assert", |b| {
+        let prover = prover();
+
         let prove = host::assert::assert(Rc::clone(&prover), 1, 2);
         log_session(&b.run(prove), b);
     });
@@ -32,6 +35,8 @@ fn main() {
             ("100000 bytes", 100),
         ],
         |b, n| {
+            let prover = prover();
+
             let prove = sha(Rc::clone(&prover), *n);
             log_session(&b.run(prove), b);
         },
@@ -45,6 +50,8 @@ fn main() {
             ("100000 bytes", 100),
         ],
         |b, n| {
+            let prover = prover();
+
             let prove = blake3(Rc::clone(&prover), *n);
             log_session(&b.run(prove), b);
         },

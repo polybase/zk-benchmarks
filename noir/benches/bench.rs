@@ -8,9 +8,6 @@ use rand::Rng;
 fn main() {
     let mut bench = Benchmark::from_env("noir");
 
-    let backend = noir::backends::ConcreteBackend::default();
-    let dir = std::env::current_dir().expect("current dir to exist");
-
     bench.benchmark_with(
         "SHA256",
         &[
@@ -20,6 +17,9 @@ fn main() {
             ("1000 bytes", 1000),
         ],
         |b, p| {
+            let backend = noir::backends::ConcreteBackend::default();
+            let dir = std::env::current_dir().expect("current dir to exist");
+
             let mut inputs = InputMap::new();
 
             // Generate random bytes
@@ -41,6 +41,9 @@ fn main() {
     );
 
     bench.benchmark("assert", |b| {
+        let backend = noir::backends::ConcreteBackend::default();
+        let dir = std::env::current_dir().expect("current dir to exist");
+
         let mut inputs = InputMap::new();
 
         inputs.insert("x".to_string(), InputValue::Field((1_u128).into()));
