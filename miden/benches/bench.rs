@@ -21,8 +21,7 @@ fn main() {
             ("100 bytes", 100),
             ("1000 bytes", 1000),
         ],
-        || {},
-        |b, (), p| {
+        |b, p| {
             let (setup, vm) = sha(*p);
             let last_vm_state = vm.last().unwrap().unwrap();
             b.run(setup);
@@ -39,8 +38,7 @@ fn main() {
             ("100 bytes", 100),
             ("1000 bytes", 1000),
         ],
-        || {},
-        |b, (), p| {
+        |b, p| {
             let (setup, vm) = blake3(*p);
             let last_vm_state = vm.last().unwrap().unwrap();
             b.run(setup);
@@ -56,8 +54,7 @@ fn main() {
             ("100000 bytes", 100000),
             ("1000000 bytes", 1000000),
         ],
-        || {},
-        |b, (), p| {
+        |b, p| {
             let (setup, vm) = rpo(*p);
             let last_vm_state = vm.last().unwrap().unwrap();
             b.run(setup);

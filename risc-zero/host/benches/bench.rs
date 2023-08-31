@@ -27,8 +27,9 @@ fn main() {
             ("10000 bytes", 10),
             ("100000 bytes", 100),
         ],
-        prover,
-        |b, prover, n| {
+        |b, n| {
+            let prover = prover();
+
             let prove = sha(Rc::clone(&prover), *n);
             log_session(&b.run(prove), b);
         },
@@ -41,8 +42,9 @@ fn main() {
             ("10000 bytes", 10),
             ("100000 bytes", 100),
         ],
-        prover,
-        |b, prover, n| {
+        |b, n| {
+            let prover = prover();
+
             let prove = blake3(Rc::clone(&prover), *n);
             log_session(&b.run(prove), b);
         },

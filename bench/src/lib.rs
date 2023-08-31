@@ -41,18 +41,12 @@ impl<'a> Benchmark<'a> {
         }
     }
 
-    pub fn benchmark<F: Fn(&mut BenchmarkRun, ST), SF: Fn() -> ST, ST>(
-        &mut self,
-        name: &str,
-        setup_func: SF,
-        func: F,
-    ) {
+    pub fn benchmark<F: Fn(&mut BenchmarkRun)>(&mut self, name: &str, func: F) {
         let run = fork(|| {
             let stop_monitoring_memory = memory::monitor();
 
             let mut run = BenchmarkRun::new(name.to_owned(), String::new());
-            let setup_param = setup_func();
-            func(&mut run, setup_param);
+            func(&mut run);
 
             run.memory_usage_bytes = stop_monitoring_memory();
 
@@ -69,17 +63,10 @@ impl<'a> Benchmark<'a> {
         ));
     }
 
-    pub fn benchmark_with<
-        F: Fn(&mut BenchmarkRun, ST, &P) -> T,
-        SF: Fn() -> ST,
-        T,
-        ST,
-        P: Debug,
-    >(
+    pub fn benchmark_with<F: Fn(&mut BenchmarkRun, &P) -> T, T, P: Debug>(
         &mut self,
         name: &str,
         params: &[(&str, P)],
-        setup_func: SF,
         func: F,
     ) {
         for p in params
@@ -90,8 +77,7 @@ impl<'a> Benchmark<'a> {
                 let stop_monitoring_memory = memory::monitor();
 
                 let mut run = BenchmarkRun::new(name.to_owned(), p.0.to_owned());
-                let setup_param = setup_func();
-                func(&mut run, setup_param, &p.1);
+                func(&mut run, &p.1);
 
                 run.memory_usage_bytes = stop_monitoring_memory();
 
