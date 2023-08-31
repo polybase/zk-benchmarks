@@ -12,6 +12,13 @@ fn main() {
     let bench_name = "miden-metal";
     let mut bench = Benchmark::from_env(bench_name);
 
+    bench.benchmark("assert", |b| {
+        let (setup, vm) = miden_bench::assert::assert(1, 2);
+        let last_vm_state = vm.last().unwrap().unwrap();
+        b.run(setup);
+        b.log("cycles", last_vm_state.clk as usize);
+    });
+
     // Averages 464.654 cycles per byte
     bench.benchmark_with(
         "SHA256",

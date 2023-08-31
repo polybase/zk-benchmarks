@@ -19,6 +19,11 @@ fn main() {
 
     let mut bench = Benchmark::from_env(bench_name);
 
+    bench.benchmark("assert", |b| {
+        let prove = host::assert::assert(Rc::clone(&prover), 1, 2);
+        log_session(&b.run(prove), b);
+    });
+
     bench.benchmark_with(
         "SHA256",
         &[
@@ -59,5 +64,5 @@ fn log_session(session: &Session, b: &mut BenchmarkRun) {
             )
         });
     b.log("cycles", cycles);
-    b.log("instructions", insn_cycles);
+    b.log("instruction_cycles", insn_cycles);
 }
