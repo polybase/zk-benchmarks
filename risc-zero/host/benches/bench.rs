@@ -21,6 +21,8 @@ fn main() {
     let mut bench = Benchmark::from_env(bench_name);
 
     bench.benchmark("assert", |b| {
+        let prover = prover();
+
         let prove = host::assert::assert(Rc::clone(&prover), 1, 2);
         log_session(&b.run(prove), b);
     });
