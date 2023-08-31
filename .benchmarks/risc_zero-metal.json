@@ -6,8 +6,8 @@
       {
         "name": "SHA256",
         "run": {
-          "memory_usage_bytes": 475873280,
           "metrics": {
+            "memory_usage_bytes": 475873280,
             "cycles": 65536,
             "instructions": 2658
           },
@@ -25,8 +25,8 @@
       {
         "name": "SHA256",
         "run": {
-          "memory_usage_bytes": 474906624,
           "metrics": {
+            "memory_usage_bytes": 474906624,
             "cycles": 65536,
             "instructions": 16131
           },
@@ -44,8 +44,8 @@
       {
         "name": "SHA256",
         "run": {
-          "memory_usage_bytes": 1256456192,
           "metrics": {
+            "memory_usage_bytes": 1256456192,
             "cycles": 262144,
             "instructions": 150861
           },
@@ -63,8 +63,8 @@
       {
         "name": "Blake3",
         "run": {
-          "memory_usage_bytes": 747388928,
           "metrics": {
+            "memory_usage_bytes": 747388928,
             "cycles": 131072,
             "instructions": 38283
           },
@@ -82,8 +82,8 @@
       {
         "name": "Blake3",
         "run": {
-          "memory_usage_bytes": 2270609408,
           "metrics": {
+            "memory_usage_bytes": 2270609408,
             "cycles": 524288,
             "instructions": 372381
           },
@@ -101,8 +101,8 @@
       {
         "name": "Blake3",
         "run": {
-          "memory_usage_bytes": 4333355008,
           "metrics": {
+            "memory_usage_bytes": 4333355008,
             "cycles": 4194304,
             "instructions": 3713361
           },

@@ -6,8 +6,9 @@
       {
         "name": "SHA256",
         "run": {
-          "memory_usage_bytes": 1899184128,
-          "metrics": {},
+          "metrics": {
+            "memory_usage_bytes": 1899184128
+          },
           "name": "SHA256",
           "param": "1 byte",
           "time": {
@@ -22,8 +23,9 @@
       {
         "name": "SHA256",
         "run": {
-          "memory_usage_bytes": 1856339968,
-          "metrics": {},
+          "metrics": {
+            "memory_usage_bytes": 1856339968
+          },
           "name": "SHA256",
           "param": "10 bytes",
           "time": {
@@ -38,8 +40,9 @@
       {
         "name": "SHA256",
         "run": {
-          "memory_usage_bytes": 1873412096,
-          "metrics": {},
+          "metrics": {
+            "memory_usage_bytes": 1873412096
+          },
           "name": "SHA256",
           "param": "100 bytes",
           "time": {
@@ -54,8 +57,9 @@
       {
         "name": "SHA256",
         "run": {
-          "memory_usage_bytes": 3182755840,
-          "metrics": {},
+          "metrics": {
+            "memory_usage_bytes": 3182755840
+          },
           "name": "SHA256",
           "param": "1000 bytes",
           "time": {
@@ -70,8 +74,9 @@
       {
         "name": "assert",
         "run": {
-          "memory_usage_bytes": 39026688,
-          "metrics": {},
+          "metrics": {
+            "memory_usage_bytes": 39026688
+          },
           "name": "assert",
           "param": "",
           "time": {

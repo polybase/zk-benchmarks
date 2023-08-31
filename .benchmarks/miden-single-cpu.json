@@ -6,8 +6,8 @@
       {
         "name": "SHA256",
         "run": {
-          "memory_usage_bytes": 530448384,
           "metrics": {
+            "memory_usage_bytes": 530448384,
             "cycles": 14534
           },
           "name": "SHA256",
@@ -24,8 +24,8 @@
       {
         "name": "SHA256",
         "run": {
-          "memory_usage_bytes": 521486336,
           "metrics": {
+            "memory_usage_bytes": 521486336,
             "cycles": 14534
           },
           "name": "SHA256",
@@ -42,8 +42,8 @@
       {
         "name": "SHA256",
         "run": {
-          "memory_usage_bytes": 2086125568,
           "metrics": {
+            "memory_usage_bytes": 2086125568,
             "cycles": 58094
           },
           "name": "SHA256",
@@ -60,8 +60,8 @@
       {
         "name": "SHA256",
         "run": {
-          "memory_usage_bytes": 9426042880,
           "metrics": {
+            "memory_usage_bytes": 9426042880,
             "cycles": 464654
           },
           "name": "SHA256",
@@ -78,8 +78,8 @@
       {
         "name": "Blake3",
         "run": {
-          "memory_usage_bytes": 143785984,
           "metrics": {
+            "memory_usage_bytes": 143785984,
             "cycles": 4823
           },
           "name": "Blake3",
@@ -96,8 +96,8 @@
       {
         "name": "Blake3",
         "run": {
-          "memory_usage_bytes": 118145024,
           "metrics": {
+            "memory_usage_bytes": 118145024,
             "cycles": 4823
           },
           "name": "Blake3",
@@ -114,8 +114,8 @@
       {
         "name": "Blake3",
         "run": {
-          "memory_usage_bytes": 526958592,
           "metrics": {
+            "memory_usage_bytes": 526958592,
             "cycles": 19244
           },
           "name": "Blake3",
@@ -132,8 +132,8 @@
       {
         "name": "Blake3",
         "run": {
-          "memory_usage_bytes": 4139384832,
           "metrics": {
+            "memory_usage_bytes": 4139384832,
             "cycles": 153854
           },
           "name": "Blake3",
@@ -150,8 +150,8 @@
       {
         "name": "RPO",
         "run": {
-          "memory_usage_bytes": 255066112,
           "metrics": {
+            "memory_usage_bytes": 255066112,
             "cycles": 8717
           },
           "name": "RPO",
@@ -168,8 +168,8 @@
       {
         "name": "RPO",
         "run": {
-          "memory_usage_bytes": 2092531712,
           "metrics": {
+            "memory_usage_bytes": 2092531712,
             "cycles": 86926
           },
           "name": "RPO",
@@ -186,8 +186,8 @@
       {
         "name": "RPO",
         "run": {
-          "memory_usage_bytes": 10253828096,
           "metrics": {
+            "memory_usage_bytes": 10253828096,
             "cycles": 869071
           },
           "name": "RPO",

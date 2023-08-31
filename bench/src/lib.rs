@@ -48,7 +48,9 @@ impl<'a> Benchmark<'a> {
             let mut run = BenchmarkRun::new(name.to_owned(), String::new());
             func(&mut run);
 
-            run.memory_usage_bytes = stop_monitoring_memory();
+            if let Some(memory_usage_bytes) = stop_monitoring_memory() {
+                run.log("memory_usage_bytes", memory_usage_bytes);
+            }
 
             run
         })
@@ -79,8 +81,9 @@ impl<'a> Benchmark<'a> {
                 let mut run = BenchmarkRun::new(name.to_owned(), p.0.to_owned());
                 func(&mut run, &p.1);
 
-                run.memory_usage_bytes = stop_monitoring_memory();
-
+                if let Some(memory_usage_bytes) = stop_monitoring_memory() {
+                    run.log("memory_usage_bytes", memory_usage_bytes);
+                }
                 run
             })
             .unwrap();
@@ -140,7 +143,6 @@ pub struct BenchmarkRun {
     pub name: String,
     pub param: String,
     pub time: Duration,
-    pub memory_usage_bytes: Option<usize>,
     pub metrics: HashMap<String, usize>,
 }
 
@@ -150,7 +152,6 @@ impl BenchmarkRun {
             name,
             param,
             time: Duration::new(0, 0),
-            memory_usage_bytes: None,
             metrics: HashMap::new(),
         }
     }
