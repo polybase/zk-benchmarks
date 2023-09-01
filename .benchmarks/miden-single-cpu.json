@@ -22,6 +22,44 @@
       }
     ],
     [
+      "multiple assert proof compression",
+      {
+        "name": "multiple assert proof compression",
+        "run": {
+          "metrics": {
+            "compressed_proof_size_bytes": 485883,
+            "memory_usage_bytes": 391610368,
+            "proof_size_bytes": 486738
+          },
+          "name": "multiple assert proof compression",
+          "param": "",
+          "time": {
+            "nanos": 0,
+            "secs": 0
+          }
+        }
+      }
+    ],
+    [
+      "multiple sha256 proof compression",
+      {
+        "name": "multiple sha256 proof compression",
+        "run": {
+          "metrics": {
+            "compressed_proof_size_bytes": 340211,
+            "memory_usage_bytes": 1007255552,
+            "proof_size_bytes": 739920
+          },
+          "name": "multiple sha256 proof compression",
+          "param": "",
+          "time": {
+            "nanos": 0,
+            "secs": 0
+          }
+        }
+      }
+    ],
+    [
       "SHA256",
       {
         "name": "SHA256",

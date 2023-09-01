@@ -26,27 +26,47 @@ fn main() {
         );
     });
 
-    // bench.benchmark("multiple assert proof compression", |b| {
-    //     let mut proofs = Vec::new();
-    //     for x in 0..20 {
-    //         let (setup, _) = sha(x + 1);
-    //         let proof = setup();
-    //         proofs.push(proof);
-    //     }
-    //     let non_dict_proof = sha(20).0();
+    bench.benchmark("multiple assert proof compression", |b| {
+        let mut proofs = Vec::new();
+        for x in 0..10 {
+            let (setup, _) = miden_bench::assert::assert(x, x + 1);
+            let proof = setup();
+            proofs.push(proof);
+        }
 
-    //     let proofs_bytes = proofs.iter().map(|p| p.to_bytes()).collect::<Vec<_>>();
-    //     let dict = zstd::dict::from_samples(&proofs_bytes[..], 100000).unwrap();
-    //     let mut compressor = zstd::bulk::Compressor::with_dictionary(21, &dict).unwrap();
-    //     let non_dict_proof_compressed = compressor.compress(&non_dict_proof.to_bytes()).unwrap();
-    //     b.log("proof_size_bytes", non_dict_proof.to_bytes().len());
-    //     b.log(
-    //         "compressed_proof_size_bytes",
-    //         non_dict_proof_compressed.len(),
-    //     );
-    // });
-    // bench.output();
-    // return;
+        let proof_bytes = proofs
+            .into_iter()
+            .map(|p| p.to_bytes())
+            .collect::<Vec<_>>()
+            .concat();
+
+        b.log("proof_size_bytes", proof_bytes.len());
+        b.log(
+            "compressed_proof_size_bytes",
+            zstd::encode_all(&proof_bytes[..], 21).unwrap().len(),
+        );
+    });
+
+    bench.benchmark("multiple sha256 proof compression", |b| {
+        let mut proofs = Vec::new();
+        for x in 0..10 {
+            let (setup, _) = sha(x + 1);
+            let proof = setup();
+            proofs.push(proof);
+        }
+
+        let proof_bytes = proofs
+            .into_iter()
+            .map(|p| p.to_bytes())
+            .collect::<Vec<_>>()
+            .concat();
+
+        b.log("proof_size_bytes", proof_bytes.len());
+        b.log(
+            "compressed_proof_size_bytes",
+            zstd::encode_all(&proof_bytes[..], 21).unwrap().len(),
+        );
+    });
 
     // Averages 464.654 cycles per byte
     bench.benchmark_with(
