@@ -76,14 +76,8 @@ impl<'a> Benchmark<'a> {
             .take(if self.config.quick { 1 } else { usize::MAX })
         {
             let run = fork(|| {
-                let stop_monitoring_memory = memory::monitor();
-
                 let mut run = BenchmarkRun::new(name.to_owned(), p.0.to_owned());
                 func(&mut run, &p.1);
-
-                if let Some(memory_usage_bytes) = stop_monitoring_memory() {
-                    run.log("memory_usage_bytes", memory_usage_bytes);
-                }
                 run
             })
             .unwrap();
@@ -160,10 +154,18 @@ impl BenchmarkRun {
     where
         F: FnOnce() -> R,
     {
+        let stop_monitoring_memory = memory::monitor();
         let start_time = Instant::now();
+
         let out = func();
+
         let elapsed_time = start_time.elapsed();
         self.time = elapsed_time;
+
+        if let Some(memory_usage_bytes) = stop_monitoring_memory() {
+            self.log("memory_usage_bytes", memory_usage_bytes);
+        }
+
         out
     }
 

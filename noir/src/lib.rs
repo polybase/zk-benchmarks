@@ -85,7 +85,7 @@ impl<'a, B: Backend> Proof<'a, B> {
         // return_value,
     }
 
-    pub fn prove(self) {
+    pub fn prove(self) -> Vec<u8> {
         let Proof {
             backend,
             common_reference_string,
@@ -102,7 +102,7 @@ impl<'a, B: Backend> Proof<'a, B> {
                 &proving_key,
                 false,
             )
-            .expect("proof to be generated");
+            .expect("proof to be generated")
     }
 }
 

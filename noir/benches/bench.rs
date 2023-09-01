@@ -36,7 +36,12 @@ fn main() {
                 dir.join(format!("pkgs/sha256/{}", p)),
                 &inputs,
             );
-            b.run(|| proof.prove());
+            let proof_bytes = b.run(|| proof.prove());
+            b.log("proof_size_bytes", proof_bytes.len());
+            b.log(
+                "compressed_proof_size_bytes",
+                zstd::encode_all(&proof_bytes[..], 21).unwrap().len(),
+            );
         },
     );
 
@@ -50,7 +55,12 @@ fn main() {
         inputs.insert("y".to_string(), InputValue::Field((2_u128).into()));
 
         let proof = Proof::new(&backend, "assert", dir.join("pkgs/assert"), &inputs);
-        b.run(|| proof.prove());
+        let proof_bytes = b.run(|| proof.prove());
+        b.log("proof_size_bytes", proof_bytes.len());
+        b.log(
+            "compressed_proof_size_bytes",
+            zstd::encode_all(&proof_bytes[..], 21).unwrap().len(),
+        );
         // b.log("cycles", last_vm_state.clk as usize);
     });
 

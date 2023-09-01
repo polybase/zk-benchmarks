@@ -15,9 +15,38 @@ fn main() {
     bench.benchmark("assert", |b| {
         let (setup, vm) = miden_bench::assert::assert(1, 2);
         let last_vm_state = vm.last().unwrap().unwrap();
-        b.run(setup);
+        let proof = b.run(setup);
         b.log("cycles", last_vm_state.clk as usize);
+
+        let proof = &proof.to_bytes();
+        b.log("proof_size_bytes", proof.len());
+        b.log(
+            "compressed_proof_size_bytes",
+            zstd::encode_all(&proof[..], 21).unwrap().len(),
+        );
     });
+
+    // bench.benchmark("multiple assert proof compression", |b| {
+    //     let mut proofs = Vec::new();
+    //     for x in 0..20 {
+    //         let (setup, _) = sha(x + 1);
+    //         let proof = setup();
+    //         proofs.push(proof);
+    //     }
+    //     let non_dict_proof = sha(20).0();
+
+    //     let proofs_bytes = proofs.iter().map(|p| p.to_bytes()).collect::<Vec<_>>();
+    //     let dict = zstd::dict::from_samples(&proofs_bytes[..], 100000).unwrap();
+    //     let mut compressor = zstd::bulk::Compressor::with_dictionary(21, &dict).unwrap();
+    //     let non_dict_proof_compressed = compressor.compress(&non_dict_proof.to_bytes()).unwrap();
+    //     b.log("proof_size_bytes", non_dict_proof.to_bytes().len());
+    //     b.log(
+    //         "compressed_proof_size_bytes",
+    //         non_dict_proof_compressed.len(),
+    //     );
+    // });
+    // bench.output();
+    // return;
 
     // Averages 464.654 cycles per byte
     bench.benchmark_with(
@@ -31,8 +60,15 @@ fn main() {
         |b, p| {
             let (setup, vm) = sha(*p);
             let last_vm_state = vm.last().unwrap().unwrap();
-            b.run(setup);
+            let proof = b.run(setup);
             b.log("cycles", last_vm_state.clk as usize);
+
+            let proof = proof.to_bytes();
+            b.log("proof_size_bytes", proof.len());
+            b.log(
+                "compressed_proof_size_bytes",
+                zstd::encode_all(&proof[..], 21).unwrap().len(),
+            );
         },
     );
 
@@ -48,8 +84,15 @@ fn main() {
         |b, p| {
             let (setup, vm) = blake3(*p);
             let last_vm_state = vm.last().unwrap().unwrap();
-            b.run(setup);
+            let proof = b.run(setup);
             b.log("cycles", last_vm_state.clk as usize);
+
+            let proof = &proof.to_bytes();
+            b.log("proof_size_bytes", proof.len());
+            b.log(
+                "compressed_proof_size_bytes",
+                zstd::encode_all(&proof[..], 21).unwrap().len(),
+            );
         },
     );
 
@@ -64,8 +107,15 @@ fn main() {
         |b, p| {
             let (setup, vm) = rpo(*p);
             let last_vm_state = vm.last().unwrap().unwrap();
-            b.run(setup);
+            let proof = b.run(setup);
             b.log("cycles", last_vm_state.clk as usize);
+
+            let proof = &proof.to_bytes();
+            b.log("proof_size_bytes", proof.len());
+            b.log(
+                "compressed_proof_size_bytes",
+                zstd::encode_all(&proof[..], 21).unwrap().len(),
+            );
         },
     );
 
