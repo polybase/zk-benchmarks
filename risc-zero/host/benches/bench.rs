@@ -4,7 +4,7 @@ use std::rc::Rc;
 
 use bench::{Benchmark, BenchmarkRun};
 use host::{blake3::blake3, fib::fib, sha::sha};
-use risc0_zkvm::{prove::get_prover, Session};
+use risc0_zkvm::{prove::get_prover, Receipt, Session};
 
 fn main() {
     let prover_getter = |name: &'static str| || get_prover(name);
@@ -80,7 +80,7 @@ fn main() {
     bench.output();
 }
 
-fn log_session(session: &Session, b: &mut BenchmarkRun) {
+fn log_session((receipt, session): &(Receipt, Session), b: &mut BenchmarkRun) {
     let segments = session.resolve().unwrap();
     let (cycles, insn_cycles) = segments
         .iter()
@@ -92,4 +92,11 @@ fn log_session(session: &Session, b: &mut BenchmarkRun) {
         });
     b.log("cycles", cycles);
     b.log("instruction_cycles", insn_cycles);
+
+    let proof = bincode::serialize(receipt).unwrap();
+    b.log("proof_size_bytes", proof.len());
+    b.log(
+        "compressed_proof_size_bytes",
+        zstd::encode_all(&proof[..], 21).unwrap().len(),
+    );
 }

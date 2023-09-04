@@ -2,18 +2,78 @@
   "name": "miden-multi-cpu",
   "timings": [
     [
+      "assert",
+      {
+        "name": "assert",
+        "run": {
+          "metrics": {
+            "compressed_proof_size_bytes": 49192,
+            "cycles": 8,
+            "memory_usage_bytes": 358842368,
+            "proof_size_bytes": 49183
+          },
+          "name": "assert",
+          "param": "",
+          "time": {
+            "nanos": 53434708,
+            "secs": 0
+          }
+        }
+      }
+  ],
+  [
+    "multiple assert proof compression",
+    {
+      "name": "multiple assert proof compression",
+      "run": {
+        "metrics": {
+          "compressed_proof_size_bytes": 485883,
+          "memory_usage_bytes": 391610368,
+          "proof_size_bytes": 486738
+        },
+        "name": "multiple assert proof compression",
+        "param": "",
+        "time": {
+          "nanos": 0,
+          "secs": 0
+        }
+      }
+    }
+  ],
+  [
+    "multiple sha256 proof compression",
+    {
+      "name": "multiple sha256 proof compression",
+      "run": {
+        "metrics": {
+          "compressed_proof_size_bytes": 340211,
+          "memory_usage_bytes": 1007255552,
+          "proof_size_bytes": 739920
+        },
+        "name": "multiple sha256 proof compression",
+        "param": "",
+        "time": {
+          "nanos": 0,
+          "secs": 0
+        }
+      }
+    }
+  ],
+  [
       "SHA256",
       {
         "name": "SHA256",
         "run": {
           "metrics": {
-            "memory_usage_bytes": 526073856,
-            "cycles": 14534
+            "compressed_proof_size_bytes": 73825,
+            "cycles": 14534,
+            "memory_usage_bytes": 493748224,
+            "proof_size_bytes": 73816
           },
           "name": "SHA256",
           "param": "1 byte",
           "time": {
-            "nanos": 449222791,
+            "nanos": 378791292,
             "secs": 0
           }
         }
@@ -25,13 +85,15 @@
         "name": "SHA256",
         "run": {
           "metrics": {
-            "memory_usage_bytes": 519815168,
-            "cycles": 14534
+            "compressed_proof_size_bytes": 72674,
+            "cycles": 14534,
+            "memory_usage_bytes": 501940224,
+            "proof_size_bytes": 72665
           },
           "name": "SHA256",
           "param": "10 bytes",
           "time": {
-            "nanos": 439026292,
+            "nanos": 429458500,
             "secs": 0
           }
         }
@@ -43,13 +105,15 @@
         "name": "SHA256",
         "run": {
           "metrics": {
-            "memory_usage_bytes": 2086699008,
-            "cycles": 58094
+            "compressed_proof_size_bytes": 84632,
+            "cycles": 58094,
+            "memory_usage_bytes": 2006155264,
+            "proof_size_bytes": 84623
           },
           "name": "SHA256",
           "param": "100 bytes",
           "time": {
-            "nanos": 548111666,
+            "nanos": 402993666,
             "secs": 1
           }
         }
@@ -61,13 +125,15 @@
         "name": "SHA256",
         "run": {
           "metrics": {
-            "memory_usage_bytes": 11567071232,
-            "cycles": 464654
+            "compressed_proof_size_bytes": 104870,
+            "cycles": 464654,
+            "memory_usage_bytes": 11865374720,
+            "proof_size_bytes": 104861
           },
           "name": "SHA256",
           "param": "1000 bytes",
           "time": {
-            "nanos": 954125208,
+            "nanos": 873328541,
             "secs": 15
           }
         }
@@ -79,13 +145,15 @@
         "name": "Blake3",
         "run": {
           "metrics": {
-            "memory_usage_bytes": 129564672,
-            "cycles": 4823
+            "compressed_proof_size_bytes": 62598,
+            "cycles": 4823,
+            "memory_usage_bytes": 122748928,
+            "proof_size_bytes": 62589
           },
           "name": "Blake3",
           "param": "1 byte",
           "time": {
-            "nanos": 145984292,
+            "nanos": 167623792,
             "secs": 0
           }
         }
@@ -97,13 +165,15 @@
         "name": "Blake3",
         "run": {
           "metrics": {
-            "memory_usage_bytes": 129138688,
-            "cycles": 4823
+            "compressed_proof_size_bytes": 62109,
+            "cycles": 4823,
+            "memory_usage_bytes": 112345088,
+            "proof_size_bytes": 62100
           },
           "name": "Blake3",
           "param": "10 bytes",
           "time": {
-            "nanos": 145618708,
+            "nanos": 134923041,
             "secs": 0
           }
         }
@@ -115,13 +185,15 @@
         "name": "Blake3",
         "run": {
           "metrics": {
-            "memory_usage_bytes": 527810560,
-            "cycles": 19244
+            "compressed_proof_size_bytes": 73662,
+            "cycles": 19244,
+            "memory_usage_bytes": 487079936,
+            "proof_size_bytes": 73653
           },
           "name": "Blake3",
           "param": "100 bytes",
           "time": {
-            "nanos": 426817875,
+            "nanos": 412096834,
             "secs": 0
           }
         }
@@ -133,13 +205,15 @@
         "name": "Blake3",
         "run": {
           "metrics": {
-            "memory_usage_bytes": 4087971840,
-            "cycles": 153854
+            "compressed_proof_size_bytes": 92165,
+            "cycles": 153854,
+            "memory_usage_bytes": 3931521024,
+            "proof_size_bytes": 92156
           },
           "name": "Blake3",
           "param": "1000 bytes",
           "time": {
-            "nanos": 995336083,
+            "nanos": 973136625,
             "secs": 2
           }
         }
@@ -151,13 +225,15 @@
         "name": "RPO",
         "run": {
           "metrics": {
-            "memory_usage_bytes": 252329984,
-            "cycles": 8717
+            "compressed_proof_size_bytes": 68102,
+            "cycles": 8717,
+            "memory_usage_bytes": 251265024,
+            "proof_size_bytes": 68093
           },
           "name": "RPO",
           "param": "10000 bytes",
           "time": {
-            "nanos": 236729625,
+            "nanos": 288961667,
             "secs": 0
           }
         }
@@ -169,13 +245,15 @@
         "name": "RPO",
         "run": {
           "metrics": {
-            "memory_usage_bytes": 2065268736,
-            "cycles": 86926
+            "compressed_proof_size_bytes": 84722,
+            "cycles": 86926,
+            "memory_usage_bytes": 1930149888,
+            "proof_size_bytes": 84713
           },
           "name": "RPO",
           "param": "100000 bytes",
           "time": {
-            "nanos": 528030792,
+            "nanos": 631523458,
             "secs": 1
           }
         }
@@ -187,14 +265,16 @@
         "name": "RPO",
         "run": {
           "metrics": {
-            "memory_usage_bytes": 11727765504,
-            "cycles": 869071
+            "compressed_proof_size_bytes": 104294,
+            "cycles": 869071,
+            "memory_usage_bytes": 11360567296,
+            "proof_size_bytes": 104285
           },
           "name": "RPO",
           "param": "1000000 bytes",
           "time": {
-            "nanos": 398085041,
-            "secs": 14
+            "nanos": 862174542,
+            "secs": 13
           }
         }
       }

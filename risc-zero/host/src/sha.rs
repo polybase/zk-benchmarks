@@ -1,9 +1,9 @@
 use std::rc::Rc;
 
 use methods::SHA_ELF;
-use risc0_zkvm::{prove::Prover, Executor, ExecutorEnv, Session, VerifierContext};
+use risc0_zkvm::{prove::Prover, Executor, ExecutorEnv, Receipt, Session, VerifierContext};
 
-pub fn sha(prover: Rc<dyn Prover>, n_thousands: usize) -> impl FnMut() -> Session {
+pub fn sha(prover: Rc<dyn Prover>, n_thousands: usize) -> impl FnMut() -> (Receipt, Session) {
     let env = ExecutorEnv::builder()
         .add_input(&[n_thousands])
         .build()
@@ -13,9 +13,10 @@ pub fn sha(prover: Rc<dyn Prover>, n_thousands: usize) -> impl FnMut() -> Sessio
 
     move || {
         let session = exec.run().unwrap();
-        let _receipt = prover
+        let receipt = prover
             .prove_session(&VerifierContext::default(), &session)
             .unwrap();
-        session
+
+        (receipt, session)
     }
 }

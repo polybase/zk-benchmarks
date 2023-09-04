@@ -1,7 +1,8 @@
 use miden::{Assembler, ProofOptions};
 use miden_processor::{AdviceInputs, MemAdviceProvider, StackInputs, VmStateIterator};
+use miden_prover::ExecutionProof;
 
-pub fn assert(a: u32, b: u32) -> (impl Fn(), VmStateIterator) {
+pub fn assert(a: u32, b: u32) -> (impl Fn() -> ExecutionProof, VmStateIterator) {
     let code = format!(
         r#"
         begin
@@ -26,13 +27,15 @@ pub fn assert(a: u32, b: u32) -> (impl Fn(), VmStateIterator) {
 
     (
         move || {
-            let (_stack, _proof) = miden::prove(
+            let (_stack, proof) = miden::prove(
                 &program,
                 StackInputs::default(),
                 advice_provider.clone(),
                 ProofOptions::default(),
             )
             .unwrap();
+
+            proof
         },
         vm,
     )

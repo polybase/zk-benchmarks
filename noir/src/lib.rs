@@ -100,7 +100,7 @@ impl<'a, B: Backend> Proof<'a, B> {
                 &proving_key,
                 false,
             )
-            .expect("proof to be generated");
+            .expect("proof to be generated")
     }
 }
 

@@ -2,19 +2,42 @@
   "name": "risc_zero-metal",
   "timings": [
     [
+      "assert",
+      {
+        "name": "assert",
+        "run": {
+          "metrics": {
+            "compressed_proof_size_bytes": 211440,
+            "cycles": 65536,
+            "instruction_cycles": 751,
+            "memory_usage_bytes": 567296000,
+            "proof_size_bytes": 215315
+          },
+          "name": "assert",
+          "param": "",
+          "time": {
+            "nanos": 158102917,
+            "secs": 1
+          }
+        }
+      }
+    ],
+    [
       "SHA256",
       {
         "name": "SHA256",
         "run": {
           "metrics": {
-            "memory_usage_bytes": 475873280,
+            "compressed_proof_size_bytes": 208015,
             "cycles": 65536,
-            "instructions": 2658
+            "instruction_cycles": 2658,
+            "memory_usage_bytes": 433717248,
+            "proof_size_bytes": 215315
           },
           "name": "SHA256",
           "param": "1000 bytes",
           "time": {
-            "nanos": 166066959,
+            "nanos": 238314334,
             "secs": 1
           }
         }
@@ -26,14 +49,16 @@
         "name": "SHA256",
         "run": {
           "metrics": {
-            "memory_usage_bytes": 474906624,
+            "compressed_proof_size_bytes": 209278,
             "cycles": 65536,
-            "instructions": 16131
+            "instruction_cycles": 16131,
+            "memory_usage_bytes": 438468608,
+            "proof_size_bytes": 215315
           },
           "name": "SHA256",
           "param": "10000 bytes",
           "time": {
-            "nanos": 244373709,
+            "nanos": 299361125,
             "secs": 1
           }
         }
@@ -45,15 +70,17 @@
         "name": "SHA256",
         "run": {
           "metrics": {
-            "memory_usage_bytes": 1256456192,
+            "compressed_proof_size_bytes": 242647,
             "cycles": 262144,
-            "instructions": 150861
+            "instruction_cycles": 150861,
+            "memory_usage_bytes": 1243054080,
+            "proof_size_bytes": 250067
           },
           "name": "SHA256",
           "param": "100000 bytes",
           "time": {
-            "nanos": 901786542,
-            "secs": 4
+            "nanos": 123517333,
+            "secs": 5
           }
         }
       }
@@ -64,14 +91,16 @@
         "name": "Blake3",
         "run": {
           "metrics": {
-            "memory_usage_bytes": 747388928,
+            "compressed_proof_size_bytes": 230685,
             "cycles": 131072,
-            "instructions": 38283
+            "instruction_cycles": 38283,
+            "memory_usage_bytes": 736903168,
+            "proof_size_bytes": 238355
           },
           "name": "Blake3",
           "param": "1000 bytes",
           "time": {
-            "nanos": 306878875,
+            "nanos": 425906250,
             "secs": 2
           }
         }
@@ -83,14 +112,16 @@
         "name": "Blake3",
         "run": {
           "metrics": {
-            "memory_usage_bytes": 2270609408,
+            "compressed_proof_size_bytes": 252014,
             "cycles": 524288,
-            "instructions": 372381
+            "instruction_cycles": 372381,
+            "memory_usage_bytes": 2218328064,
+            "proof_size_bytes": 262291
           },
           "name": "Blake3",
           "param": "10000 bytes",
           "time": {
-            "nanos": 117194375,
+            "nanos": 652968583,
             "secs": 9
           }
         }
@@ -102,15 +133,17 @@
         "name": "Blake3",
         "run": {
           "metrics": {
-            "memory_usage_bytes": 4333355008,
+            "compressed_proof_size_bytes": 1063576,
             "cycles": 4194304,
-            "instructions": 3713361
+            "instruction_cycles": 3713361,
+            "memory_usage_bytes": 4336467968,
+            "proof_size_bytes": 1102096
           },
           "name": "Blake3",
           "param": "100000 bytes",
           "time": {
-            "nanos": 323687000,
-            "secs": 80
+            "nanos": 716955458,
+            "secs": 77
           }
         }
       }

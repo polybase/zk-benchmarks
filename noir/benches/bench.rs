@@ -31,7 +31,12 @@ fn main() {
             inputs.insert("x".to_string(), InputValue::Vec(bytes));
 
             let proof = Proof::new(&backend, "sha256", dir.join(format!("pkgs/sha256/{}", p)));
-            b.run(|| proof.run_and_prove(&inputs));
+            let proof_bytes = b.run(|| proof.run_and_prove(&inputs));
+            b.log("proof_size_bytes", proof_bytes.len());
+            b.log(
+                "compressed_proof_size_bytes",
+                zstd::encode_all(&proof_bytes[..], 21).unwrap().len(),
+            );
         },
     );
 
@@ -45,7 +50,13 @@ fn main() {
         inputs.insert("y".to_string(), InputValue::Field((2_u128).into()));
 
         let proof = Proof::new(&backend, "assert", dir.join("pkgs/assert"));
-        b.run(|| proof.run_and_prove(&inputs));
+        let proof_bytes = b.run(|| proof.run_and_prove(&inputs));
+        b.log("proof_size_bytes", proof_bytes.len());
+        b.log(
+            "compressed_proof_size_bytes",
+            zstd::encode_all(&proof_bytes[..], 21).unwrap().len(),
+        );
+        // b.log("cycles", last_vm_state.clk as usize);
     });
 
     bench.benchmark_with(
@@ -69,7 +80,12 @@ fn main() {
             inputs.insert("b_start".to_string(), InputValue::Field((1_u128).into()));
 
             let proof = Proof::new(&backend, "fib", dir.join(format!("pkgs/fib/{}", p)));
-            b.run(|| proof.run_and_prove(&inputs));
+            let proof_bytes = b.run(|| proof.run_and_prove(&inputs));
+            b.log("proof_size_bytes", proof_bytes.len());
+            b.log(
+                "compressed_proof_size_bytes",
+                zstd::encode_all(&proof_bytes[..], 21).unwrap().len(),
+            );
         },
     );
 
