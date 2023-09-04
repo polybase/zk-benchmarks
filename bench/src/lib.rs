@@ -9,11 +9,12 @@ use std::env;
 use std::fmt::Debug;
 use std::time::{Duration, Instant};
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 pub struct Benchmark<'a> {
     name: &'a str,
+    results: Vec<BenchmarkGroup>,
+    #[serde(skip)]
     config: BenchmarkConfig,
-    timings: Vec<(String, BenchmarkResult)>,
 }
 
 impl<'a> Benchmark<'a> {
@@ -21,7 +22,7 @@ impl<'a> Benchmark<'a> {
         Benchmark {
             name,
             config: BenchmarkConfig::default(),
-            timings: Vec::new(),
+            results: Vec::new(),
         }
     }
 
@@ -29,7 +30,7 @@ impl<'a> Benchmark<'a> {
         Benchmark {
             name,
             config,
-            timings: Vec::new(),
+            results: Vec::new(),
         }
     }
 
@@ -37,7 +38,84 @@ impl<'a> Benchmark<'a> {
         Benchmark {
             name,
             config: BenchmarkConfig::from_env(),
-            timings: Vec::new(),
+            results: Vec::new(),
+        }
+    }
+
+    pub fn group(&mut self, name: &str) -> &mut BenchmarkGroup {
+        let group = BenchmarkGroup::new(name.to_string(), &self.config);
+        self.results.push(group);
+        // We can unwrap as we just added the item
+        self.results.last_mut().unwrap()
+    }
+
+    pub fn benchmark<F: Fn(&mut BenchmarkRun)>(&mut self, name: &str, func: F) {
+        let group = self.group(name);
+        group.benchmark(name, func);
+    }
+
+    pub fn benchmark_with<F: Fn(&mut BenchmarkRun, &P) -> T, T, P: Debug>(
+        &mut self,
+        name: &str,
+        params: &[(&str, P)],
+        func: F,
+    ) {
+        let group = self.group(name);
+        group.benchmark_with(name, params, func);
+    }
+
+    pub fn output(&self) {
+        let output = json!(self);
+        let output_str = serde_json::to_string_pretty(&output).expect("failed to serialize");
+        if let Some(path) = &self.config.output_dir {
+            let path = std::path::Path::new(path);
+            std::fs::write(path.join(self.name).with_extension("json"), &output_str)
+                .expect("failed to write output");
+        }
+        println!("{}", &output_str);
+    }
+}
+
+#[derive(Debug, Default, Clone)]
+pub struct BenchmarkConfig {
+    pub quick: bool,
+    pub output_dir: Option<String>,
+}
+
+impl BenchmarkConfig {
+    pub fn from_env() -> Self {
+        let quick = env::var("BENCH_QUICK").unwrap_or("false".to_string());
+        BenchmarkConfig {
+            quick: quick == "true" || quick == "1",
+            output_dir: env::var("BENCH_OUTPUT_DIR").ok(),
+        }
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct BenchmarkGroup {
+    name: String,
+    results: Vec<BenchmarkResult>,
+    #[serde(skip)]
+    config: BenchmarkConfig,
+}
+
+impl BenchmarkGroup {
+    pub fn new(name: String, config: &BenchmarkConfig) -> Self {
+        BenchmarkGroup {
+            name,
+            results: Vec::new(),
+            config: config.clone(),
+        }
+    }
+
+    pub fn group(&mut self, name: &str) -> &mut BenchmarkGroup {
+        let group = BenchmarkGroup::new(name.to_string(), &self.config);
+        self.results.push(BenchmarkResult::Group(group));
+        // We can unwrap as we just added the item
+        match self.results.last_mut().unwrap() {
+            BenchmarkResult::Group(ref mut group) => group,
+            _ => unreachable!(),
         }
     }
 
@@ -56,13 +134,7 @@ impl<'a> Benchmark<'a> {
         })
         .unwrap();
 
-        self.timings.push((
-            name.to_owned(),
-            BenchmarkResult {
-                name: name.to_owned(),
-                run,
-            },
-        ));
+        self.results.push(BenchmarkResult::Run(run));
     }
 
     pub fn benchmark_with<F: Fn(&mut BenchmarkRun, &P) -> T, T, P: Debug>(
@@ -82,57 +154,19 @@ impl<'a> Benchmark<'a> {
             })
             .unwrap();
 
-            self.timings.push((
-                name.to_owned(),
-                BenchmarkResult {
-                    name: name.to_owned(),
-                    run,
-                },
-            ));
-        }
-    }
-
-    pub fn output(&self) {
-        let output = json!({ "name": self.name, "timings": json!(self.timings) });
-        let output_str = serde_json::to_string_pretty(&output).expect("failed to serialize");
-        if let Some(path) = &self.config.output_dir {
-            let path = std::path::Path::new(path);
-            std::fs::write(path.join(self.name).with_extension("json"), &output_str)
-                .expect("failed to write output");
-        }
-        println!("{}", &output_str);
-    }
-}
-
-#[derive(Debug, Default)]
-pub struct BenchmarkConfig {
-    pub quick: bool,
-    pub output_dir: Option<String>,
-}
-
-impl BenchmarkConfig {
-    pub fn from_env() -> Self {
-        let quick = env::var("BENCH_QUICK").unwrap_or("false".to_string());
-        BenchmarkConfig {
-            quick: quick == "true" || quick == "1",
-            output_dir: env::var("BENCH_OUTPUT_DIR").ok(),
+            self.results.push(BenchmarkResult::Run(run));
         }
     }
 }
 
-#[derive(Debug, Deserialize, Serialize)]
-pub struct BenchmarkResult {
-    pub name: String,
-    pub run: BenchmarkRun,
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum BenchmarkResult {
+    Group(BenchmarkGroup),
+    Run(BenchmarkRun),
 }
 
-impl BenchmarkResult {
-    pub fn new(name: String, run: BenchmarkRun) -> Self {
-        BenchmarkResult { name, run }
-    }
-}
-
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct BenchmarkRun {
     pub name: String,
     pub param: String,
