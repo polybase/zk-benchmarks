@@ -44,8 +44,6 @@ fn main() {
             log_session(&b.run(prove), b);
         },
     );
-    bench.output();
-    return;
 
     bench.benchmark_with(
         "SHA256",
