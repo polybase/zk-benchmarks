@@ -1,7 +1,8 @@
 use miden::{Assembler, ProofOptions};
 use miden_processor::{MemAdviceProvider, StackInputs, VmStateIterator};
+use miden_prover::ExecutionProof;
 
-pub fn blake3(n_bytes: usize) -> (impl Fn(), VmStateIterator) {
+pub fn blake3(n_bytes: usize) -> (impl Fn() -> ExecutionProof, VmStateIterator) {
     // Input: 32-bit value per element, 16 elements per hash. 8 elements will be spent on the previous hash.
     // Output: 32-byte digest stored in the first 8 elements of the stack.
     let blake3_ops = f64::ceil(n_bytes as f64 / 4. / 8.);
@@ -31,13 +32,15 @@ pub fn blake3(n_bytes: usize) -> (impl Fn(), VmStateIterator) {
 
     (
         move || {
-            let (_stack, _proof) = miden::prove(
+            let (_stack, proof) = miden::prove(
                 &program,
                 StackInputs::default(),
                 MemAdviceProvider::default(),
                 ProofOptions::default(),
             )
             .unwrap();
+
+            proof
         },
         vm,
     )

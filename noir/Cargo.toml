@@ -15,6 +15,7 @@ acvm-backend-barretenberg = { version = "0.11.0", default-features = false }
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 tokio = { version = "1.0", features = ["io-std"] }
+zstd = "0.12.4"
 
 [dev-dependencies]
 bench = { path = "../bench" }
