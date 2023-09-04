@@ -70,7 +70,7 @@ impl<'a, B: Backend> Proof<'a, B> {
         // return_value,
     }
 
-    pub fn run_and_prove(self, inputs_map: &InputMap) {
+    pub fn run_and_prove(self, inputs_map: &InputMap) -> Vec<u8> {
         let Proof {
             backend,
             common_reference_string,

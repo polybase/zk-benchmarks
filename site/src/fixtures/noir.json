@@ -8,13 +8,13 @@
         "run": {
           "metrics": {
             "compressed_proof_size_bytes": 2153,
-            "memory_usage_bytes": 271351808,
+            "memory_usage_bytes": 242876416,
             "proof_size_bytes": 2144
           },
           "name": "SHA256",
           "param": "1 byte",
           "time": {
-            "nanos": 23481875,
+            "nanos": 884643792,
             "secs": 1
           }
         }
@@ -27,13 +27,13 @@
         "run": {
           "metrics": {
             "compressed_proof_size_bytes": 2153,
-            "memory_usage_bytes": 312246272,
+            "memory_usage_bytes": 227344384,
             "proof_size_bytes": 2144
           },
           "name": "SHA256",
           "param": "10 bytes",
           "time": {
-            "nanos": 66942625,
+            "nanos": 49805333,
             "secs": 1
           }
         }
@@ -46,13 +46,13 @@
         "run": {
           "metrics": {
             "compressed_proof_size_bytes": 2153,
-            "memory_usage_bytes": 278429696,
+            "memory_usage_bytes": 279134208,
             "proof_size_bytes": 2144
           },
           "name": "SHA256",
           "param": "100 bytes",
           "time": {
-            "nanos": 122631667,
+            "nanos": 253327333,
             "secs": 1
           }
         }
@@ -65,14 +65,14 @@
         "run": {
           "metrics": {
             "compressed_proof_size_bytes": 2153,
-            "memory_usage_bytes": 520208384,
+            "memory_usage_bytes": 474841088,
             "proof_size_bytes": 2144
           },
           "name": "SHA256",
           "param": "1000 bytes",
           "time": {
-            "nanos": 982513916,
-            "secs": 1
+            "nanos": 524637708,
+            "secs": 2
           }
         }
       }
@@ -84,13 +84,146 @@
         "run": {
           "metrics": {
             "compressed_proof_size_bytes": 2153,
-            "memory_usage_bytes": 377470976,
+            "memory_usage_bytes": 376061952,
             "proof_size_bytes": 2144
           },
           "name": "assert",
           "param": "",
           "time": {
-            "nanos": 36648292,
+            "nanos": 53761042,
+            "secs": 0
+          }
+        }
+      }
+    ],
+    [
+      "Fibonacci",
+      {
+        "name": "Fibonacci",
+        "run": {
+          "metrics": {
+            "compressed_proof_size_bytes": 2153,
+            "memory_usage_bytes": 442368,
+            "proof_size_bytes": 2144
+          },
+          "name": "Fibonacci",
+          "param": "1",
+          "time": {
+            "nanos": 37877459,
+            "secs": 0
+          }
+        }
+      }
+    ],
+    [
+      "Fibonacci",
+      {
+        "name": "Fibonacci",
+        "run": {
+          "metrics": {
+            "compressed_proof_size_bytes": 2153,
+            "memory_usage_bytes": 458752,
+            "proof_size_bytes": 2144
+          },
+          "name": "Fibonacci",
+          "param": "10",
+          "time": {
+            "nanos": 70878208,
+            "secs": 0
+          }
+        }
+      }
+    ],
+    [
+      "Fibonacci",
+      {
+        "name": "Fibonacci",
+        "run": {
+          "metrics": {
+            "compressed_proof_size_bytes": 2153,
+            "memory_usage_bytes": 458752,
+            "proof_size_bytes": 2144
+          },
+          "name": "Fibonacci",
+          "param": "100",
+          "time": {
+            "nanos": 36931875,
+            "secs": 0
+          }
+        }
+      }
+    ],
+    [
+      "Fibonacci",
+      {
+        "name": "Fibonacci",
+        "run": {
+          "metrics": {
+            "compressed_proof_size_bytes": 2153,
+            "memory_usage_bytes": 442368,
+            "proof_size_bytes": 2144
+          },
+          "name": "Fibonacci",
+          "param": "1000",
+          "time": {
+            "nanos": 62274125,
+            "secs": 0
+          }
+        }
+      }
+    ],
+    [
+      "Fibonacci",
+      {
+        "name": "Fibonacci",
+        "run": {
+          "metrics": {
+            "compressed_proof_size_bytes": 2153,
+            "memory_usage_bytes": 458752,
+            "proof_size_bytes": 2144
+          },
+          "name": "Fibonacci",
+          "param": "10000",
+          "time": {
+            "nanos": 54238000,
+            "secs": 0
+          }
+        }
+      }
+    ],
+    [
+      "Fibonacci",
+      {
+        "name": "Fibonacci",
+        "run": {
+          "metrics": {
+            "compressed_proof_size_bytes": 2153,
+            "memory_usage_bytes": 442368,
+            "proof_size_bytes": 2144
+          },
+          "name": "Fibonacci",
+          "param": "100000",
+          "time": {
+            "nanos": 55291500,
+            "secs": 0
+          }
+        }
+      }
+    ],
+    [
+      "Fibonacci",
+      {
+        "name": "Fibonacci",
+        "run": {
+          "metrics": {
+            "compressed_proof_size_bytes": 2153,
+            "memory_usage_bytes": 507904,
+            "proof_size_bytes": 2144
+          },
+          "name": "Fibonacci",
+          "param": "1000000",
+          "time": {
+            "nanos": 47290833,
             "secs": 0
           }
         }

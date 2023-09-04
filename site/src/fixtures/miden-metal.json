@@ -7,16 +7,162 @@
         "name": "assert",
         "run": {
           "metrics": {
-            "compressed_proof_size_bytes": 47837,
+            "compressed_proof_size_bytes": 48417,
             "cycles": 8,
-            "memory_usage_bytes": 358170624,
-            "proof_size_bytes": 47828
+            "memory_usage_bytes": 356352000,
+            "proof_size_bytes": 48408
           },
           "name": "assert",
           "param": "",
           "time": {
-            "nanos": 43376292,
+            "nanos": 47465250,
             "secs": 0
+          }
+        }
+      }
+    ],
+    [
+      "multiple assert proof compression",
+      {
+        "name": "multiple assert proof compression",
+        "run": {
+          "metrics": {
+            "compressed_proof_size_bytes": 482027,
+            "memory_usage_bytes": 390266880,
+            "proof_size_bytes": 486068
+          },
+          "name": "multiple assert proof compression",
+          "param": "",
+          "time": {
+            "nanos": 0,
+            "secs": 0
+          }
+        }
+      }
+    ],
+    [
+      "multiple sha256 proof compression",
+      {
+        "name": "multiple sha256 proof compression",
+        "run": {
+          "metrics": {
+            "compressed_proof_size_bytes": 399266,
+            "memory_usage_bytes": 976699392,
+            "proof_size_bytes": 735222
+          },
+          "name": "multiple sha256 proof compression",
+          "param": "",
+          "time": {
+            "nanos": 0,
+            "secs": 0
+          }
+        }
+      }
+    ],
+    [
+      "Fibonacci",
+      {
+        "name": "Fibonacci",
+        "run": {
+          "metrics": {
+            "cycles": 8,
+            "memory_usage_bytes": 14041088
+          },
+          "name": "Fibonacci",
+          "param": "1",
+          "time": {
+            "nanos": 38511417,
+            "secs": 0
+          }
+        }
+      }
+    ],
+    [
+      "Fibonacci",
+      {
+        "name": "Fibonacci",
+        "run": {
+          "metrics": {
+            "cycles": 35,
+            "memory_usage_bytes": 13631488
+          },
+          "name": "Fibonacci",
+          "param": "10",
+          "time": {
+            "nanos": 47279833,
+            "secs": 0
+          }
+        }
+      }
+    ],
+    [
+      "Fibonacci",
+      {
+        "name": "Fibonacci",
+        "run": {
+          "metrics": {
+            "cycles": 309,
+            "memory_usage_bytes": 14303232
+          },
+          "name": "Fibonacci",
+          "param": "100",
+          "time": {
+            "nanos": 38162209,
+            "secs": 0
+          }
+        }
+      }
+    ],
+    [
+      "Fibonacci",
+      {
+        "name": "Fibonacci",
+        "run": {
+          "metrics": {
+            "cycles": 3048,
+            "memory_usage_bytes": 57573376
+          },
+          "name": "Fibonacci",
+          "param": "1000",
+          "time": {
+            "nanos": 78906959,
+            "secs": 0
+          }
+        }
+      }
+    ],
+    [
+      "Fibonacci",
+      {
+        "name": "Fibonacci",
+        "run": {
+          "metrics": {
+            "cycles": 30423,
+            "memory_usage_bytes": 490766336
+          },
+          "name": "Fibonacci",
+          "param": "10000",
+          "time": {
+            "nanos": 389111375,
+            "secs": 0
+          }
+        }
+      }
+    ],
+    [
+      "Fibonacci",
+      {
+        "name": "Fibonacci",
+        "run": {
+          "metrics": {
+            "cycles": 304173,
+            "memory_usage_bytes": 7895891968
+          },
+          "name": "Fibonacci",
+          "param": "100000",
+          "time": {
+            "nanos": 314614250,
+            "secs": 5
           }
         }
       }
@@ -29,13 +175,13 @@
           "metrics": {
             "compressed_proof_size_bytes": 73922,
             "cycles": 14534,
-            "memory_usage_bytes": 488636416,
+            "memory_usage_bytes": 496238592,
             "proof_size_bytes": 73913
           },
           "name": "SHA256",
           "param": "1 byte",
           "time": {
-            "nanos": 433470000,
+            "nanos": 403683792,
             "secs": 0
           }
         }
@@ -47,15 +193,15 @@
         "name": "SHA256",
         "run": {
           "metrics": {
-            "compressed_proof_size_bytes": 74207,
+            "compressed_proof_size_bytes": 72674,
             "cycles": 14534,
-            "memory_usage_bytes": 494223360,
-            "proof_size_bytes": 74198
+            "memory_usage_bytes": 510640128,
+            "proof_size_bytes": 72665
           },
           "name": "SHA256",
           "param": "10 bytes",
           "time": {
-            "nanos": 400960958,
+            "nanos": 414563375,
             "secs": 0
           }
         }
@@ -69,13 +215,13 @@
           "metrics": {
             "compressed_proof_size_bytes": 84938,
             "cycles": 58094,
-            "memory_usage_bytes": 1981956096,
+            "memory_usage_bytes": 2009251840,
             "proof_size_bytes": 84929
           },
           "name": "SHA256",
           "param": "100 bytes",
           "time": {
-            "nanos": 438307125,
+            "nanos": 478316875,
             "secs": 1
           }
         }
@@ -87,16 +233,16 @@
         "name": "SHA256",
         "run": {
           "metrics": {
-            "compressed_proof_size_bytes": 103358,
+            "compressed_proof_size_bytes": 104870,
             "cycles": 464654,
-            "memory_usage_bytes": 10800840704,
-            "proof_size_bytes": 103349
+            "memory_usage_bytes": 13298827264,
+            "proof_size_bytes": 104861
           },
           "name": "SHA256",
           "param": "1000 bytes",
           "time": {
-            "nanos": 613820542,
-            "secs": 15
+            "nanos": 155902375,
+            "secs": 13
           }
         }
       }
@@ -107,15 +253,15 @@
         "name": "Blake3",
         "run": {
           "metrics": {
-            "compressed_proof_size_bytes": 62958,
+            "compressed_proof_size_bytes": 61884,
             "cycles": 4823,
-            "memory_usage_bytes": 117768192,
-            "proof_size_bytes": 62949
+            "memory_usage_bytes": 119668736,
+            "proof_size_bytes": 61875
           },
           "name": "Blake3",
           "param": "1 byte",
           "time": {
-            "nanos": 136157333,
+            "nanos": 164250750,
             "secs": 0
           }
         }
@@ -127,15 +273,15 @@
         "name": "Blake3",
         "run": {
           "metrics": {
-            "compressed_proof_size_bytes": 61540,
+            "compressed_proof_size_bytes": 62022,
             "cycles": 4823,
-            "memory_usage_bytes": 125108224,
-            "proof_size_bytes": 61531
+            "memory_usage_bytes": 115113984,
+            "proof_size_bytes": 62013
           },
           "name": "Blake3",
           "param": "10 bytes",
           "time": {
-            "nanos": 120756000,
+            "nanos": 122629708,
             "secs": 0
           }
         }
@@ -149,13 +295,13 @@
           "metrics": {
             "compressed_proof_size_bytes": 73662,
             "cycles": 19244,
-            "memory_usage_bytes": 503398400,
+            "memory_usage_bytes": 482951168,
             "proof_size_bytes": 73653
           },
           "name": "Blake3",
           "param": "100 bytes",
           "time": {
-            "nanos": 374665333,
+            "nanos": 378452167,
             "secs": 0
           }
         }
@@ -167,15 +313,15 @@
         "name": "Blake3",
         "run": {
           "metrics": {
-            "compressed_proof_size_bytes": 92165,
+            "compressed_proof_size_bytes": 91573,
             "cycles": 153854,
-            "memory_usage_bytes": 3988865024,
-            "proof_size_bytes": 92156
+            "memory_usage_bytes": 3994779648,
+            "proof_size_bytes": 91564
           },
           "name": "Blake3",
           "param": "1000 bytes",
           "time": {
-            "nanos": 686148125,
+            "nanos": 747853667,
             "secs": 2
           }
         }
@@ -187,15 +333,15 @@
         "name": "RPO",
         "run": {
           "metrics": {
-            "compressed_proof_size_bytes": 68678,
+            "compressed_proof_size_bytes": 68102,
             "cycles": 8717,
-            "memory_usage_bytes": 219463680,
-            "proof_size_bytes": 68669
+            "memory_usage_bytes": 238567424,
+            "proof_size_bytes": 68093
           },
           "name": "RPO",
           "param": "10000 bytes",
           "time": {
-            "nanos": 217676417,
+            "nanos": 210553542,
             "secs": 0
           }
         }
@@ -209,13 +355,13 @@
           "metrics": {
             "compressed_proof_size_bytes": 84872,
             "cycles": 86926,
-            "memory_usage_bytes": 2008285184,
+            "memory_usage_bytes": 1958608896,
             "proof_size_bytes": 84863
           },
           "name": "RPO",
           "param": "100000 bytes",
           "time": {
-            "nanos": 419176417,
+            "nanos": 419291625,
             "secs": 1
           }
         }
@@ -229,14 +375,14 @@
           "metrics": {
             "compressed_proof_size_bytes": 104294,
             "cycles": 869071,
-            "memory_usage_bytes": 12573179904,
+            "memory_usage_bytes": 13549584384,
             "proof_size_bytes": 104285
           },
           "name": "RPO",
           "param": "1000000 bytes",
           "time": {
-            "nanos": 143452125,
-            "secs": 14
+            "nanos": 383576875,
+            "secs": 13
           }
         }
       }
