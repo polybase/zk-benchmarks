@@ -30,13 +30,8 @@ fn main() {
 
             inputs.insert("x".to_string(), InputValue::Vec(bytes));
 
-            let proof = Proof::new(
-                &backend,
-                "sha256",
-                dir.join(format!("pkgs/sha256/{}", p)),
-                &inputs,
-            );
-            b.run(|| proof.prove());
+            let proof = Proof::new(&backend, "sha256", dir.join(format!("pkgs/sha256/{}", p)));
+            b.run(|| proof.run_and_prove(&inputs));
         },
     );
 
@@ -49,10 +44,34 @@ fn main() {
         inputs.insert("x".to_string(), InputValue::Field((1_u128).into()));
         inputs.insert("y".to_string(), InputValue::Field((2_u128).into()));
 
-        let proof = Proof::new(&backend, "assert", dir.join("pkgs/assert"), &inputs);
-        b.run(|| proof.prove());
-        // b.log("cycles", last_vm_state.clk as usize);
+        let proof = Proof::new(&backend, "assert", dir.join("pkgs/assert"));
+        b.run(|| proof.run_and_prove(&inputs));
     });
+
+    bench.benchmark_with(
+        "Fibonacci",
+        &[
+            ("1", 1),
+            ("10", 10),
+            ("100", 100),
+            ("1000", 1000),
+            ("10000", 10000),
+            ("100000", 100000),
+            ("1000000", 1000000),
+        ],
+        |b, p| {
+            let backend = noir::backends::ConcreteBackend::default();
+            let dir = std::env::current_dir().expect("current dir to exist");
+
+            let mut inputs = InputMap::new();
+
+            inputs.insert("a_start".to_string(), InputValue::Field((0_u128).into()));
+            inputs.insert("b_start".to_string(), InputValue::Field((1_u128).into()));
+
+            let proof = Proof::new(&backend, "fib", dir.join(format!("pkgs/fib/{}", p)));
+            b.run(|| proof.run_and_prove(&inputs));
+        },
+    );
 
     bench.output();
 }

@@ -161,7 +161,7 @@ impl BenchmarkRun {
         F: FnOnce() -> R,
     {
         let start_time = Instant::now();
-        let out = func();
+        let out: R = func();
         let elapsed_time = start_time.elapsed();
         self.time = elapsed_time;
         out

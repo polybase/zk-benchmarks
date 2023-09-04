@@ -1,7 +1,7 @@
 extern crate miden_bench;
 
 use bench::Benchmark;
-use miden_bench::{blake3::blake3, rpo::rpo, sha::sha};
+use miden_bench::{blake3::blake3, fib::fib, rpo::rpo, sha::sha};
 
 fn main() {
     #[allow(unused_variables)]
@@ -18,6 +18,24 @@ fn main() {
         b.run(setup);
         b.log("cycles", last_vm_state.clk as usize);
     });
+
+    bench.benchmark_with(
+        "Fibonacci",
+        &[
+            ("1", 1),
+            ("10", 10),
+            ("100", 100),
+            ("1000", 1000),
+            ("10000", 10000),
+            ("100000", 100000),
+        ],
+        |b, p| {
+            let (setup, vm) = fib(*p);
+            let last_vm_state = vm.last().unwrap().unwrap();
+            b.run(setup);
+            b.log("cycles", last_vm_state.clk as usize);
+        },
+    );
 
     // Averages 464.654 cycles per byte
     bench.benchmark_with(

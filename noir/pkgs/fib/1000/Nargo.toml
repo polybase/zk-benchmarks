@@ -1,0 +1,9 @@
+
+[package]
+name = fib_1000
+type = bin
+authors = []
+compiler_version = 0.10.3
+
+[dependencies]
+
