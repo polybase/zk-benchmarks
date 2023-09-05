@@ -46,13 +46,16 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - uses: Swatinem/rust-cache@v2
   
     - name: Run Miden Multi CPU benchmarks
       working-directory: ./miden
+      if: matrix.runner != 'macos-dedicated'
       env:
         BENCH_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
       run: |
-        cargo bench -q --bench bench -F multi-cpu
+        cargo bench -F multi-cpu
 
     - name: Run Miden Metal benchmarks
       if: matrix.runner == 'macos-dedicated'
@@ -60,7 +63,7 @@ jobs:
       env:
         BENCH_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
       run: |
-        cargo bench -q --bench bench -F metal
+        cargo bench -F metal
 
   risc_zero:
     runs-on: ${{ matrix.runner }}
@@ -72,11 +75,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Which Cargo
+        run: which cargo
+
+      - name: Print PATH
+        run: echo $PATH
+
+      - name: Install cargo-risczero
+        run: cargo install cargo-risczero
+
       - name: Install risczero
-        run: cargo install cargo-risczero && cargo risczero install
+        run: cargo risczero install
 
       - name: Run Risc-Zero Multi CPU benchmarks
         working-directory: ./risc-zero/host
+        if: matrix.runner != 'macos-dedicated'
         env:
           BENCH_OUTPUT_DIR: "../../.benchmarks/${{ matrix.runner }}"
         run: |
