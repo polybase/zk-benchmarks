@@ -5,7 +5,9 @@ on:
   push:
     branches:
       - main
+      - eng-1009-setup-ci-to-use-hosted-runners-for-benchmarks
     paths:
+      - .github/workflows/benchmarks.yml
       - miden/Cargo.lock
       - miden/benches/bench.rs
       - risc-zero/host/Cargo.toml
@@ -13,9 +15,34 @@ on:
       - noir/benches/bench.rs
       - noir/Cargo.lock
 
+env:
+  AWS_REGION: us-east-1
+  # comma seperated list of instances to start/stop for this action
+  INSTANCE_ID: i-0c9244d7e2b3893b5
+
 jobs:
+  start-runner:
+    runs-on: ubuntu-latest
+    outputs:
+      instance_id: ${{ steps.set_instance.outputs.instance_id }}
+    
+    steps:
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Start existing EC2 instance
+      run: |
+        aws ec2 start-instances --instance-ids ${INSTANCE_ID}
+        echo "Waiting for instance to be ready..."
+        aws ec2 wait instance-running --instance-ids ${INSTANCE_ID}
+
   miden:
-    runs-on: ubuntu-latest-16-cores
+    runs-on: ubuntu-16-shared
+    needs: start-runner
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -44,7 +71,8 @@ jobs:
 
 
   risc_zero:
-    runs-on: ubuntu-latest-16-cores
+    runs-on: ubuntu-16-shared
+    needs: start-runner
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -52,19 +80,12 @@ jobs:
       - name: Install risczero
         run: cargo install cargo-risczero && cargo risczero install
 
-      - name: Run Risc-Zero benchmarks
-        working-directory: ./risc-zero/host
-        env:
-          BENCH_OUTPUT_DIR: "../../.benchmarks"
-        run: |
-          cargo bench -q --bench bench
-
       - name: Run Risc-Zero Multi CPU benchmarks
         working-directory: ./risc-zero/host
         env:
           BENCH_OUTPUT_DIR: "../../.benchmarks"
         run: |
-          cargo bench -q --bench bench multi-cpu
+          cargo bench multi-cpu
 
       - name: Run Risc-Zero Metal benchmarks
         if: false # No Metal on Ubuntu, GitHub Actions doesn't have Mac runners
@@ -72,10 +93,11 @@ jobs:
         env:
           BENCH_OUTPUT_DIR: "../../.benchmarks"
         run: |
-          cargo bench -q -F metal --bench bench metal
+          cargo bench -F metal metal
 
   noir:
-    runs-on: ubuntu-latest-16-cores
+    runs-on: ubuntu-16-shared
+    needs: start-runner
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -116,6 +138,16 @@ jobs:
             && git add .
             && git commit -m "Update benchmarks" 
             && git push
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      
+      - name: Stop EC2 instance
+        run: aws ec2 stop-instances --instance-ids ${{ env.INSTANCE_ID }}
 
 
 
