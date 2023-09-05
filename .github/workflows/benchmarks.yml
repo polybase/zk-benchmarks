@@ -147,11 +147,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Create meta.json
+        run: | 
+          echo "{\"lastUpdated\": \"$(date -u +\"%Y-%m-%dT%H:%M:%SZ\")\"}" > meta.json
+
       - name: Format benchmark JSONs
         run: |
           for f in .benchmarks/*.json; do
             jq . $f > $f.tmp && mv $f.tmp $f
           done
+          
       - name: Copy benchmark results to site
         run: |
           cp -R .benchmarks/* site/src/fixtures
