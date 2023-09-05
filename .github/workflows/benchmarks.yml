@@ -47,6 +47,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+
     - uses: Swatinem/rust-cache@v2
   
     - name: Run Miden Multi CPU benchmarks
@@ -75,19 +81,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
       - uses: Swatinem/rust-cache@v2
 
-      - name: Which Cargo
-        run: which cargo
-
-      - name: Print PATH
-        run: echo $PATH
-
-      - name: Install cargo-risczero
-        run: cargo install cargo-risczero
-
       - name: Install risczero
-        run: cargo risczero install
+        run: cargo install cargo-risczero && cargo risczero install
 
       - name: Run Risc-Zero Multi CPU benchmarks
         working-directory: ./risc-zero/host
@@ -114,6 +117,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
 
       - uses: Swatinem/rust-cache@v2
 
