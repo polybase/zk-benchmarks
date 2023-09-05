@@ -1,0 +1,19 @@
+use std::rc::Rc;
+
+use methods::FIB_ELF;
+use risc0_zkvm::{prove::Prover, Executor, ExecutorEnv, Receipt, Session, VerifierContext};
+
+pub fn fib(prover: Rc<dyn Prover>, n: u32) -> impl FnMut() -> (Receipt, Session) {
+    let env = ExecutorEnv::builder().add_input(&[n]).build().unwrap();
+
+    let mut exec = Executor::from_elf(env, FIB_ELF).unwrap();
+
+    move || {
+        let session = exec.run().unwrap();
+        let receipt = prover
+            .prove_session(&VerifierContext::default(), &session)
+            .unwrap();
+
+        (receipt, session)
+    }
+}

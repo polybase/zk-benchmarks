@@ -3,7 +3,7 @@ extern crate host;
 use std::rc::Rc;
 
 use bench::{Benchmark, BenchmarkRun};
-use host::{blake3::blake3, sha::sha};
+use host::{blake3::blake3, fib::fib, sha::sha};
 use risc0_zkvm::{prove::get_prover, Receipt, Session};
 
 fn main() {
@@ -26,6 +26,24 @@ fn main() {
         let prove = host::assert::assert(Rc::clone(&prover), 1, 2);
         log_session(&b.run(prove), b);
     });
+
+    bench.benchmark_with(
+        "Fibonacci",
+        &[
+            ("1", 1),
+            ("10", 10),
+            ("100", 100),
+            ("1000", 1000),
+            ("10000", 10000),
+            ("100000", 100000),
+        ],
+        |b, n| {
+            let prover = prover();
+
+            let prove = fib(Rc::clone(&prover), *n);
+            log_session(&b.run(prove), b);
+        },
+    );
 
     bench.benchmark_with(
         "SHA256",

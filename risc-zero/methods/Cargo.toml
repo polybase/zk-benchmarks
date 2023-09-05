@@ -11,4 +11,5 @@ methods = [
     "sha",
     "blake3",
     "assert",
+    "fib",
 ]

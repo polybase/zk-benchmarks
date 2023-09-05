@@ -18,8 +18,8 @@ pub struct Proof<'a, B: Backend> {
     backend: &'a B,
     common_reference_string: Vec<u8>,
     circuit: Circuit,
-    witness: WitnessMap,
     proving_key: Vec<u8>,
+    abi: Abi,
 }
 
 impl<'a, B: Backend> Proof<'a, B> {
@@ -27,7 +27,6 @@ impl<'a, B: Backend> Proof<'a, B> {
         backend: &'a B,
         name: &str,
         path: impl AsRef<Path> + std::fmt::Debug,
-        inputs_map: &InputMap,
     ) -> Proof<'a, B> {
         let (mut context, crate_id) = prepare_package(&Package {
             name: name.parse().expect("name"),
@@ -61,38 +60,37 @@ impl<'a, B: Backend> Proof<'a, B> {
             .preprocess(&common_reference_string, &optimized_circuit)
             .expect("preprocess failed");
 
-        let initial_witness = abi
+        Proof {
+            backend,
+            common_reference_string,
+            circuit: optimized_circuit,
+            proving_key,
+            abi,
+        }
+        // return_value,
+    }
+
+    pub fn run_and_prove(self, inputs_map: &InputMap) -> Vec<u8> {
+        let Proof {
+            backend,
+            common_reference_string,
+            circuit,
+            proving_key,
+            abi,
+        } = self;
+
+        let initial_witness: WitnessMap = abi
             .encode(inputs_map, None)
             .expect("unable to encode inputs");
 
-        let solved_witness =
-            execute_circuit(backend, optimized_circuit.clone(), initial_witness, true)
-                .expect("solved witness");
+        let witness = execute_circuit(backend, circuit.clone(), initial_witness, true)
+            .expect("solved witness");
 
         // Write public inputs into Verifier.toml
         // let public_abi = abi.clone().public_abi();
         // let (_, return_value) = public_abi
         //     .decode(&solved_witness)
         //     .expect("unable to decode public abi");
-
-        Proof {
-            backend,
-            common_reference_string,
-            circuit: optimized_circuit,
-            witness: solved_witness,
-            proving_key,
-        }
-        // return_value,
-    }
-
-    pub fn prove(self) -> Vec<u8> {
-        let Proof {
-            backend,
-            common_reference_string,
-            circuit,
-            witness,
-            proving_key,
-        } = self;
 
         backend
             .prove_with_pk(
