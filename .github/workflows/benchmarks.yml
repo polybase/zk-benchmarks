@@ -163,10 +163,17 @@ jobs:
 
       - name: Commit benchmark results
         run: |
+<<<<<<< HEAD
           git config --global user.email "calum.moore@gmail.com" \
             && git config --global user.name "calummoore" \
             && git add . \
             && git commit -m "Update benchmarks" \
+=======
+          git config --global user.email "calum.moore@gmail.com" 
+            && git config --global user.name "Polybase CI"
+            && git add .
+            && git commit -m "Update benchmarks" 
+>>>>>>> 264a8e0 (Use personal email for CI vercel)
             && git push
 
   clean-up:
