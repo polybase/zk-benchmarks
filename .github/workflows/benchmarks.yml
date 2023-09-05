@@ -149,7 +149,7 @@ jobs:
 
       - name: Create meta.json
         run: | 
-          echo "{\"lastUpdated\": \"$(date -u +\"%Y-%m-%dT%H:%M:%SZ\")\"}" > meta.json
+          echo "{\"lastUpdated\": $(date -u +\"%Y-%m-%dT%H:%M:%SZ\")}" > meta.json
 
       - name: Format benchmark JSONs
         run: |
@@ -163,8 +163,8 @@ jobs:
 
       - name: Commit benchmark results
         run: |
-          git config --global user.email "calum.moore@gmailcom" \
-            && git config --global user.name "Polybase CI" \
+          git config --global user.email "calum.moore@gmail.com" \
+            && git config --global user.name "calummoore" \
             && git add . \
             && git commit -m "Update benchmarks" \
             && git push
