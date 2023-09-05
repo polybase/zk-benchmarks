@@ -97,6 +97,7 @@ impl<'a> Benchmark<'a> {
         let output_str = serde_json::to_string_pretty(&output).expect("failed to serialize");
         if let Some(path) = &self.config.output_dir {
             let path = std::path::Path::new(path);
+            std::fs::create_dir_all(path).expect("failed to create output dir");
             std::fs::write(path.join(self.name).with_extension("json"), &output_str)
                 .expect("failed to write output");
         }
