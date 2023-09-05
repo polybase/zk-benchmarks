@@ -61,7 +61,7 @@ impl<'a> Benchmark<'a> {
         func: F,
     ) {
         let group = self.group(name);
-        group.benchmark_with(name, params, func);
+        group.benchmark_with(params, func);
     }
 
     pub fn output(&self) {
@@ -123,7 +123,7 @@ impl BenchmarkGroup {
         let run = fork(|| {
             let stop_monitoring_memory = memory::monitor();
 
-            let mut run = BenchmarkRun::new(name.to_owned(), String::new());
+            let mut run = BenchmarkRun::new(name.to_owned());
             func(&mut run);
 
             if let Some(memory_usage_bytes) = stop_monitoring_memory() {
@@ -139,16 +139,13 @@ impl BenchmarkGroup {
 
     pub fn benchmark_with<F: Fn(&mut BenchmarkRun, &P) -> T, T, P: Debug>(
         &mut self,
-        name: &str,
         params: &[(&str, P)],
         func: F,
     ) {
-        for p in params
-            .iter()
-            .take(if self.config.quick { 1 } else { usize::MAX })
-        {
+        let quick = self.config.quick;
+        for p in params.iter().take(if quick { 1 } else { usize::MAX }) {
             let run = fork(|| {
-                let mut run = BenchmarkRun::new(name.to_owned(), p.0.to_owned());
+                let mut run = BenchmarkRun::new(p.0.to_owned());
                 func(&mut run, &p.1);
                 run
             })
@@ -169,16 +166,14 @@ pub enum BenchmarkResult {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BenchmarkRun {
     pub name: String,
-    pub param: String,
     pub time: Duration,
     pub metrics: HashMap<String, usize>,
 }
 
 impl BenchmarkRun {
-    fn new(name: String, param: String) -> Self {
+    fn new(name: String) -> Self {
         BenchmarkRun {
             name,
-            param,
             time: Duration::new(0, 0),
             metrics: HashMap::new(),
         }
