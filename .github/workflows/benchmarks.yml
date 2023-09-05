@@ -149,7 +149,7 @@ jobs:
 
       - name: Create meta.json
         run: | 
-          echo "{\"lastUpdated\": $(date -u +\"%Y-%m-%dT%H:%M:%SZ\")}" > meta.json
+          echo "{\"lastUpdated\": $(date -u +\"%Y-%m-%dT%H:%M:%SZ\")}" > .benchmarks/meta.json
 
       - name: Format benchmark JSONs
         run: |
