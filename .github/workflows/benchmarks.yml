@@ -158,10 +158,10 @@ jobs:
 
       - name: Commit benchmark results
         run: |
-          git config --global user.email "calum.moore@gmail.com" 
-            && git config --global user.name "Polybase CI"
-            && git add .
-            && git commit -m "Update benchmarks" 
+          git config --global user.email "calum.moore@gmailcom" \
+            && git config --global user.name "Polybase CI" \
+            && git add . \
+            && git commit -m "Update benchmarks" \
             && git push
 
   clean-up:
