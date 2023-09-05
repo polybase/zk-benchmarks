@@ -144,6 +144,9 @@ jobs:
     needs: [miden, risc_zero, noir]
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Format benchmark JSONs
         run: |
           for f in .benchmarks/*.json; do
