@@ -5,7 +5,9 @@ on:
   push:
     branches:
       - main
+      - eng-1009-setup-ci-to-use-hosted-runners-for-benchmarks
     paths:
+      - .github/workflows/benchmarks.yml
       - miden/Cargo.lock
       - miden/benches/bench.rs
       - risc-zero/host/Cargo.toml
@@ -13,72 +15,114 @@ on:
       - noir/benches/bench.rs
       - noir/Cargo.lock
 
+env:
+  AWS_REGION: us-east-1
+  # comma seperated list of instances to start/stop for this action
+  INSTANCE_ID: i-0c9244d7e2b3893b5
+
 jobs:
+  start-runner:
+    runs-on: ubuntu-latest    
+    steps:
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Start existing EC2 instance
+      run: |
+        aws ec2 start-instances --instance-ids ${INSTANCE_ID}
+        echo "Waiting for instance to be ready..."
+        aws ec2 wait instance-running --instance-ids ${INSTANCE_ID}
+
   miden:
-    runs-on: ubuntu-latest-16-cores
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        runner: ['ubuntu-16-shared', 'ubuntu-latest-64-cores']
+    needs: start-runner
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-  
-    - name: Run Miden Single CPU benchmarks
-      working-directory: ./miden
-      env:
-        BENCH_OUTPUT_DIR: "../.benchmarks"
-      run: |
-        cargo bench -q --bench bench
 
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+
+    - uses: Swatinem/rust-cache@v2
+  
     - name: Run Miden Multi CPU benchmarks
       working-directory: ./miden
+      if: matrix.runner != 'macos-dedicated'
       env:
-        BENCH_OUTPUT_DIR: "../.benchmarks"
+        BENCH_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
       run: |
-        cargo bench -q --bench bench -F multi-cpu
+        cargo bench -F multi-cpu
 
     - name: Run Miden Metal benchmarks
-      if: false # No Metal on Ubuntu, GitHub Actions doesn't have Mac runners
+      if: matrix.runner == 'macos-dedicated'
       working-directory: ./miden
       env:
-        BENCH_OUTPUT_DIR: "../.benchmarks"
+        BENCH_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
       run: |
-        cargo bench -q --bench bench -F metal
-
+        cargo bench -F metal
 
   risc_zero:
-    runs-on: ubuntu-latest-16-cores
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        runner: ['ubuntu-16-shared', 'ubuntu-latest-64-cores']
+    needs: start-runner
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - uses: Swatinem/rust-cache@v2
 
       - name: Install risczero
         run: cargo install cargo-risczero && cargo risczero install
 
-      - name: Run Risc-Zero benchmarks
-        working-directory: ./risc-zero/host
-        env:
-          BENCH_OUTPUT_DIR: "../../.benchmarks"
-        run: |
-          cargo bench -q --bench bench
-
       - name: Run Risc-Zero Multi CPU benchmarks
         working-directory: ./risc-zero/host
+        if: matrix.runner != 'macos-dedicated'
         env:
-          BENCH_OUTPUT_DIR: "../../.benchmarks"
+          BENCH_OUTPUT_DIR: "../../.benchmarks/${{ matrix.runner }}"
         run: |
-          cargo bench -q --bench bench multi-cpu
+          cargo bench multi-cpu
 
       - name: Run Risc-Zero Metal benchmarks
-        if: false # No Metal on Ubuntu, GitHub Actions doesn't have Mac runners
+        if: matrix.runner == 'macos-dedicated'
         working-directory: ./risc-zero/host
         env:
-          BENCH_OUTPUT_DIR: "../../.benchmarks"
+          BENCH_OUTPUT_DIR: "../../.benchmarks/${{ matrix.runner }}"
         run: |
-          cargo bench -q -F metal --bench bench metal
+          cargo bench -F metal metal
 
   noir:
-    runs-on: ubuntu-latest-16-cores
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        runner: ['ubuntu-16-shared', 'ubuntu-latest-64-cores']
+    needs: start-runner
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
 
       - uses: Swatinem/rust-cache@v2
 
@@ -90,7 +134,7 @@ jobs:
       - name: Run cargo bench in Nix shell
         working-directory: ./noir
         env:
-          BENCH_OUTPUT_DIR: "../.benchmarks"
+          BENCH_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
         run: |
           source $HOME/.nix-profile/etc/profile.d/nix.sh
           nix-shell --run "nix-shell -p clang --run 'cargo bench'"
@@ -100,22 +144,45 @@ jobs:
     needs: [miden, risc_zero, noir]
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create meta.json
+        run: | 
+          echo "{\"lastUpdated\": $(date -u +\"%Y-%m-%dT%H:%M:%SZ\")}" > .benchmarks/meta.json
+
       - name: Format benchmark JSONs
         run: |
           for f in .benchmarks/*.json; do
             jq . $f > $f.tmp && mv $f.tmp $f
           done
+          
       - name: Copy benchmark results to site
         run: |
           cp -R .benchmarks/* site/src/fixtures
 
       - name: Commit benchmark results
         run: |
-          git config --global user.email "hello@polybase.xyz" 
-            && git config --global user.name "Polybase CI"
-            && git add .
-            && git commit -m "Update benchmarks" 
+          git config --global user.email "calum.moore@gmail.com" \
+            && git config --global user.name "calummoore" \
+            && git add . \
+            && git commit -m "Update benchmarks" \
             && git push
+
+  clean-up:
+    runs-on: ubuntu-latest
+    needs: [miden, risc_zero, noir]
+    if: always()
+    steps:
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+    
+    - name: Stop EC2 instance
+      run: aws ec2 stop-instances --instance-ids ${{ env.INSTANCE_ID }}
 
 
 
