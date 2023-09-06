@@ -4,13 +4,7 @@ use bench::Benchmark;
 use miden_bench::{blake3::blake3, fib::fib, rpo::rpo, sha::sha};
 
 fn main() {
-    #[allow(unused_variables)]
-    let bench_name = "miden-single-cpu";
-    #[cfg(feature = "multi-cpu")]
-    let bench_name = "miden-multi-cpu";
-    #[cfg(feature = "metal")]
-    let bench_name = "miden-metal";
-    let mut bench = Benchmark::from_env(bench_name);
+    let mut bench = Benchmark::from_env("miden");
 
     bench.benchmark("assert", |b| {
         let (setup, vm) = miden_bench::assert::assert(1, 2);
