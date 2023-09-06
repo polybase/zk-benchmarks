@@ -1,3 +1,5 @@
+import { TableContainer, Box, Table, Thead, Tbody, Th, Tr, Td } from '@chakra-ui/react'
+
 import midenSingleCPU from '@/fixtures/miden-single-cpu.json'
 import midenMultiCPU from '@/fixtures/miden-multi-cpu.json'
 import midenMetal from '@/fixtures/miden-metal.json'
@@ -61,51 +63,46 @@ const data = [
 ]
 
 
-export function Table() {
+export function ResultsTable() {
   return (
-    <div className="mt-8 flow-root">
-      <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-          <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-            <table className="min-w-full divide-y divide-gray-300">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-
-                  </th>
-                  {data.map((item) => (
-                    <th key={item.name} scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      {item.name}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200 bg-white">
-                {properties.map((prop) => {
-                  return (
-                    <tr key={prop.name}>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                        {prop.name}
-                      </td>
-                      {
-                        data.map((fw: any) => {
-                          let value = prop.value ? prop.value(getPathValue(fw, prop.prop)) : getPathValue(fw, prop.prop);
-                          return (
-                            <td key={fw.name} className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                              {value}
-                            </td>
-                          )
-                        })
-                      }
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div >
+    <Box fontSize='sm' border='1px solid' borderBottomWidth={0} borderColor='whiteAlpha.300' borderRadius={5}>
+      <TableContainer>
+        <Table>
+          <Thead>
+            <Tr>
+              <Th>
+              </Th>
+              {data.map((item) => (
+                <Th key={item.name}>
+                  {item.name}
+                </Th>
+              ))}
+            </Tr>
+          </Thead>
+          <Tbody>
+            {properties.map((prop) => {
+              return (
+                <Tr key={prop.name}>
+                  <Td fontWeight='600'>
+                    {prop.name}
+                  </Td>
+                  {
+                    data.map((fw: any) => {
+                      let value = prop.value ? prop.value(getPathValue(fw, prop.prop)) : getPathValue(fw, prop.prop);
+                      return (
+                        <Td key={fw.name}>
+                          {value}
+                        </Td>
+                      )
+                    })
+                  }
+                </Tr>
+              )
+            })}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </Box>
   )
 }
 
