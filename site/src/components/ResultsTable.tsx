@@ -137,7 +137,7 @@ export function ResultsTable() {
           )
         })}
       </HStack>
-      <Box border='1px solid' borderBottomWidth={0} borderColor='whiteAlpha.300' borderRadius={5}>
+      <Box border='1px solid' borderBottomWidth={0} borderColor='bw.100' borderRadius={5}>
         <TableContainer>
           <Table>
             <Thead>
