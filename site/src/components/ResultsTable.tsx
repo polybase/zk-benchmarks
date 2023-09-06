@@ -1,5 +1,5 @@
-import { TableContainer, Box, Table, Thead, Tbody, Th, Tr, Td, Stack, HStack, Text } from '@chakra-ui/react'
-import midenSingleCPU from '@/fixtures/miden-single-cpu.json'
+import { useState } from 'react'
+import { TableContainer, Box, Table, Thead, Tbody, Th, Tr, Td, Stack, HStack, Text, Button } from '@chakra-ui/react'
 import midenMultiCPU from '@/fixtures/miden-multi-cpu.json'
 import midenMetal from '@/fixtures/miden-metal.json'
 import riscZeroMultiCPU from '@/fixtures/risc_zero-multi-cpu.json'
@@ -30,7 +30,7 @@ const properties = [{
   value: (val?: string[]) => val ? `✅ ${val.join(', ')}` : "❌",
 }, {
   name: 'SHA-256',
-  prop: 'metrics.singleCPU.SHA256.run.time',
+  prop: 'metrics.$machine.SHA256.run.time',
   value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
 }]
 
@@ -42,7 +42,7 @@ const data = [
     zk: 'STARK',
     existingLibSupport: false,
     gpu: ['Metal'],
-    metrics: { singleCPU: midenSingleCPU.timings, multiCPU: midenMultiCPU.timings, metal: midenMetal.timings },
+    metrics: { multiCPU: midenMultiCPU.timings, metal: midenMetal.timings },
   },
   {
     name: 'Risc Zero',
@@ -63,10 +63,29 @@ const data = [
   }
 ]
 
+const machines = [{
+  name: '16x CPU',
+  prop: 'multiCPU',
+}, {
+  name: 'M1 (Metal)',
+  prop: 'metal',
+}]
 
 export function ResultsTable() {
+  const [machine, setMachine] = useState(machines[0].prop)
+
   return (
     <Stack fontSize='sm' spacing={4}>
+      <HStack>
+        {machines.map(({ name, prop }) => {
+          const selected = machine === prop;
+          return (
+            <Button size='sm' variant={selected ? 'solid' : 'ghost'} key={prop} onClick={() => {
+              setMachine(prop)
+            }}>{name}</Button>
+          )
+        })}
+      </HStack>
       <Box border='1px solid' borderBottomWidth={0} borderColor='whiteAlpha.300' borderRadius={5}>
         <TableContainer>
           <Table>
@@ -119,10 +138,13 @@ export function ResultsTable() {
   )
 }
 
-function getPathValue(data: any, path: string) {
+function getPathValue(data: any, path: string, vars?: Record<string, any>) {
   let current = data;
-  for (const part of path.split('.')) {
+  for (let part of path.split('.')) {
     if (!current) return undefined;
+    if (part.startsWith('$')) {
+      part = vars?.[part.slice(1)]
+    }
     current = current[part]
   }
   return current;
