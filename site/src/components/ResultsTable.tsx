@@ -1,10 +1,11 @@
-import { TableContainer, Box, Table, Thead, Tbody, Th, Tr, Td } from '@chakra-ui/react'
-
+import { TableContainer, Box, Table, Thead, Tbody, Th, Tr, Td, Stack, HStack, Text } from '@chakra-ui/react'
 import midenSingleCPU from '@/fixtures/miden-single-cpu.json'
 import midenMultiCPU from '@/fixtures/miden-multi-cpu.json'
 import midenMetal from '@/fixtures/miden-metal.json'
 import riscZeroMultiCPU from '@/fixtures/risc_zero-multi-cpu.json'
 import riscZeroMetal from '@/fixtures/risc_zero-metal.json'
+import meta from '@/fixtures/meta.json'
+import { formatDate, timeSinceLastUpdate } from '@/util/date'
 
 interface Duration {
   secs: number;
@@ -65,44 +66,56 @@ const data = [
 
 export function ResultsTable() {
   return (
-    <Box fontSize='sm' border='1px solid' borderBottomWidth={0} borderColor='whiteAlpha.300' borderRadius={5}>
-      <TableContainer>
-        <Table>
-          <Thead>
-            <Tr>
-              <Th>
-              </Th>
-              {data.map((item) => (
-                <Th key={item.name}>
-                  {item.name}
+    <Stack fontSize='sm' spacing={4}>
+      <Box border='1px solid' borderBottomWidth={0} borderColor='whiteAlpha.300' borderRadius={5}>
+        <TableContainer>
+          <Table>
+            <Thead>
+              <Tr>
+                <Th>
                 </Th>
-              ))}
-            </Tr>
-          </Thead>
-          <Tbody>
-            {properties.map((prop) => {
-              return (
-                <Tr key={prop.name}>
-                  <Td fontWeight='600'>
-                    {prop.name}
-                  </Td>
-                  {
-                    data.map((fw: any) => {
-                      let value = prop.value ? prop.value(getPathValue(fw, prop.prop)) : getPathValue(fw, prop.prop);
-                      return (
-                        <Td key={fw.name}>
-                          {value}
-                        </Td>
-                      )
-                    })
-                  }
-                </Tr>
-              )
-            })}
-          </Tbody>
-        </Table>
-      </TableContainer>
-    </Box>
+                {data.map((item) => (
+                  <Th key={item.name}>
+                    {item.name}
+                  </Th>
+                ))}
+              </Tr>
+            </Thead>
+            <Tbody>
+              {properties.map((prop) => {
+                return (
+                  <Tr key={prop.name}>
+                    <Td fontWeight='600'>
+                      {prop.name}
+                    </Td>
+                    {
+                      data.map((fw: any) => {
+                        let value = prop.value ? prop.value(getPathValue(fw, prop.prop)) : getPathValue(fw, prop.prop);
+                        return (
+                          <Td key={fw.name}>
+                            {value}
+                          </Td>
+                        )
+                      })
+                    }
+                  </Tr>
+                )
+              })}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      </Box>
+      <Box px={2}>
+        <HStack spacing={1} fontStyle='italic'>
+          <Text fontWeight={600}>
+            Last Updated:
+          </Text>
+          <Box>
+            {timeSinceLastUpdate(meta.lastUpdated)} (<time>{formatDate(meta.lastUpdated)}</time>)
+          </Box>
+        </HStack>
+      </Box>
+    </Stack>
   )
 }
 
@@ -110,7 +123,6 @@ function getPathValue(data: any, path: string) {
   let current = data;
   for (const part of path.split('.')) {
     if (!current) return undefined;
-    console.log(current, part)
     current = current[part]
   }
   return current;
