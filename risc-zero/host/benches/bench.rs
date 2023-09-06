@@ -18,7 +18,7 @@ fn main() {
         }
     };
 
-    let mut bench = Benchmark::from_env(bench_name);
+    let mut bench = Benchmark::from_env("risc_zero");
 
     bench.benchmark("assert", |b| {
         let prover = prover();

@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - main
-      - eng-1009-setup-ci-to-use-hosted-runners-for-benchmarks
+      - eng-1037-fix-ci-not-commit-results
     paths:
       - .github/workflows/benchmarks.yml
       - miden/Cargo.lock
@@ -71,6 +71,12 @@ jobs:
       run: |
         cargo bench -F metal
 
+    - name: Upload .benchmarks as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: benchmarks-miden-${{ matrix.runner }}
+        path: ./.benchmarks/
+
   risc_zero:
     runs-on: ${{ matrix.runner }}
     strategy:
@@ -107,7 +113,13 @@ jobs:
           BENCH_OUTPUT_DIR: "../../.benchmarks/${{ matrix.runner }}"
         run: |
           cargo bench -F metal metal
-
+      
+      - name: Upload .benchmarks as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: benchmarks-risc_zero-${{ matrix.runner }}
+          path: ./.benchmarks/
+      
   noir:
     runs-on: ${{ matrix.runner }}
     strategy:
@@ -138,14 +150,28 @@ jobs:
         run: |
           source $HOME/.nix-profile/etc/profile.d/nix.sh
           nix-shell --run "nix-shell -p clang --run 'cargo bench'"
+
+      - name: Upload .benchmarks as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: benchmarks-noir-${{ matrix.runner }}
+          path: ./.benchmarks/
   
   commit:
     runs-on: ubuntu-latest
     needs: [miden, risc_zero, noir]
+    strategy:
+      matrix:
+        runner: ['ubuntu-16-shared', 'ubuntu-latest-64-cores']
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Download benchmarks artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: .benchmarks
 
       - name: Create meta.json
         run: | 
