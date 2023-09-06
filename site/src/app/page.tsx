@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { Center, Heading, VStack, HStack, Box } from '@chakra-ui/react'
 import logo from '@/img/logo.png'
 import { ResultsTable } from '@/components/ResultsTable'
-import meta from '@/fixtures/meta.json'
 
 export default function Home() {
   return (
