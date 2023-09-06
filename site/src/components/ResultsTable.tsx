@@ -1,10 +1,7 @@
 import { useState } from 'react'
 import { TableContainer, Box, Table, Thead, Tbody, Th, Tr, Td, Stack, HStack, Text, Button } from '@chakra-ui/react'
-import midenMultiCPU from '@/fixtures/miden-multi-cpu.json'
-import midenMetal from '@/fixtures/miden-metal.json'
-import riscZeroMultiCPU from '@/fixtures/risc_zero-multi-cpu.json'
-import riscZeroMetal from '@/fixtures/risc_zero-metal.json'
-import meta from '@/fixtures/meta.json'
+import { frameworks } from '@/fixtures/frameworks'
+import benchmarks from '@/fixtures/benchmarks.json'
 import { formatDate, timeSinceLastUpdate } from '@/util/date'
 
 interface Duration {
@@ -12,7 +9,15 @@ interface Duration {
   nanos: number;
 }
 
-const properties = [{
+interface ResultTableProperty {
+  name: string;
+  desc?: string;
+  prop?: string;
+  indent?: number;
+  value?: (val: any) => any;
+}
+
+const properties: ResultTableProperty[] = [{
   name: 'Frontend',
   prop: 'frontend',
 }, {
@@ -20,59 +25,105 @@ const properties = [{
   prop: 'zk'
 }, {
   name: 'External Libraries',
+  desc: 'Does the framework allow leveraging a languages existing library ecosystem? For example, in Rust this would be crates.io.',
   prop: 'existingLibSupport',
-  desc: 'Does the framework allow leveraging a languages existing library ecosystem?',
   value: (val: boolean) => val ? "✅" : "❌",
 }, {
   name: 'GPU',
   prop: 'gpu',
-  desc: 'Does the framework support GPU acceleration?',
+  desc: 'Does the framework support GPU acceleration? Metal is a specific to Apple devices.',
   value: (val?: string[]) => val ? `✅ ${val.join(', ')}` : "❌",
 }, {
+  name: 'Assert',
+  desc: `A very simple assertion a != b, this can be used to test the frameworks minimum proving performance.`,
+  prop: 'metrics.$machine.assert.results.0.time',
+  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+}, {
   name: 'SHA-256',
-  prop: 'metrics.$machine.SHA256.run.time',
+  desc: `Calculating the SHA-256 hash for given input size. SHA-256 is NOT zk optimised so it's normal to see degraded performance compared to other hashes.`,
+  // prop: 'metrics.$machine.SHA256.results.0.time',
+  // value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+},
+{
+  name: '1 byte',
+  indent: 4,
+  prop: 'metrics.$machine.SHA256.results.0.time',
+  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+},
+{
+  name: '10 bytes',
+  indent: 4,
+  prop: 'metrics.$machine.SHA256.results.1.time',
+  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+},
+{
+  name: '100 bytes',
+  indent: 4,
+  prop: 'metrics.$machine.SHA256.results.2.time',
+  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+},
+{
+  name: '1000 bytes',
+  indent: 4,
+  prop: 'metrics.$machine.SHA256.results.3.time',
+  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+}, {
+  name: 'Fibonacci',
+  // TODO: use markdown for this
+  desc: `A fibonacci sequence is calculated for a given input size. This is a good test of the frameworks ability to handle recursion.`,
+  // prop: 'metrics.$machine.SHA256.results.0.time',
+  // value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+},
+{
+  name: '1',
+  indent: 4,
+  prop: 'metrics.$machine.Fibonacci.results.0.time',
+  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+},
+{
+  name: '10',
+  indent: 4,
+  prop: 'metrics.$machine.Fibonacci.results.1.time',
+  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+},
+{
+  name: '100',
+  indent: 4,
+  prop: 'metrics.$machine.Fibonacci.results.2.time',
+  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+},
+{
+  name: '1,000',
+  indent: 4,
+  prop: 'metrics.$machine.Fibonacci.results.3.time',
+  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+}, {
+  name: '10,000',
+  indent: 4,
+  prop: 'metrics.$machine.Fibonacci.results.4.time',
+  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+},
+{
+  name: '100,000',
+  indent: 4,
+  prop: 'metrics.$machine.Fibonacci.results.5.time',
   value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
 }]
 
-const data = [
-  {
-    name: 'Polylang',
-    url: 'https://polylang.xyz',
-    frontend: 'Typescript-like',
-    zk: 'STARK',
-    existingLibSupport: false,
-    gpu: ['Metal'],
-    metrics: { multiCPU: midenMultiCPU.timings, metal: midenMetal.timings },
-  },
-  {
-    name: 'Risc Zero',
-    url: 'https://risczero.com',
-    frontend: 'Rust, C, C++',
-    zk: 'STARK',
-    existingLibSupport: true,
-    gpu: ['Metal', 'CUDA'],
-    metrics: { multiCPU: riscZeroMultiCPU.timings, metal: riscZeroMetal.timings },
-  },
-  {
-    name: 'Noir',
-    url: 'https://noir-lang.org',
-    frontend: 'Rust-like',
-    zk: 'SNARK',
-    existingLibSupport: false,
-    metrics: {}
-  }
-]
 
 const machines = [{
   name: '16x CPU',
-  prop: 'multiCPU',
+  prop: 'ubuntu-16-shared',
 }, {
-  name: 'M1 (Metal)',
-  prop: 'metal',
+  name: '64x CPU',
+  prop: 'ubuntu-latest-64-cores',
 }]
 
 export function ResultsTable() {
   const [machine, setMachine] = useState(machines[0].prop)
+  const vars = {
+    machine,
+  }
 
   return (
     <Stack fontSize='sm' spacing={4}>
@@ -93,9 +144,11 @@ export function ResultsTable() {
               <Tr>
                 <Th>
                 </Th>
-                {data.map((item) => (
+                {frameworks.map((item) => (
                   <Th key={item.name}>
-                    {item.name}
+                    <a href={item.url}>
+                      {item.name}
+                    </a>
                   </Th>
                 ))}
               </Tr>
@@ -105,11 +158,13 @@ export function ResultsTable() {
                 return (
                   <Tr key={prop.name}>
                     <Td fontWeight='600'>
-                      {prop.name}
+                      <Box pl={prop.indent ?? 0}>
+                        {prop.name}
+                      </Box>
                     </Td>
                     {
-                      data.map((fw: any) => {
-                        let value = prop.value ? prop.value(getPathValue(fw, prop.prop)) : getPathValue(fw, prop.prop);
+                      frameworks.map((fw: any) => {
+                        let value = prop.value ? prop.value(getPathValue(fw, prop.prop, vars)) : getPathValue(fw, prop.prop, vars);
                         return (
                           <Td key={fw.name}>
                             {value}
@@ -130,7 +185,7 @@ export function ResultsTable() {
             Last Updated:
           </Text>
           <Box>
-            {timeSinceLastUpdate(meta.lastUpdated)} (<time>{formatDate(meta.lastUpdated)}</time>)
+            {timeSinceLastUpdate(benchmarks.meta.lastUpdated)} (<time>{formatDate(benchmarks.meta.lastUpdated)}</time>)
           </Box>
         </HStack>
       </Box>
@@ -138,7 +193,9 @@ export function ResultsTable() {
   )
 }
 
-function getPathValue(data: any, path: string, vars?: Record<string, any>) {
+
+function getPathValue(data: any, path?: string, vars?: Record<string, any>) {
+  if (!path) return
   let current = data;
   for (let part of path.split('.')) {
     if (!current) return undefined;
