@@ -1,5 +1,9 @@
 import { useState } from 'react'
-import { TableContainer, Box, Table, Thead, Tbody, Th, Tr, Td, Stack, HStack, Text, Button } from '@chakra-ui/react'
+import {
+  TableContainer, Box, Table, Thead, Tbody, Th, Tr, Td, Stack, HStack, Text, Button, IconButton,
+  Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, Portal, PopoverBody
+} from '@chakra-ui/react'
+import { MdInfo } from 'react-icons/md'
 import { frameworks } from '@/fixtures/frameworks'
 import benchmarks from '@/fixtures/benchmarks.json'
 import { formatDate, timeSinceLastUpdate } from '@/util/date'
@@ -11,7 +15,7 @@ interface Duration {
 
 interface ResultTableProperty {
   name: string;
-  desc?: string;
+  desc?: string | JSX.Element;
   prop?: string;
   indent?: number;
   value?: (val: any) => any;
@@ -158,9 +162,28 @@ export function ResultsTable() {
                 return (
                   <Tr key={prop.name}>
                     <Td fontWeight='600'>
-                      <Box pl={prop.indent ?? 0}>
-                        {prop.name}
-                      </Box>
+                      <HStack pl={prop.indent ?? 0} spacing={1}>
+                        <Box>
+                          {prop.name}
+                        </Box>
+
+                        {prop.desc && (
+                          <Box>
+                            <Popover>
+                              <PopoverTrigger>
+                                <IconButton opacity={0.3} variant='ghost' aria-label='info' size='xs' icon={<MdInfo />} />
+                              </PopoverTrigger>
+                              <Portal>
+                                <PopoverContent>
+                                  <PopoverArrow />
+                                  <PopoverBody><Text overflowWrap='anywhere' size='sm'>{prop.desc}</Text></PopoverBody>
+                                </PopoverContent>
+                              </Portal>
+
+                            </Popover>
+                          </Box>
+                        )}
+                      </HStack>
                     </Td>
                     {
                       frameworks.map((fw: any) => {
