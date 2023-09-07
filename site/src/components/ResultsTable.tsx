@@ -173,7 +173,7 @@ export function ResultsTable() {
                 <Th>
                 </Th>
                 {frameworks.map((item) => (
-                  <Th key={item.name}>
+                  <Th key={item.name} fontSize='sm'>
                     <a href={item.url}>
                       {item.name}
                     </a>

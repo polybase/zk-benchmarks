@@ -4,6 +4,12 @@ import { Heading, Alert, AlertIcon, Text } from '@chakra-ui/react'
 
 # FAQ
 
+## Who made this and why?
+
+Hi, we're [Polybase](https://x.com/polybase_xyz) 👋.
+
+We made ZK-bench to help the ZK community to better understand the trade-offs and performance of different frameworks. We're also the team behind [Polylang](https://polylang.dev), and we wanted to be able to understand the performance we're able to achieve in comparison to other frameworks.
+
 
 ## What is ZK?
 
@@ -81,18 +87,24 @@ function sum(list: number[10]): number {
 }
 ```
 
-## How do you run the benchmarks?
-
-We run the benchmarks using a [Github Action](https://github.com/polybase/zk-benchmarks/actions) using a self-hosted runner, running on a dedicated AWS instance. We use a dedicated instance to ensure that the performance calculations are not degraded by other users that might otherwise be using a shared instance. Benchmarks are updated automatically whenever we add, update benchmarks or the versions on the underlying frameworks.
-
 ## Which is the best framework?
 
-There is no “best” framework. As you can see from the table above, there are a lot of caveats and trade offs. You should choose the framework that best meets your needs, which will depend on what kind of application you are building.
+There is no “best” framework. As you can see from the table above, there are a lot of caveats and trade offs. You should choose the framework that best meets your needs, which will depend on what kind of application you are building. If you have questions about which framework is best for you, feel free to reach out [on ~Twitter~ X @polybase_xyz](https://x.com/polybase_xyz).
+
+## How do you run the benchmarks?
+
+We run the benchmarks using a [Github Action](https://github.com/polybase/zk-benchmarks/actions) using a self-hosted runner, 
+running on a dedicated AWS instance. We use a dedicated instance to ensure that the performance calculations are not degraded 
+by other users that might otherwise be using the shared instance.
+Benchmarks are updated automatically whenever we update the benchmarks or the versions of the frameworks we are testing.
+
+## What benchmark tool do you use?
+
+We actually created our own 😅, which you can find here on [crates.io [tbc]](...). We tried using criterion which is pretty much the default for Rust, 
+but it didn't really serve our needs for the kinds of tests we are running. Criterion is tailored for nanosecond-level performance measurements of quick, simple functions, but we needed something that worked well with longer running benchmarks (ZK is still quite slow in many cases). We were also able to automatically profile the memory requirements of each benchmark, which is something we couldn't do with criterion.
+
 
 ## Can you benchmark X or add framework Y?
 
 Sure, just [submit a PR](https://github.com/polybase/zk-benchmarks) 😉
 
-## Why did you make this?
-
-We made ZK-bench to help the ZK community to better understand the trade-offs and performance of different frameworks. We're also the team behind [Polylang](https://polylang.dev), and we wanted to be able to understand the performance we're able to achieve in comparison to other frameworks.
