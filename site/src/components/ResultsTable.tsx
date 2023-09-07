@@ -92,6 +92,9 @@ const properties: ResultTableProperty[] = [{
   indent: 4,
   prop: 'metrics.$machine.SHA256.results.3.time',
   value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+  annotations: {
+    risc_zero: 'This benchmark exceeds the maxmium allowed time to run, and therefore is omitted.',
+  },
 }, {
   name: 'Fibonacci',
   // TODO: use markdown for this

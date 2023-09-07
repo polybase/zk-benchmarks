@@ -50,9 +50,12 @@ These are two different approaches to provable zero knowledge computation.
 
 These are programs which have inputs or logic where the number of cycles or iterations is not known at compile time. For example, a program that iterates over a list of items and checks if each item is greater than 18. The number of items in the list is not known at compile time, so the program is unbounded.
 
+In general, SNARKS require a program to be bounded at compile time, whereas STARKS do not.
+
 ### Unbounded Program
 
 The following is an example of a program that is unbounded, as you can see the number of items in the list is not known at compile time as it is supplied as an argument when calling the program.
+
 
 ```
 function sum(list: number[]): number {
