@@ -45,6 +45,42 @@ These are two different approaches to provable zero knowledge computation.
 | **Cryptographic Assumptions**| Relies on stronger, more specific assumptions                                                    | Relies on lesser cryptographic assumptions, more "future-proof"                                 |
 | **Quantum Resistance**       | Generally not quantum-resistant      | Generally quantum-resistant      |
 
+
+## What are unbounded programs?
+
+These are programs which have inputs or logic where the number of cycles or iterations is not known at compile time. For example, a program that iterates over a list of items and checks if each item is greater than 18. The number of items in the list is not known at compile time, so the program is unbounded.
+
+In general, SNARKS require a program to be bounded at compile time, whereas STARKS do not.
+
+### Unbounded Program
+
+The following is an example of a program that is unbounded, as you can see the number of items in the list is not known at compile time as it is supplied as an argument when calling the program.
+
+
+```
+function sum(list: number[]): number {
+  let total = 0;
+  for (let i = 0; i < list.length; i++) {
+    total += list[i];
+  }
+  return total;
+}
+```
+
+### Bounded Program
+
+For frameworks that require a bounded program, you would have to explicitly define the number of items in the list, for example:
+
+```
+function sum(list: number[10]): number {
+  let total = 0;
+  for (let i = 0; i < list.length; i++) {
+    total += list[i];
+  }
+  return total;
+}
+```
+
 ## How do you run the benchmarks?
 
 We run the benchmarks using a Github Action using a self-hosted runner, running on a dedicated AWS instance. We use a dedicated instance to ensure that the performance calculations are not degraded by other users that might otherwise be using a shared instance. Benchmarks are updated automatically whenever we add, update benchmarks or the versions on the underlying frameworks.
