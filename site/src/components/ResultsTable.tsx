@@ -6,7 +6,7 @@ import {
 import { MdInfo } from 'react-icons/md'
 import { frameworks } from '@/fixtures/frameworks'
 import benchmarks from '@/fixtures/benchmarks.json'
-import { formatDate, timeSinceLastUpdate } from '@/util/date'
+import { timeSinceLastUpdate } from '@/util/date'
 
 interface Duration {
   secs: number;
@@ -251,7 +251,7 @@ export function ResultsTable() {
             Last Updated:
           </Text>
           <Box>
-            {timeSinceLastUpdate(benchmarks.meta.lastUpdated)} (<time>{formatDate(benchmarks.meta.lastUpdated)}</time>)
+            {timeSinceLastUpdate(benchmarks.meta.lastUpdated)} (<time>{benchmarks.meta.lastUpdated}</time>)
           </Box>
         </HStack>
       </Box>
