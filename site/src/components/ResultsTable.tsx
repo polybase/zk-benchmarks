@@ -195,7 +195,7 @@ export function ResultsTable() {
                           <Box>
                             <Popover>
                               <PopoverTrigger>
-                                <IconButton opacity={0.3} variant='ghost' aria-label='info' size='xs' icon={<MdInfo />} />
+                                <IconButton opacity={0.3} variant='ghost' aria-label='info' height='18px' size='sm' icon={<MdInfo />} />
                               </PopoverTrigger>
                               <Portal>
                                 <PopoverContent>
@@ -222,7 +222,7 @@ export function ResultsTable() {
                                 <Box>
                                   <Popover>
                                     <PopoverTrigger>
-                                      <IconButton opacity={0.3} variant='ghost' aria-label='info' size='xs' icon={<MdInfo />} />
+                                      <IconButton opacity={0.3} variant='ghost' height='18px' aria-label='info' size='sm' icon={<MdInfo />} />
                                     </PopoverTrigger>
                                     <Portal>
                                       <PopoverContent>
