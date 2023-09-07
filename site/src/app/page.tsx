@@ -41,7 +41,7 @@ export default function Home() {
               </Center>
             </Box>
             <Center>
-              <Box maxW='container.md'>
+              <Box maxW='container.lg'>
                 <ResultsTable />
               </Box>
             </Center>
