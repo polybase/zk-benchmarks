@@ -1,7 +1,7 @@
 "use client";
 
 import Image from 'next/image'
-import { Flex, Center, Heading, VStack, HStack, Box, Spacer, Stack } from '@chakra-ui/react'
+import { Flex, Center, Heading, VStack, HStack, Box, Spacer, Stack, Link } from '@chakra-ui/react'
 import logo from '@/img/logo.png'
 import { ResultsTable } from '@/components/ResultsTable'
 import { M_PLUS_Rounded_1c } from 'next/font/google'
@@ -18,8 +18,13 @@ export default function Home() {
       <Box mb={20}>
         <Flex>
           <Spacer />
-          <HStack p={2}>
+          <HStack p={3}>
             <ColorModeSwitcher />
+            <Box pr={2}>
+              <Link as='a' href='https://github.com/polybase/zk-benchmarks' target='_blank' fontWeight='600'>
+                github
+              </Link>
+            </Box>
             <Box>
               <PoweredBy />
             </Box>
