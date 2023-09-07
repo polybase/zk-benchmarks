@@ -7,6 +7,7 @@ import { ResultsTable } from '@/components/ResultsTable'
 import { M_PLUS_Rounded_1c } from 'next/font/google'
 import { ColorModeSwitcher } from '@/components/ColorModeSwitcher';
 import Faq from '../mkd/faq.mdx'
+import { PoweredBy } from '@/components/PoweredBy';
 
 
 const rounded = M_PLUS_Rounded_1c({ subsets: ['latin'], weight: ["700"], fallback: ['SF Rounded'] })
@@ -17,9 +18,12 @@ export default function Home() {
       <Box mb={20}>
         <Flex>
           <Spacer />
-          <Box>
+          <HStack p={2}>
             <ColorModeSwitcher />
-          </Box>
+            <Box>
+              <PoweredBy />
+            </Box>
+          </HStack>
         </Flex>
         <Box p={4}>
           <Stack spacing={10}>
