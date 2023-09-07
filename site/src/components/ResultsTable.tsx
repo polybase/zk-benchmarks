@@ -26,7 +26,8 @@ const properties: ResultTableProperty[] = [{
   prop: 'frontend',
 }, {
   name: 'ZK',
-  prop: 'zk'
+  prop: 'zk',
+  desc: 'The type of ZK used, for a detailed comparison, see the FAQ section below.',
 }, {
   name: 'External Libraries',
   desc: 'Does the framework allow leveraging a languages existing library ecosystem? For example, in Rust this would be crates.io.',
@@ -176,7 +177,7 @@ export function ResultsTable() {
                               <Portal>
                                 <PopoverContent>
                                   <PopoverArrow />
-                                  <PopoverBody><Text overflowWrap='anywhere' size='sm'>{prop.desc}</Text></PopoverBody>
+                                  <PopoverBody><Text overflowWrap='anywhere' fontSize='sm'>{prop.desc}</Text></PopoverBody>
                                 </PopoverContent>
                               </Portal>
 
