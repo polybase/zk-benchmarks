@@ -42,12 +42,12 @@ export function timeSinceLastUpdate(dateString: string) {
   }
 
   if (minutes < 60) {
-    return `${minutes} mins ago`;
+    return `${minutes} min${minutes === 1 ? '' : 's'} ago`;
   }
 
   if (hours < 24) {
-    return `${hours} hours ago`;
+    return `${hours} hour${hours === 1 ? '' : 's'} ago`;
   }
 
-  return `${days} days ago`;
+  return `${days} day${days === 1 ? '' : 's'} ago`;
 }
