@@ -84,10 +84,9 @@ fn main() {
     bench.benchmark_with(
         "SHA256",
         &[
-            ("1 byte", 1),
-            ("10 bytes", 10),
-            ("100 bytes", 100),
-            ("1000 bytes", 1000),
+            ("1k bytes", 1000),
+            ("10k bytes", 10000),
+            // ("100k bytes", 100000),
         ],
         |b, p| {
             let (setup, vm) = sha(*p);
@@ -108,10 +107,9 @@ fn main() {
     bench.benchmark_with(
         "Blake3",
         &[
-            ("1 byte", 1),
-            ("10 bytes", 10),
-            ("100 bytes", 100),
-            ("1000 bytes", 1000),
+            ("1k bytes", 1000),
+            ("10k bytes", 10000),
+            // ("100k bytes", 100000),
         ],
         |b, p| {
             let (setup, vm) = blake3(*p);
@@ -132,9 +130,9 @@ fn main() {
     bench.benchmark_with(
         "RPO",
         &[
-            ("10000 bytes", 10000),
-            ("100000 bytes", 100000),
-            ("1000000 bytes", 1000000),
+            ("1k bytes", 1000),
+            ("10k bytes", 10000),
+            // ("100k bytes", 100000),
         ],
         |b, p| {
             let (setup, vm) = rpo(*p);
