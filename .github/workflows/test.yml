@@ -4,6 +4,22 @@ on:
   push:
 
 jobs:
+  polylang:
+    runs-on: ubuntu-latest-64-cores
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - uses: Swatinem/rust-cache@v2
+  
+    - name: Run Polylang benchmarks
+      working-directory: ./polylang
+      env:
+        BENCH_QUICK: "1"
+      run: |
+        cargo bench -F multi-cpu
+
   miden:
     runs-on: ubuntu-latest-64-cores
 
