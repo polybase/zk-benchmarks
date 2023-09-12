@@ -56,10 +56,9 @@ fn main() {
     bench.benchmark_with(
         "SHA256",
         &[
-            ("1 byte", 1),
-            ("10 bytes", 10),
-            ("100 bytes", 100),
-            ("1000 bytes", 1000),
+            ("1k bytes", 1000),
+            // 10k bytes needs more than 32GB of ram
+            // ("10k bytes", 10000)
         ],
         |b, p| {
             let bytes_per_element = 4.;
@@ -81,12 +80,7 @@ fn main() {
 
     bench.benchmark_with(
         "Blake3",
-        &[
-            ("1 byte", 1),
-            ("10 bytes", 10),
-            ("100 bytes", 100),
-            ("1000 bytes", 1000),
-        ],
+        &[("1k bytes", 1000), ("10k bytes", 10000)],
         |b, p| {
             let bytes_per_element = 4.;
             let arr_size = f64::ceil(*p as f64 / bytes_per_element) as usize;
@@ -107,13 +101,7 @@ fn main() {
 
     bench.benchmark_with(
         "RPO",
-        &[
-            ("1 byte", 1),
-            ("10 bytes", 10),
-            ("100 bytes", 100),
-            ("1000 bytes", 1000),
-            ("10000 bytes", 10000),
-        ],
+        &[("1k bytes", 1000), ("10k bytes", 10000)],
         |b, p| {
             let bytes_per_element = 4.;
             let arr_size = f64::ceil(*p as f64 / bytes_per_element) as usize;
