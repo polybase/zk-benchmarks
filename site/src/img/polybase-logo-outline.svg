@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="61px" height="61px" viewBox="0 0 61 61" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Shape</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="logo" fill="#000000" fill-rule="nonzero">
+            <path d="M21.972,11.3301 L32.1419,32.1366 L51.252,23.5301 L42.5858,53.5037 L21.362,54.6403 L7.332,29.6303 L21.972,11.3301 M23.223,0.0001 L2.569,25.8178 L0.0004,29.0298 L2.0115,32.6159 L16.0415,57.6259 L17.8977,60.9357 L21.6887,60.7331 L42.9125,59.5965 L47.2421,59.3654 L48.4454,55.2002 L57.1117,25.2266 L60.7764,12.5527 L48.7454,17.9712 L35.0277,24.1474 L27.4528,8.6522 L23.223,0.0001 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>

@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - main
-      - eng-1009-setup-ci-to-use-hosted-runners-for-benchmarks
     paths:
       - .github/workflows/benchmarks.yml
       - polylang/Cargo.lock
@@ -107,6 +106,11 @@ jobs:
       run: |
         cargo bench -F metal
 
+    - name: Upload .benchmarks as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        path: .benchmarks/
+
   risc_zero:
     runs-on: ${{ matrix.runner }}
     strategy:
@@ -143,7 +147,12 @@ jobs:
           BENCH_OUTPUT_DIR: "../../.benchmarks/${{ matrix.runner }}"
         run: |
           cargo bench -F metal metal
-
+      
+      - name: Upload .benchmarks as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          path: .benchmarks/
+      
   noir:
     runs-on: ${{ matrix.runner }}
     strategy:
@@ -174,33 +183,35 @@ jobs:
         run: |
           source $HOME/.nix-profile/etc/profile.d/nix.sh
           nix-shell --run "nix-shell -p clang --run 'cargo bench'"
+
+      - name: Upload .benchmarks as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          path: .benchmarks/
   
   commit:
     runs-on: ubuntu-latest
     needs: [polylang, miden, risc_zero, noir]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Create meta.json
-        run: | 
-          echo "{\"lastUpdated\": $(date -u +\"%Y-%m-%dT%H:%M:%SZ\")}" > .benchmarks/meta.json
+      - name: Download benchmarks artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: .benchmarks
 
-      - name: Format benchmark JSONs
-        run: |
-          for f in .benchmarks/*.json; do
-            jq . $f > $f.tmp && mv $f.tmp $f
-          done
-          
+      - name: Combine results
+        run: ./combine.py
+    
       - name: Copy benchmark results to site
         run: |
-          cp -R .benchmarks/* site/src/fixtures
+          cp benchmarks.json site/src/fixtures/benchmarks.json
 
       - name: Commit benchmark results
         run: |
           git config --global user.email "calum.moore@gmail.com" \
-            && git config --global user.name "calummoore" \
+            && git config --global user.name "Polybase CI" \
             && git add . \
             && git commit -m "Update benchmarks" \
             && git push
