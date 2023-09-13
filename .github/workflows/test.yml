@@ -53,6 +53,8 @@ jobs:
     
       - name: Install risczero
         run: cargo install cargo-risczero && cargo risczero install
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
       - name: Run Risc-Zero benchmarks
         working-directory: ./risc-zero/host
