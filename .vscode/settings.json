@@ -10,5 +10,6 @@
         "./risc-zero/methods/assert/Cargo.toml",
         "./risc-zero/methods/fib/Cargo.toml",
         "./polylang/Cargo.toml",
+        "./bench/macros/Cargo.toml"
     ]
 }
