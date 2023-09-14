@@ -31,7 +31,7 @@
       in {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
-            rustToolchain
+#            rustToolchain
 
             pkg-config
             openssl

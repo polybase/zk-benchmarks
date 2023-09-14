@@ -1,3 +1,9 @@
+#![no_main]
+#![no_std]
+
+extern crate alloc;
+
+use alloc::vec::Vec;
 use core::hint::black_box;
 use risc0_zkvm::{
     guest::{env, sha::Impl},
