@@ -52,7 +52,7 @@ fn fibonacci(b: &mut BenchmarkRun, p: usize) {
     );
 }
 
-#[bench("sha256", [
+#[bench("SHA256", [
     ("1k bytes", 1000),
     ("10k bytes", 10000),
     // ("100k bytes", 100000),
