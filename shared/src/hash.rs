@@ -57,6 +57,15 @@ impl HashFn for Sha {
     }
 
     fn random() -> Self::Digest {
+        #[cfg(feature = "std")]
+        {
+            let mut words = [0; 8];
+            for word in &mut words {
+                *word = fastrand::u32(..);
+            }
+            sha::Digest::new(words)
+        }
+        #[cfg(not(feature = "std"))]
         unimplemented!("we never do this here, we only use this for generating a tree in the host");
     }
 
