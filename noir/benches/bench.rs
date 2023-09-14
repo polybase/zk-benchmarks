@@ -1,7 +1,7 @@
 extern crate noir;
 extern crate rand;
 
-use bench::{bench, Benchmark, BenchmarkRun};
+use bench::{benchmark, Benchmark, BenchmarkRun};
 use noir::{InputMap, InputValue, Proof};
 use rand::Rng;
 
@@ -25,7 +25,7 @@ fn assert(b: &mut BenchmarkRun) {
     // b.log("cycles", last_vm_state.clk as usize);
 }
 
-#[bench("Fibonacci", [
+#[benchmark("Fibonacci", [
     ("1", 1),
     ("10", 10),
     ("100", 100),
@@ -52,7 +52,7 @@ fn fibonacci(b: &mut BenchmarkRun, p: usize) {
     );
 }
 
-#[bench("SHA256", [
+#[benchmark("SHA256", [
     ("1k bytes", 1000),
     ("10k bytes", 10000),
     // ("100k bytes", 100000),

@@ -21,7 +21,7 @@ fn assert(b: &mut BenchmarkRun) {
     report(b, output);
 }
 
-#[bench("Fibonacci", [
+#[benchmark("Fibonacci", [
     ("1", 1),
     ("10", 10),
     ("100", 100),
@@ -46,7 +46,7 @@ fn fibonacci(b: &mut BenchmarkRun, p: usize) {
     report(b, output);
 }
 
-#[bench("SHA256", [
+#[benchmark("SHA256", [
     ("1k bytes", 1000),
     // 10k bytes needs more than 32GB of ram
     // ("10k bytes", 10000)
@@ -68,7 +68,7 @@ fn sha256(b: &mut BenchmarkRun, p: usize) {
     report(b, output);
 }
 
-#[bench("Blake3", [
+#[benchmark("Blake3", [
     ("1k bytes", 1000),
     ("10k bytes", 10000),
 ])]
@@ -89,7 +89,7 @@ fn blake3(b: &mut BenchmarkRun, p: usize) {
     report(b, output);
 }
 
-#[bench("RPO", [
+#[benchmark("RPO", [
     ("1k bytes", 1000),
     ("10k bytes", 10000),
 ])]

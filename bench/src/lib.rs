@@ -1,4 +1,4 @@
-pub use bench_macros::{bench, main};
+pub use bench_macros::{benchmark, main};
 
 mod fork;
 mod memory;

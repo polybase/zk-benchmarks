@@ -95,16 +95,16 @@ fn expand_main(MainArgs { name, benchmarks }: MainArgs) -> syn::Result<proc_macr
 }
 
 /// Parses the inner part of:
-/// - `#[bench!("name", [("param1", param1), ("param2", param2)])`
-/// - or `#bench([("param1", param1), ("param2", param2)])`
-/// - or `#[bench("name")]`
-/// - or `#[bench]`
-struct BenchArgs {
+/// - `#[benchmark!("name", [("param1", param1), ("param2", param2)])`
+/// - or `#benchmark([("param1", param1), ("param2", param2)])`
+/// - or `#[benchmark("name")]`
+/// - or `#[benchmark]`
+struct BenchMarkArgs {
     name: Option<String>,
     params: Option<syn::Expr>,
 }
 
-impl syn::parse::Parse for BenchArgs {
+impl syn::parse::Parse for BenchMarkArgs {
     fn parse(input: syn::parse::ParseStream) -> syn::Result<Self> {
         let name = match input.parse::<syn::LitStr>() {
             Ok(lit) => Some(lit.value()),
@@ -121,20 +121,20 @@ impl syn::parse::Parse for BenchArgs {
             None
         };
 
-        Ok(BenchArgs { name, params })
+        Ok(BenchMarkArgs { name, params })
     }
 }
 
 #[proc_macro_attribute]
-pub fn bench(attr: TokenStream, item: TokenStream) -> TokenStream {
-    expand_bench(attr, item)
+pub fn benchmark(attr: TokenStream, item: TokenStream) -> TokenStream {
+    expand_benchmark(attr, item)
         .unwrap_or_else(|err| err.to_compile_error())
         .into()
 }
 
-fn expand_bench(attr: TokenStream, item: TokenStream) -> syn::Result<proc_macro2::TokenStream> {
+fn expand_benchmark(attr: TokenStream, item: TokenStream) -> syn::Result<proc_macro2::TokenStream> {
     let attr = proc_macro2::TokenStream::from(attr);
-    let BenchArgs { name, params } = syn::parse::<BenchArgs>(attr.into())?;
+    let BenchMarkArgs { name, params } = syn::parse::<BenchMarkArgs>(attr.into())?;
     let item_fn = syn::parse::<syn::ItemFn>(item)?;
     let fn_vis = &item_fn.vis;
     let fn_name = &item_fn.sig.ident;

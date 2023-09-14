@@ -1,9 +1,9 @@
 extern crate miden_bench;
 
-use bench::{bench, BenchmarkRun};
+use bench::{benchmark, BenchmarkRun};
 use miden_bench::{blake3::blake3, fib::fib, rpo::rpo, sha::sha};
 
-#[bench]
+#[benchmark]
 fn assert(b: &mut BenchmarkRun) {
     let (setup, vm) = miden_bench::assert::assert(1, 2);
     let last_vm_state = vm.last().unwrap().unwrap();
@@ -18,7 +18,7 @@ fn assert(b: &mut BenchmarkRun) {
     );
 }
 
-#[bench("multiple assert proof compression")]
+#[benchmark("multiple assert proof compression")]
 fn multiple_assert_proof_compression(b: &mut BenchmarkRun) {
     let mut proofs = Vec::new();
     for x in 0..10 {
@@ -40,7 +40,7 @@ fn multiple_assert_proof_compression(b: &mut BenchmarkRun) {
     );
 }
 
-#[bench("multiple sha256 proof compression")]
+#[benchmark("multiple sha256 proof compression")]
 fn multiple_sha256_proof_comperssion(b: &mut BenchmarkRun) {
     let mut proofs = Vec::new();
     for x in 0..10 {
@@ -62,7 +62,7 @@ fn multiple_sha256_proof_comperssion(b: &mut BenchmarkRun) {
     );
 }
 
-#[bench("Fibonacci", [
+#[benchmark("Fibonacci", [
     ("1", 1),
     ("10", 10),
     ("100", 100),
@@ -78,7 +78,7 @@ fn fibonacci(b: &mut BenchmarkRun, p: u32) {
 }
 
 // Averages 464.654 cycles per byte
-#[bench("SHA256", [
+#[benchmark("SHA256", [
     ("1k bytes", 1000),
     ("10k bytes", 10000),
     // ("100k bytes", 100000),
@@ -98,7 +98,7 @@ fn sha256(b: &mut BenchmarkRun, p: usize) {
 }
 
 // Averages 153.854 cycles per byte
-#[bench("Blake3", [
+#[benchmark("Blake3", [
     ("1k bytes", 1000),
     ("10k bytes", 10000),
     // ("100k bytes", 100000),
@@ -118,7 +118,7 @@ fn blake3_bench(b: &mut BenchmarkRun, p: usize) {
 }
 
 // Averages 0.869 cycles per byte
-#[bench("RPO", [
+#[benchmark("RPO", [
     ("1k bytes", 1000),
     ("10k bytes", 10000),
     // ("100k bytes", 100000),

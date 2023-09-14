@@ -1,4 +1,6 @@
-#[bench::bench([
+use bench::benchmark;
+
+#[benchmark([
     ("test", 5),
     param_from_fn(),
 ])]
@@ -12,7 +14,9 @@ fn param_from_fn() -> (&'static str, u32) {
 }
 
 mod adder {
-    #[bench::bench(params_from_fn())]
+    use bench::benchmark;
+
+    #[benchmark(params_from_fn())]
     pub fn add(b: &mut bench::BenchmarkRun, p: u32) {
         let result = b.run(|| p + 1);
         assert_eq!(result, 6);
@@ -23,12 +27,12 @@ mod adder {
     }
 }
 
-#[bench::bench]
+#[benchmark]
 fn assert(b: &mut bench::BenchmarkRun) {
     b.run(|| assert_eq!(1, 1));
 }
 
-#[bench::bench("assert2")]
+#[benchmark("assert2")]
 fn assert_renamed(b: &mut bench::BenchmarkRun) {
     b.run(|| assert_eq!(1, 1));
 }
