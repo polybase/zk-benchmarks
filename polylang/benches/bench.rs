@@ -1,8 +1,8 @@
-use bench::{bench, BenchmarkRun};
+use bench::{benchmark, BenchmarkRun};
 use polylang_bench::compile;
 use polylang_prover::RunOutput;
 
-#[bench]
+#[benchmark]
 fn assert(b: &mut BenchmarkRun) {
     let run_and_prove = compile(
         r#"
