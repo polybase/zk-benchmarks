@@ -106,7 +106,7 @@ fn main() {
         inputs.insert("hash".to_string(), InputValue::Vec(hash));
         inputs.insert("path".to_string(), InputValue::Vec(path));
 
-        let proof = Proof::new(&backend, "fib", dir.join("pkgs/merkle_membership"));
+        let proof = Proof::new(&backend, "merkle_membership", dir.join("pkgs/merkle_membership"));
         let proof_bytes = b.run(|| proof.run_and_prove(&inputs));
         b.log("proof_size_bytes", proof_bytes.len());
         b.log(
