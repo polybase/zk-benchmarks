@@ -97,7 +97,7 @@ fn main() {
         inputs.insert("a_start".to_string(), InputValue::Field((0_u128).into()));
         inputs.insert("b_start".to_string(), InputValue::Field((1_u128).into()));
 
-        let proof = Proof::new(&backend, "fib", dir.join("merkle_membership"));
+        let proof = Proof::new(&backend, "fib", dir.join("pkgs/merkle_membership"));
         let proof_bytes = b.run(|| proof.run_and_prove(&inputs));
         b.log("proof_size_bytes", proof_bytes.len());
         b.log(
