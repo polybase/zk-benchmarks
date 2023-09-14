@@ -10,6 +10,8 @@ use risc0_zkvm::{
     sha::{Digest, Sha256},
 };
 
+risc0_zkvm::guest::entry!(main);
+
 fn main() {
     let hash_bytes: Vec<u8> = env::read();
     let hash_words: Vec<u32> = hash_bytes
