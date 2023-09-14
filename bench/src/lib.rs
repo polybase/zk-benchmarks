@@ -1,3 +1,5 @@
+pub use bench_macros::{benchmark, main};
+
 mod fork;
 mod memory;
 
@@ -8,6 +10,19 @@ use std::collections::HashMap;
 use std::env;
 use std::fmt::Debug;
 use std::time::{Duration, Instant};
+
+pub trait BenchmarkFn {
+    type ParamType;
+
+    fn name() -> String;
+    fn params() -> Option<Vec<(String, Self::ParamType)>>;
+    fn run(_b: &mut BenchmarkRun, _p: Self::ParamType) {
+        panic!("This benchmark does not take parameters");
+    }
+    fn run_without_param(_b: &mut BenchmarkRun) {
+        panic!("This benchmark takes parameters");
+    }
+}
 
 #[derive(Debug, Serialize)]
 pub struct Benchmark<'a> {
