@@ -4,22 +4,16 @@ use miden_processor::{AdviceInputs, MemAdviceProvider, StackInputs, VmStateItera
 use miden_prover::{ExecutionProof, ProofOptions};
 use shared::{
     hash::{HashFn, Rpo},
-    path::MerklePath,
     Tree,
 };
 
 pub fn membership(
-    path: &MerklePath<Rpo>,
+    path: Vec<<Rpo as HashFn>::Digest>,
     digest: <Rpo as HashFn>::Digest,
 ) -> (impl Fn() -> ExecutionProof, VmStateIterator) {
-    assert_eq!(path.0.len(), 10);
+    assert_eq!(path.len(), 10);
     let mut advice = AdviceInputs::default();
-    advice.extend_stack(
-        path.0
-            .iter()
-            .flat_map(|digest| digest.as_elements())
-            .copied(),
-    );
+    advice.extend_stack(path.iter().flat_map(|digest| digest.as_elements()).copied());
     advice.extend_stack(digest.as_elements().iter().copied());
     let advice = MemAdviceProvider::from(advice);
 
