@@ -1,7 +1,7 @@
 extern crate noir;
 extern crate rand;
 
-use bench::{benchmark, Benchmark, BenchmarkRun};
+use bench::{benchmark, BenchmarkRun};
 use noir::{InputMap, InputValue, Proof};
 use rand::Rng;
 
