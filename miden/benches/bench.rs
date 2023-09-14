@@ -10,7 +10,6 @@ use miden_bench::{
 };
 use shared::{
     hash::{HashFn, Rpo},
-    path::MerklePath,
     tree_size_n,
 };
 
