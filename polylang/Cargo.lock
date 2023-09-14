@@ -62,10 +62,20 @@ checksum = "414dcefbc63d77c526a76b3afcf6fbb9b5e2791c19c3aa2297733208750c6e53"
 name = "bench"
 version = "0.1.0"
 dependencies = [
+ "bench-macros",
  "memory-stats",
  "nix",
  "serde",
  "serde_json",
+]
+
+[[package]]
+name = "bench-macros"
+version = "0.1.0"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.31",
 ]
 
 [[package]]

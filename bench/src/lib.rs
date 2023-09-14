@@ -1,3 +1,5 @@
+pub use bench_macros::{benchmark, main};
+
 mod fork;
 mod memory;
 
@@ -8,6 +10,19 @@ use std::collections::HashMap;
 use std::env;
 use std::fmt::Debug;
 use std::time::{Duration, Instant};
+
+pub trait BenchmarkFn {
+    type ParamType;
+
+    fn name() -> String;
+    fn params() -> Option<Vec<(String, Self::ParamType)>>;
+    fn run(_b: &mut BenchmarkRun, _p: Self::ParamType) {
+        panic!("This benchmark does not take parameters");
+    }
+    fn run_without_param(_b: &mut BenchmarkRun) {
+        panic!("This benchmark takes parameters");
+    }
+}
 
 #[derive(Debug, Serialize)]
 pub struct Benchmark<'a> {
@@ -54,10 +69,10 @@ impl<'a> Benchmark<'a> {
         group.benchmark(name, func);
     }
 
-    pub fn benchmark_with<F: Fn(&mut BenchmarkRun, &P) -> T, T, P: Debug>(
+    pub fn benchmark_with<F: Fn(&mut BenchmarkRun, P) -> T, T, P: Debug>(
         &mut self,
         name: &str,
-        params: &[(&str, P)],
+        params: Vec<(&str, P)>,
         func: F,
     ) {
         let group = self.group(name);
@@ -138,16 +153,16 @@ impl BenchmarkGroup {
         self.results.push(BenchmarkResult::Run(run));
     }
 
-    pub fn benchmark_with<F: Fn(&mut BenchmarkRun, &P) -> T, T, P: Debug>(
+    pub fn benchmark_with<F: Fn(&mut BenchmarkRun, P) -> T, T, P: Debug>(
         &mut self,
-        params: &[(&str, P)],
+        params: Vec<(&str, P)>,
         func: F,
     ) {
         let quick = self.config.quick;
-        for p in params.iter().take(if quick { 1 } else { usize::MAX }) {
+        for p in params.into_iter().take(if quick { 1 } else { usize::MAX }) {
             let run = fork(|| {
                 let mut run = BenchmarkRun::new(p.0.to_owned());
-                func(&mut run, &p.1);
+                func(&mut run, p.1);
                 run
             })
             .unwrap();

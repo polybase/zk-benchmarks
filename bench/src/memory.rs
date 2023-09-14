@@ -20,7 +20,7 @@ pub(crate) fn monitor() -> impl FnOnce() -> Option<usize> {
 
         move || {
             let start_memory = memory_stats()?.physical_mem;
-            let mut max_memory = 0;
+            let mut max_memory = start_memory;
             while !stop_signal.load(Ordering::Relaxed) {
                 let memory = memory_stats()?.physical_mem;
 

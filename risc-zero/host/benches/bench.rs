@@ -2,72 +2,66 @@ extern crate host;
 
 use std::rc::Rc;
 
-use bench::{Benchmark, BenchmarkRun};
+use bench::{benchmark, BenchmarkRun};
 use host::{blake3::blake3, fib::fib, sha::sha};
 use risc0_zkvm::{prove::get_prover, Receipt, Session};
 
-fn main() {
-    let prover_getter = |name: &'static str| || get_prover(name);
-    let (bench_name, prover) = match std::env::args().nth(1) {
-        Some(prover) if prover == "multi-cpu" => ("risc_zero-multi-cpu", prover_getter("cpu")),
-        Some(prover) if prover == "metal" => ("risc_zero-metal", prover_getter("metal")),
-        Some(prover) if prover == "cuda" => ("risc_zero-cuda", prover_getter("cuda")),
+fn prover() -> Rc<dyn risc0_zkvm::prove::Prover> {
+    match std::env::args().nth(1) {
+        Some(prover) if prover == "multi-cpu" => get_prover("cpu"),
+        Some(prover) if prover == "metal" => get_prover("metal"),
+        Some(prover) if prover == "cuda" => get_prover("cuda"),
         Some(_) | None => {
-            println!("Usage: bench <multi-cpu, metal or cuda>");
-            std::process::exit(1);
+            panic!("Usage: bench <multi-cpu, metal or cuda>");
         }
-    };
+    }
+}
 
-    let mut bench = Benchmark::from_env("risc_zero");
+#[benchmark]
+fn assert(b: &mut BenchmarkRun) {
+    let prover = prover();
 
-    bench.benchmark("assert", |b| {
-        let prover = prover();
+    let prove = host::assert::assert(Rc::clone(&prover), 1, 2);
+    log_session(&b.run(prove), b);
+}
 
-        let prove = host::assert::assert(Rc::clone(&prover), 1, 2);
-        log_session(&b.run(prove), b);
-    });
+#[benchmark("Fibonacci", [
+    ("1", 1),
+    ("10", 10),
+    ("100", 100),
+    ("1000", 1000),
+    ("10000", 10000),
+    ("100000", 100000),
+])]
+fn fibonacci(b: &mut BenchmarkRun, n: u32) {
+    let prover = prover();
 
-    bench.benchmark_with(
-        "Fibonacci",
-        &[
-            ("1", 1),
-            ("10", 10),
-            ("100", 100),
-            ("1000", 1000),
-            ("10000", 10000),
-            ("100000", 100000),
-        ],
-        |b, n| {
-            let prover = prover();
+    let prove = fib(Rc::clone(&prover), n);
+    log_session(&b.run(prove), b);
+}
 
-            let prove = fib(Rc::clone(&prover), *n);
-            log_session(&b.run(prove), b);
-        },
-    );
+#[benchmark("SHA256", [
+    ("1k bytes", 1),
+    ("10k bytes", 10),
+    ("100k bytes", 100),
+])]
+fn sha256(b: &mut BenchmarkRun, n: usize) {
+    let prover = prover();
 
-    bench.benchmark_with(
-        "SHA256",
-        &[("1k bytes", 1), ("10k bytes", 10), ("100k bytes", 100)],
-        |b, n| {
-            let prover = prover();
+    let prove = sha(Rc::clone(&prover), n);
+    log_session(&b.run(prove), b);
+}
 
-            let prove = sha(Rc::clone(&prover), *n);
-            log_session(&b.run(prove), b);
-        },
-    );
+#[benchmark("Blake3", [
+    ("1k bytes", 1),
+    ("10k bytes", 10),
+    ("100k bytes", 100),
+])]
+fn blake3_bench(b: &mut BenchmarkRun, n: usize) {
+    let prover = prover();
 
-    bench.benchmark_with(
-        "Blake3",
-        &[("1k bytes", 1), ("10k bytes", 10), ("100k bytes", 100)],
-        |b, n| {
-            let prover = prover();
-
-            let prove = blake3(Rc::clone(&prover), *n);
-            log_session(&b.run(prove), b);
-        },
-    );
-
-    bench.output();
+    let prove = blake3(Rc::clone(&prover), n);
+    log_session(&b.run(prove), b);
 }
 
 fn log_session((receipt, session): &(Receipt, Session), b: &mut BenchmarkRun) {
@@ -90,3 +84,5 @@ fn log_session((receipt, session): &(Receipt, Session), b: &mut BenchmarkRun) {
         zstd::encode_all(&proof[..], 21).unwrap().len(),
     );
 }
+
+bench::main!(assert, fibonacci, sha256, blake3_bench);
