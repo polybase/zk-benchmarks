@@ -2,7 +2,7 @@ use std::rc::Rc;
 
 use methods::{MERKLE_ELF, MERKLE_MEMBERSHIP_ELF};
 use risc0_zkvm::{prove::Prover, ExecutorEnv, Receipt, Session, Executor, VerifierContext};
-use shared::hash::{HashFn, Sha};
+use shared::{hash::{HashFn, Sha}, Tree};
 
 pub fn merkle(
     prover: Rc<dyn Prover>,
