@@ -16,7 +16,6 @@ use shared::{
 fn main() {
     let mut bench = Benchmark::from_env("miden");
 
-
     bench.benchmark("multiple assert proof compression", |b| {
         let mut proofs = Vec::new();
         for x in 0..10 {
@@ -172,8 +171,7 @@ fn main() {
         let vec = core::iter::from_fn(|| Some(Rpo::random()))
             .take(10)
             .collect();
-        let path = MerklePath(vec);
-        let (prove, iter) = membership(&path, Rpo::random());
+        let (prove, iter) = membership(vec, Rpo::random());
 
         let proof = b.run(prove);
         let proof_bytes = proof.to_bytes();
