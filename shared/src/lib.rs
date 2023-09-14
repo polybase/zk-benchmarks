@@ -9,7 +9,6 @@ use serde::{Deserialize, Serialize};
 use core::iter::once;
 
 pub mod hash;
-pub mod path;
 
 pub use fastrand;
 
