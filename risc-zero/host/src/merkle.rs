@@ -37,7 +37,6 @@ pub fn merkle_membership(
     let path = core::iter::from_fn(|| Some(Sha::random()))
         .take(path_size + 1)
         .flat_map(|sha| sha.as_bytes().to_vec())
-        .copied()
         .collect::<Vec<_>>();
 
     let env = ExecutorEnv::builder().add_input(&path).build().unwrap();
