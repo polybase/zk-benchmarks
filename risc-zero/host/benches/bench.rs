@@ -3,7 +3,12 @@ extern crate host;
 use std::rc::Rc;
 
 use bench::{Benchmark, BenchmarkRun};
-use host::{blake3::blake3, fib::fib, sha::sha};
+use host::{
+    blake3::blake3,
+    fib::fib,
+    merkle::{merkle, merkle_membership},
+    sha::sha,
+};
 use risc0_zkvm::{prove::get_prover, Receipt, Session};
 
 fn main() {
@@ -74,6 +79,28 @@ fn main() {
             log_session(&b.run(prove), b);
         },
     );
+
+    bench.benchmark_with(
+        "Merkle Tree Merge",
+        &[
+            ("2^10 + 2^10", (10, 10)),
+            ("2^10 + 2^20", (10, 20)),
+            ("2^20 + 2^20", (20, 20)),
+        ],
+        |b, &(n1, n2)| {
+            let prover = prover();
+
+            let prove = merkle(Rc::clone(&prover), n1, n2);
+            log_session(&b.run(prove), b);
+        },
+    );
+
+    bench.benchmark("Merkle Tree Membership", |b| {
+        let prover = prover();
+
+        let prove = merkle_membership(Rc::clone(&prover), 10);
+        log_session(&b.run(prove), b);
+    });
 
     bench.output();
 }

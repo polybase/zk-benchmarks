@@ -12,4 +12,6 @@ methods = [
     "blake3",
     "assert",
     "fib",
+    "merkle",
+    "merkle_membership",
 ]
