@@ -9,7 +9,7 @@ methods = { path = "../methods" }
 risc0-zkvm = { version = "0.17.0" }
 serde = "1.0"
 zstd = "0.12.4"
-shared = { path = "../../shared" }
+shared = { path = "../../shared", features = ["std"] }
 
 [dev-dependencies]
 bench = { path = "../../bench" }
