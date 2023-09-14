@@ -1,5 +1,5 @@
 [package]
-name = "merkle"
+name = "merkle_membership"
 type = "bin"
 authors = [""]
 compiler_version = "0.10.5"

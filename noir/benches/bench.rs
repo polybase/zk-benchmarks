@@ -89,6 +89,24 @@ fn main() {
         },
     );
 
+    bench.benchmark("Merkle Membership", |b| {
+        let backend = noir::backends::ConcreteBackend::default();
+        let dir = std::env::current_dir().expect("current dir to exist");
+
+        let mut inputs = InputMap::new();
+
+        inputs.insert("a_start".to_string(), InputValue::Field((0_u128).into()));
+        inputs.insert("b_start".to_string(), InputValue::Field((1_u128).into()));
+
+        let proof = Proof::new(&backend, "fib", dir.join(format!("pkgs/fib/{}", p)));
+        let proof_bytes = b.run(|| proof.run_and_prove(&inputs));
+        b.log("proof_size_bytes", proof_bytes.len());
+        b.log(
+            "compressed_proof_size_bytes",
+            zstd::encode_all(&proof_bytes[..], 21).unwrap().len(),
+        );
+    });
+
     bench.output();
 }
 
