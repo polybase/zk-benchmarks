@@ -148,6 +148,7 @@ fn main() {
     bench.benchmark_with(
         "Merkle Tree Merge",
         &[
+            ("2^2 + 2^2", (tree_size_n(2), tree_size_n(2))),
             ("2^10 + 2^10", (tree_size_n(10), tree_size_n(10))),
             ("2^10 + 2^20", (tree_size_n(10), tree_size_n(20))),
             ("2^20 + 2^20", (tree_size_n(20), tree_size_n(20))),

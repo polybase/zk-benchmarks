@@ -76,7 +76,7 @@ fn main() {
     bench.benchmark_with(
         "Merkle Tree Merge",
         &[(
-            "2^10 + 2^10",
+            "2^2 + 2^2",
             (tree_size_n::<Sha>(10), tree_size_n::<Sha>(10)),
         )],
         |b, (n1, n2)| {
