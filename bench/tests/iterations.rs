@@ -1,6 +1,9 @@
-use std::io::{Read, Write};
+use std::{
+    io::{Read, Write},
+    time::Duration,
+};
 
-use bench::{Benchmark, BenchmarkParameter};
+use bench::{Benchmark, BenchmarkConfig, BenchmarkParameter};
 
 enum BenchmarkType {
     Benchmark {
@@ -11,8 +14,16 @@ enum BenchmarkType {
     },
 }
 
+const MAX_BENCH_DURATION: Duration = Duration::from_millis(100);
+
 fn iterations(bench_type: BenchmarkType, f: impl Fn()) -> usize {
-    let mut benchmark = Benchmark::new("iterations");
+    let mut benchmark = Benchmark::with_config(
+        "iterations",
+        BenchmarkConfig {
+            max_default_iterations_duration: MAX_BENCH_DURATION,
+            ..Default::default()
+        },
+    );
 
     let (mut reader, writer) = std::os::unix::net::UnixStream::pair().unwrap();
 
@@ -98,7 +109,7 @@ fn test_iterations_benchmark_with_5() {
 fn test_iterations_sleep_10() {
     assert_eq!(
         iterations(BenchmarkType::Benchmark { iterations: None }, || {
-            std::thread::sleep(std::time::Duration::from_secs(10))
+            std::thread::sleep(MAX_BENCH_DURATION)
         }),
         1
     );
@@ -108,7 +119,7 @@ fn test_iterations_sleep_10() {
 fn test_iterations_sleep_5() {
     assert_eq!(
         iterations(BenchmarkType::Benchmark { iterations: None }, || {
-            std::thread::sleep(std::time::Duration::from_secs(5))
+            std::thread::sleep(MAX_BENCH_DURATION / 2)
         }),
         2
     );

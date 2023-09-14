@@ -82,18 +82,46 @@ impl<'a> Benchmark<'a> {
     }
 }
 
-#[derive(Debug, Default, Clone)]
+#[derive(Debug, Clone)]
 pub struct BenchmarkConfig {
     pub quick: bool,
+    /// The maximum total duration for the default iterations of a single benchmark.
+    /// If the cumulative time for all default iterations exceeds this limit,
+    /// no further iterations will be started.
+    /// This doesn't apply to benchmarks with a specified number of iterations.
+    ///
+    /// Default value is 10 seconds.
+    pub max_default_iterations_duration: Duration,
     pub output_dir: Option<String>,
 }
+
+const DEFAULT_BENCH_TIMEOUT: Duration = Duration::from_secs(10);
 
 impl BenchmarkConfig {
     pub fn from_env() -> Self {
         let quick = env::var("BENCH_QUICK").unwrap_or("false".to_string());
         BenchmarkConfig {
             quick: quick == "true" || quick == "1",
+            max_default_iterations_duration: env::var("BENCH_MAX_DEFAULT_ITERATIONS_DURATION")
+                .ok()
+                .map(|t| {
+                    Duration::from_millis(
+                        t.parse()
+                            .expect("BENCH_MAX_DEFAULT_ITERATIONS_DURATION must be a valid number in milliseconds"),
+                    )
+                })
+                .unwrap_or(DEFAULT_BENCH_TIMEOUT),
             output_dir: env::var("BENCH_OUTPUT_DIR").ok(),
+        }
+    }
+}
+
+impl Default for BenchmarkConfig {
+    fn default() -> Self {
+        BenchmarkConfig {
+            quick: false,
+            max_default_iterations_duration: DEFAULT_BENCH_TIMEOUT,
+            output_dir: None,
         }
     }
 }
@@ -147,7 +175,9 @@ impl BenchmarkGroup {
 
             runs.push(run);
 
-            if iterations.is_none() && time_start.elapsed() > Duration::from_secs(10) {
+            if iterations.is_none()
+                && time_start.elapsed() > self.config.max_default_iterations_duration
+            {
                 break;
             }
         }
