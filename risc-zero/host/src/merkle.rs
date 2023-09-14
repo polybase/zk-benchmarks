@@ -6,11 +6,9 @@ use shared::hash::{HashFn, Sha};
 
 pub fn merkle(
     prover: Rc<dyn Prover>,
-    tree_1_size_log: usize,
-    tree_2_size_log: usize,
+    tree1: Tree<Sha>,
+    tree2: Tree<Sha>,
 ) -> impl FnMut() -> (Receipt, Session) {
-    let tree1 = shared::tree_size_n::<Sha>(tree_1_size_log);
-    let tree2 = shared::tree_size_n::<Sha>(tree_2_size_log);
     let string = format!("{};;{}", tree1.to_json(), tree2.to_json());
 
     let env = ExecutorEnv::builder()
