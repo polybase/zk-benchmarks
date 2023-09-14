@@ -23,7 +23,7 @@ fn main() {
         }
     };
 
-    let mut bench = Benchmark::from_env(bench_name);
+    let mut bench = Benchmark::from_env("risc_zero");
 
     bench.benchmark("assert", |b| {
         let prover = prover();
@@ -52,11 +52,7 @@ fn main() {
 
     bench.benchmark_with(
         "SHA256",
-        &[
-            ("1000 bytes", 1),
-            ("10000 bytes", 10),
-            ("100000 bytes", 100),
-        ],
+        &[("1k bytes", 1), ("10k bytes", 10), ("100k bytes", 100)],
         |b, n| {
             let prover = prover();
 
@@ -67,11 +63,7 @@ fn main() {
 
     bench.benchmark_with(
         "Blake3",
-        &[
-            ("1000 bytes", 1),
-            ("10000 bytes", 10),
-            ("100000 bytes", 100),
-        ],
+        &[("1k bytes", 1), ("10k bytes", 10), ("100k bytes", 100)],
         |b, n| {
             let prover = prover();
 

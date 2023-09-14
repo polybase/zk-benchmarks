@@ -1,0 +1,98 @@
+import { Heading, Alert, AlertIcon, Text } from '@chakra-ui/react'
+
+---
+
+# FAQ
+
+
+## What is ZK?
+
+ZK (Zero Knowledge) is a type of cryptography that allows a proof (a kind of certificate) to be generated that allows one party to prove to another that they know a value (or that some condition holds true), without revealing any information about the value itself. 
+
+There are two main components to ZK:
+
+1. **Zero Knowledge** - the ability to run computation without revealing all of the inputs, but having the output be trusted
+2. **Provable computation** -  proves the code ran as designed, and therefore the output can be trusted
+
+Here's a simple example to demonstrate the idea of provable computation. Below the code checks if the input provided is over 18. 
+If we ran this in zero knowledge, we could generate a proof that the input value was > 18 without revealing the actual number:
+
+```js
+function isOver18(age: number): boolean {
+  return age > 18;
+}
+```
+
+## What’s the difference between a STARK and a SNARK?
+
+These are two different approaches to provable zero knowledge computation.
+
+<Alert status='warning' borderRadius={5}>
+  <AlertIcon />
+  <Text fontSize='md'>You should prefix everything below with "in general" - there are always exceptions to the rule!</Text>
+</Alert>
+
+
+| Feature                  | SNARK                                                                                           | STARK                                                                                           |
+|--------------------------|-------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| **Definition**              | Succinct Non-interactive ARguments of Knowledge                                                 | Scalable Transparent ARguments of Knowledge                                                     |
+| **Setup Phase**              | Typically requires a trusted setup to generate a shared secret key. Parameters must be kept secret| Does not require a trusted setup                                                                |
+| **Turing Completeness**      | Program must be bounded at compile time                                                         | Fully Turing complete                                                                           |
+| **Transparency**             | Less transparent due to the trusted setup                                                       | More transparent due to the lack of a trusted setup                                             |
+| **Proof Size**               | Generally produces shorter proofs                                                               | Generates longer proofs, proof size is still non-linear                                         |
+| **Verification Time**        | Usually offers faster verification times                                                        | Slower verification, especially with larger data. Not suitable for Ethereum                     |
+| **Prover Time**              | Generally efficient but depends on the specific construction                                    | Proving time can be longer, particularly for larger datasets                                    |
+| **Cryptographic Assumptions**| Relies on stronger, more specific assumptions                                                    | Relies on lesser cryptographic assumptions, more "future-proof"                                 |
+| **Quantum Resistance**       | Generally not quantum-resistant      | Generally quantum-resistant      |
+
+
+## What are unbounded programs?
+
+These are programs which have inputs or logic where the number of cycles or iterations is not known at compile time. For example, a program that iterates over a list of items and checks if each item is greater than 18. The number of items in the list is not known at compile time, so the program is unbounded.
+
+In general, SNARKS require a program to be bounded at compile time, whereas STARKS do not.
+
+### Unbounded Program
+
+The following is an example of a program that is unbounded, as you can see the number of items in the list is not known at compile time as it is supplied as an argument when calling the program.
+
+
+```
+function sum(list: number[]): number {
+  let total = 0;
+  for (let i = 0; i < list.length; i++) {
+    total += list[i];
+  }
+  return total;
+}
+```
+
+### Bounded Program
+
+For frameworks that require a bounded program, you would have to explicitly define the number of items in the list, for example:
+
+```
+function sum(list: number[10]): number {
+  let total = 0;
+  for (let i = 0; i < list.length; i++) {
+    total += list[i];
+  }
+  return total;
+}
+```
+
+## How do you run the benchmarks?
+
+We run the benchmarks using a Github Action using a self-hosted runner, running on a dedicated AWS instance. We use a dedicated instance to ensure that the performance calculations are not degraded by other users that might otherwise be using a shared instance. Benchmarks are updated automatically whenever we add, update benchmarks or the versions on the underlying frameworks.
+
+## Which is the best framework?
+
+There is no “best” framework. As you can see from the table above, there are a lot of caveats and trade offs. You should choose the framework that best meets your needs, which will depend on what kind of application you are building.
+
+## Can you benchmark X or add framework X?
+
+Sure, just [submit a PR](https://github.com/polybase/zk-benchmarks) 😉
+
+## Why did you make this?
+
+We made ZK-bench to help the ZK community to better understand the trade-offs and performance of different frameworks.

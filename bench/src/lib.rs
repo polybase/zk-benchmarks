@@ -9,11 +9,12 @@ use std::env;
 use std::fmt::Debug;
 use std::time::{Duration, Instant};
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 pub struct Benchmark<'a> {
     name: &'a str,
+    results: Vec<BenchmarkGroup>,
+    #[serde(skip)]
     config: BenchmarkConfig,
-    timings: Vec<(String, BenchmarkResult)>,
 }
 
 impl<'a> Benchmark<'a> {
@@ -21,7 +22,7 @@ impl<'a> Benchmark<'a> {
         Benchmark {
             name,
             config: BenchmarkConfig::default(),
-            timings: Vec::new(),
+            results: Vec::new(),
         }
     }
 
@@ -29,7 +30,7 @@ impl<'a> Benchmark<'a> {
         Benchmark {
             name,
             config,
-            timings: Vec::new(),
+            results: Vec::new(),
         }
     }
 
@@ -37,32 +38,20 @@ impl<'a> Benchmark<'a> {
         Benchmark {
             name,
             config: BenchmarkConfig::from_env(),
-            timings: Vec::new(),
+            results: Vec::new(),
         }
     }
 
+    pub fn group(&mut self, name: &str) -> &mut BenchmarkGroup {
+        let group = BenchmarkGroup::new(name.to_string(), &self.config);
+        self.results.push(group);
+        // We can unwrap as we just added the item
+        self.results.last_mut().unwrap()
+    }
+
     pub fn benchmark<F: Fn(&mut BenchmarkRun)>(&mut self, name: &str, func: F) {
-        let run = fork(|| {
-            let stop_monitoring_memory = memory::monitor();
-
-            let mut run = BenchmarkRun::new(name.to_owned(), String::new());
-            func(&mut run);
-
-            if let Some(memory_usage_bytes) = stop_monitoring_memory() {
-                run.log("memory_usage_bytes", memory_usage_bytes);
-            }
-
-            run
-        })
-        .unwrap();
-
-        self.timings.push((
-            name.to_owned(),
-            BenchmarkResult {
-                name: name.to_owned(),
-                run,
-            },
-        ));
+        let group = self.group(name);
+        group.benchmark(name, func);
     }
 
     pub fn benchmark_with<F: Fn(&mut BenchmarkRun, &P) -> T, T, P: Debug>(
@@ -71,32 +60,16 @@ impl<'a> Benchmark<'a> {
         params: &[(&str, P)],
         func: F,
     ) {
-        for p in params
-            .iter()
-            .take(if self.config.quick { 1 } else { usize::MAX })
-        {
-            let run = fork(|| {
-                let mut run = BenchmarkRun::new(name.to_owned(), p.0.to_owned());
-                func(&mut run, &p.1);
-                run
-            })
-            .unwrap();
-
-            self.timings.push((
-                name.to_owned(),
-                BenchmarkResult {
-                    name: name.to_owned(),
-                    run,
-                },
-            ));
-        }
+        let group = self.group(name);
+        group.benchmark_with(params, func);
     }
 
     pub fn output(&self) {
-        let output = json!({ "name": self.name, "timings": json!(self.timings) });
+        let output = json!(self);
         let output_str = serde_json::to_string_pretty(&output).expect("failed to serialize");
         if let Some(path) = &self.config.output_dir {
             let path = std::path::Path::new(path);
+            std::fs::create_dir_all(path).expect("failed to create output dir");
             std::fs::write(path.join(self.name).with_extension("json"), &output_str)
                 .expect("failed to write output");
         }
@@ -104,7 +77,7 @@ impl<'a> Benchmark<'a> {
     }
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone)]
 pub struct BenchmarkConfig {
     pub quick: bool,
     pub output_dir: Option<String>,
@@ -120,31 +93,88 @@ impl BenchmarkConfig {
     }
 }
 
-#[derive(Debug, Deserialize, Serialize)]
-pub struct BenchmarkResult {
-    pub name: String,
-    pub run: BenchmarkRun,
+#[derive(Debug, Serialize, Deserialize)]
+pub struct BenchmarkGroup {
+    name: String,
+    results: Vec<BenchmarkResult>,
+    #[serde(skip)]
+    config: BenchmarkConfig,
 }
 
-impl BenchmarkResult {
-    pub fn new(name: String, run: BenchmarkRun) -> Self {
-        BenchmarkResult { name, run }
+impl BenchmarkGroup {
+    pub fn new(name: String, config: &BenchmarkConfig) -> Self {
+        BenchmarkGroup {
+            name,
+            results: Vec::new(),
+            config: config.clone(),
+        }
+    }
+
+    pub fn group(&mut self, name: &str) -> &mut BenchmarkGroup {
+        let group = BenchmarkGroup::new(name.to_string(), &self.config);
+        self.results.push(BenchmarkResult::Group(group));
+        // We can unwrap as we just added the item
+        match self.results.last_mut().unwrap() {
+            BenchmarkResult::Group(ref mut group) => group,
+            _ => unreachable!(),
+        }
+    }
+
+    pub fn benchmark<F: Fn(&mut BenchmarkRun)>(&mut self, name: &str, func: F) {
+        let run = fork(|| {
+            let stop_monitoring_memory = memory::monitor();
+
+            let mut run = BenchmarkRun::new(name.to_owned());
+            func(&mut run);
+
+            if let Some(memory_usage_bytes) = stop_monitoring_memory() {
+                run.log("memory_usage_bytes", memory_usage_bytes);
+            }
+
+            run
+        })
+        .unwrap();
+
+        self.results.push(BenchmarkResult::Run(run));
+    }
+
+    pub fn benchmark_with<F: Fn(&mut BenchmarkRun, &P) -> T, T, P: Debug>(
+        &mut self,
+        params: &[(&str, P)],
+        func: F,
+    ) {
+        let quick = self.config.quick;
+        for p in params.iter().take(if quick { 1 } else { usize::MAX }) {
+            let run = fork(|| {
+                let mut run = BenchmarkRun::new(p.0.to_owned());
+                func(&mut run, &p.1);
+                run
+            })
+            .unwrap();
+
+            self.results.push(BenchmarkResult::Run(run));
+        }
     }
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum BenchmarkResult {
+    Group(BenchmarkGroup),
+    Run(BenchmarkRun),
+}
+
+#[derive(Debug, Serialize, Deserialize)]
 pub struct BenchmarkRun {
     pub name: String,
-    pub param: String,
     pub time: Duration,
     pub metrics: HashMap<String, usize>,
 }
 
 impl BenchmarkRun {
-    fn new(name: String, param: String) -> Self {
+    fn new(name: String) -> Self {
         BenchmarkRun {
             name,
-            param,
             time: Duration::new(0, 0),
             metrics: HashMap::new(),
         }

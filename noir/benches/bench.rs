@@ -11,10 +11,9 @@ fn main() {
     bench.benchmark_with(
         "SHA256",
         &[
-            ("1 byte", 1),
-            ("10 bytes", 10),
-            ("100 bytes", 100),
-            ("1000 bytes", 1000),
+            ("1k bytes", 1000),
+            ("10k bytes", 10000),
+            // ("100k bytes", 100000),
         ],
         |b, p| {
             let backend = noir::backends::ConcreteBackend::default();

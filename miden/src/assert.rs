@@ -3,15 +3,14 @@ use miden_processor::{AdviceInputs, MemAdviceProvider, StackInputs, VmStateItera
 use miden_prover::ExecutionProof;
 
 pub fn assert(a: u32, b: u32) -> (impl Fn() -> ExecutionProof, VmStateIterator) {
-    let code = format!(
-        r#"
+    let code = r#"
         begin
             adv_push.2
             u32checked_neq
             assert
         end
     "#
-    );
+    .to_string();
 
     let assembler = Assembler::default()
         .with_library(&miden_stdlib::StdLibrary::default())

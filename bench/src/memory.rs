@@ -38,7 +38,7 @@ pub(crate) fn monitor() -> impl FnOnce() -> Option<usize> {
     move || {
         stop_signal.store(true, Ordering::Relaxed);
         let (start_memory, max_memory) = handle.join().unwrap()?;
-        Some(max_memory - start_memory as usize)
+        Some(max_memory - start_memory)
     }
 }
 
