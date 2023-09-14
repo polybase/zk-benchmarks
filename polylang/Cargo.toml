@@ -11,9 +11,9 @@ multi-cpu = ["polylang-prover/multi-cpu"]
 metal = ["polylang-prover/metal"]
 
 [dependencies]
-polylang = { git = "https://github.com/polybase/polylang", rev = "fdfcc7c13abf722973f9bbf46545e6ae8791cda0" }
-polylang-prover = { git = "https://github.com/polybase/polylang", rev = "fdfcc7c13abf722973f9bbf46545e6ae8791cda0" }
-abi = { git = "https://github.com/polybase/polylang", rev = "fdfcc7c13abf722973f9bbf46545e6ae8791cda0" }
+polylang = { git = "https://github.com/polybase/polylang", rev = "52c388e" }
+polylang-prover = { git = "https://github.com/polybase/polylang", rev = "52c388e" }
+abi = { git = "https://github.com/polybase/polylang", rev = "52c388e" }
 zstd = "0.12.4"
 
 [dev-dependencies]
