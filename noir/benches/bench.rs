@@ -94,8 +94,17 @@ fn main() {
 
         let mut inputs = InputMap::new();
 
-        inputs.insert("a_start".to_string(), InputValue::Field((0_u128).into()));
-        inputs.insert("b_start".to_string(), InputValue::Field((1_u128).into()));
+        let path = generate_random_u8_slice(320)
+            .iter()
+            .map(|b| InputValue::Field((*b as u128).into()))
+            .collect::<Vec<_>>();
+        let hash = generate_random_u8_slice(32)
+            .iter()
+            .map(|b| InputValue::Field((*b as u128).into()))
+            .collect::<Vec<_>>();
+
+        inputs.insert("hash".to_string(), InputValue::Vec(hash));
+        inputs.insert("path".to_string(), InputValue::Vec(path));
 
         let proof = Proof::new(&backend, "fib", dir.join("pkgs/merkle_membership"));
         let proof_bytes = b.run(|| proof.run_and_prove(&inputs));
