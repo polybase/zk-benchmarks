@@ -9,7 +9,7 @@ edition = "2021"
 miden-crypto = { version = "0.6", optional = true }
 fastrand = { version = "2", optional = true }
 serde = { version = "1", features = ["derive"], default-features = false }
-serde_json = { version = "1", default-features = false }
+serde_json = { version = "1", features = ["alloc"], default-features = false }
 risc0-zkvm = { version = "0.17.0", default-features = false }
 
 [features]
