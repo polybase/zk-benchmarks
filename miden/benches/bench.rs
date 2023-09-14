@@ -9,7 +9,7 @@ use miden_bench::{
     sha::sha,
 };
 use shared::{
-    hash::{HashFn, Rpo},
+    hash::{HashFn, rpo::Rpo},
     tree_size_n,
 };
 

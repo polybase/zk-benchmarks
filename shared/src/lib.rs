@@ -10,6 +10,7 @@ use core::iter::once;
 
 pub mod hash;
 
+#[cfg(feature = "std")]
 pub use fastrand;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

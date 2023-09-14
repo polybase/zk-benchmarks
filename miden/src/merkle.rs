@@ -3,7 +3,7 @@ use miden_crypto::merkle::InnerNodeInfo;
 use miden_processor::{AdviceInputs, MemAdviceProvider, StackInputs, VmStateIterator};
 use miden_prover::{ExecutionProof, ProofOptions};
 use shared::{
-    hash::{HashFn, Rpo},
+    hash::{HashFn, rpo::Rpo},
     Tree,
 };
 

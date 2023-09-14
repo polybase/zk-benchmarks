@@ -1,7 +1,3 @@
-use miden_crypto::{
-    hash::rpo::{Rpo256, RpoDigest},
-    Felt, FieldElement, StarkField,
-};
 use risc0_zkvm::sha::{self, Sha256};
 use serde::{Deserialize, Serialize};
 
@@ -15,29 +11,38 @@ pub trait HashFn: Clone {
     fn null() -> Self::Digest;
 }
 
-#[derive(Debug, Clone)]
-pub struct Rpo;
+#[cfg(feature = "std")]
+pub mod rpo {
 
-impl HashFn for Rpo {
-    type Digest = RpoDigest;
+    use miden_crypto::{
+        hash::rpo::{Rpo256, RpoDigest},
+        Felt, FieldElement, StarkField,
+    };
 
-    fn merge(a: Self::Digest, b: Self::Digest) -> Self::Digest {
-        Rpo256::merge(&[a, b])
-    }
+    #[derive(Debug, Clone)]
+    pub struct Rpo;
 
-    fn random() -> Self::Digest {
-        let max = Felt::ZERO - Felt::ONE;
-        let elements = [
-            Felt::new(fastrand::u64(0..(max.as_int()))),
-            Felt::new(fastrand::u64(0..(max.as_int()))),
-            Felt::new(fastrand::u64(0..(max.as_int()))),
-            Felt::new(fastrand::u64(0..(max.as_int()))),
-        ];
-        RpoDigest::new(elements)
-    }
+    impl super::HashFn for Rpo {
+        type Digest = RpoDigest;
 
-    fn null() -> Self::Digest {
-        RpoDigest::new([Felt::ZERO; 4])
+        fn merge(a: Self::Digest, b: Self::Digest) -> Self::Digest {
+            Rpo256::merge(&[a, b])
+        }
+
+        fn random() -> Self::Digest {
+            let max = Felt::ZERO - Felt::ONE;
+            let elements = [
+                Felt::new(fastrand::u64(0..(max.as_int()))),
+                Felt::new(fastrand::u64(0..(max.as_int()))),
+                Felt::new(fastrand::u64(0..(max.as_int()))),
+                Felt::new(fastrand::u64(0..(max.as_int()))),
+            ];
+            RpoDigest::new(elements)
+        }
+
+        fn null() -> Self::Digest {
+            RpoDigest::new([Felt::ZERO; 4])
+        }
     }
 }
 
