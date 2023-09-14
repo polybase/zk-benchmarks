@@ -5,7 +5,7 @@ use bench::{benchmark, Benchmark, BenchmarkRun};
 use noir::{InputMap, InputValue, Proof};
 use rand::Rng;
 
-#[bench]
+#[benchmark]
 fn assert(b: &mut BenchmarkRun) {
     let backend = noir::backends::ConcreteBackend::default();
     let dir = std::env::current_dir().expect("current dir to exist");
