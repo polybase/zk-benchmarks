@@ -1,7 +1,7 @@
 use std::rc::Rc;
 
 use methods::{MERKLE_ELF, MERKLE_MEMBERSHIP_ELF};
-use risc0_zkvm::{prove::Prover, ExecutorEnv, Receipt, Session};
+use risc0_zkvm::{prove::Prover, ExecutorEnv, Receipt, Session, Executor, VerifierContext};
 use shared::hash::{HashFn, Sha};
 
 pub fn merkle(
@@ -37,6 +37,7 @@ pub fn merkle_membership(
     let path = core::iter::from_fn(|| Some(Sha::random()))
         .take(path_size + 1)
         .flat_map(|sha| sha.as_bytes())
+        .copied()
         .collect::<Vec<_>>();
 
     let env = ExecutorEnv::builder().add_input(&path).build().unwrap();
