@@ -387,10 +387,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8c3c1a368f70d6cf7302d78f8f7093da241fb8e8807c05cc9e51a125895a6d5b"
 
 [[package]]
-name = "bench"
+name = "benchy"
 version = "0.1.0"
 dependencies = [
- "bench-macros",
+ "benchy-macros",
  "memory-stats",
  "nix",
  "serde",
@@ -398,7 +398,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "bench-macros"
+name = "benchy-macros"
 version = "0.1.0"
 dependencies = [
  "proc-macro2",
@@ -1427,7 +1427,7 @@ version = "0.1.0"
 dependencies = [
  "acvm",
  "acvm-backend-barretenberg",
- "bench",
+ "benchy",
  "nargo",
  "noirc_abi",
  "noirc_driver",

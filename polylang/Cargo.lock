@@ -59,10 +59,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "414dcefbc63d77c526a76b3afcf6fbb9b5e2791c19c3aa2297733208750c6e53"
 
 [[package]]
-name = "bench"
+name = "benchy"
 version = "0.1.0"
 dependencies = [
- "bench-macros",
+ "benchy-macros",
  "memory-stats",
  "nix",
  "serde",
@@ -70,7 +70,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "bench-macros"
+name = "benchy-macros"
 version = "0.1.0"
 dependencies = [
  "proc-macro2",
@@ -912,7 +912,7 @@ name = "polylang-bench"
 version = "0.1.0"
 dependencies = [
  "abi",
- "bench",
+ "benchy",
  "polylang",
  "polylang-prover",
  "zstd",
