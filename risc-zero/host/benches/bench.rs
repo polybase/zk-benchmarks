@@ -3,7 +3,7 @@ extern crate host;
 use std::rc::Rc;
 
 use bench::{benchmark, BenchmarkRun};
-use host::{blake3::blake3, fib::fib, sha::sha};
+use host::{blake3::blake3, fib::fib, merkle, sha::sha};
 use risc0_zkvm::{prove::get_prover, Receipt, Session};
 use shared::{hash::Sha, tree_size_n};
 
@@ -65,11 +65,21 @@ fn blake3_bench(b: &mut BenchmarkRun, n: usize) {
     log_session(&b.run(prove), b);
 }
 
+#[benchmark("Merkle Merge", [
+    ("1 + 1", (tree_size_n::<Sha>(0), tree_size_n::<Sha>(0)))
+])]
+fn merkle_merge(b: &mut BenchmarkRun, (tree1, tree2): (Tree<Sha>, Tree<Sha>)) {
+    let prover = prover();
+
+    let prove = merkle::merkle(Rc::clone(&prover), &tree1, &tree2);
+    log_session(&b.run(prove), b);
+}
+
 #[benchmark("Merkle Tree Membership")]
 fn merkle_membership() {
     let prover = prover();
 
-    let prove = merkle_membership(Rc::clone(&prover), 10);
+    let prove = merkle::merkle_membership(Rc::clone(&prover), 10);
     log_session(&b.run(prove), b);
 }
 
@@ -94,4 +104,11 @@ fn log_session((receipt, session): &(Receipt, Session), b: &mut BenchmarkRun) {
     );
 }
 
-bench::main!(assert, fibonacci, sha256, blake3_bench);
+bench::main!(
+    assert,
+    fibonacci,
+    sha256,
+    blake3_bench,
+    merkle_merge,
+    merkle_membership
+);

@@ -1,6 +1,6 @@
 extern crate miden_bench;
 
-use bench::Benchmark;
+use bench::{benchmark, BenchmarkRun};
 use miden_bench::{
     blake3::blake3,
     fib::fib,
@@ -9,21 +9,17 @@ use miden_bench::{
     sha::sha,
 };
 use shared::{
-    hash::{HashFn, rpo::Rpo},
+    hash::{rpo::Rpo, HashFn},
     tree_size_n, Tree,
 };
-use bench::{benchmark, BenchmarkRun};
-use miden_bench::{blake3::blake3, fib::fib, rpo::rpo, sha::sha};
 
 #[benchmark]
 fn assert(b: &mut BenchmarkRun) {
     let (setup, vm) = miden_bench::assert::assert(1, 2);
     let last_vm_state = vm.last().unwrap().unwrap();
-    let proof = b.run(setup);
+    let _proof = b.run(setup);
     b.log("cycles", last_vm_state.clk as usize);
 }
-
-
 
 #[benchmark("multiple assert proof compression")]
 fn multiple_assert_proof_compression(b: &mut BenchmarkRun) {
@@ -151,37 +147,35 @@ fn rpo_bench(b: &mut BenchmarkRun, p: usize) {
     ("2^20 + 2^20", (tree_size_n(20), tree_size_n(20))),
 ])]
 fn merkle_tree_merge(b: &mut BenchmarkRun, (tree1, tree2): (Tree<Rpo>, Tree<Rpo>)) {
+    let (prove, iter) = merge_trees(&tree1, &tree2);
 
-            let (prove, iter) = merge_trees(&tree1, &tree2);
+    let proof = b.run(prove);
+    let proof_bytes = proof.to_bytes();
+    let proof_bytes_zstd = zstd::encode_all(&*proof_bytes, 21).unwrap();
 
-            let proof = b.run(prove);
-            let proof_bytes = proof.to_bytes();
-            let proof_bytes_zstd = zstd::encode_all(&*proof_bytes, 21).unwrap();
+    b.log("proof_size_bytes", proof_bytes.len());
+    b.log("compressed_proof_size_bytes", proof_bytes_zstd.len());
+    let last_vm_state = iter.last().unwrap().unwrap();
 
-            b.log("proof_size_bytes", proof_bytes.len());
-            b.log("compressed_proof_size_bytes", proof_bytes_zstd.len());
-            let last_vm_state = iter.last().unwrap().unwrap();
-
-            b.log("cycles", last_vm_state.clk as usize);
+    b.log("cycles", last_vm_state.clk as usize);
 }
 
 #[benchmark("Merkle Membership")]
 fn merkle_membership(b: &mut BenchmarkRun) {
+    let vec = core::iter::from_fn(|| Some(Rpo::random()))
+        .take(10)
+        .collect();
+    let (prove, iter) = membership(vec, Rpo::random());
 
-        let vec = core::iter::from_fn(|| Some(Rpo::random()))
-            .take(10)
-            .collect();
-        let (prove, iter) = membership(vec, Rpo::random());
+    let proof = b.run(prove);
+    let proof_bytes = proof.to_bytes();
+    let proof_bytes_zstd = zstd::encode_all(&*proof_bytes, 21).unwrap();
 
-        let proof = b.run(prove);
-        let proof_bytes = proof.to_bytes();
-        let proof_bytes_zstd = zstd::encode_all(&*proof_bytes, 21).unwrap();
+    b.log("proof_size_bytes", proof_bytes.len());
+    b.log("compressed_proof_size_bytes", proof_bytes_zstd.len());
+    let last_vm_state = iter.last().unwrap().unwrap();
 
-        b.log("proof_size_bytes", proof_bytes.len());
-        b.log("compressed_proof_size_bytes", proof_bytes_zstd.len());
-        let last_vm_state = iter.last().unwrap().unwrap();
-
-        b.log("cycles", last_vm_state.clk as usize);
+    b.log("cycles", last_vm_state.clk as usize);
 }
 
 bench::main!(

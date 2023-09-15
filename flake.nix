@@ -20,18 +20,10 @@
           extensions = [ "rust-src" "rust-analyzer" ];
         };
 
-        barretenberg = pkgs.fetchFromGitHub {
-            owner = "AztecProtocol";
-            repo = "barretenberg";
-            rev = "fdd46f77531a6fcc9d9b24a698c56590d54d487e";
-            sha256 = "sha256-w7yMeYp50KrlTn23TTKfYmLOQL4uIgw0wSX67v2tvvc=";
-        };
-        libbarretenberg = pkgs.callPackage "${barretenberg}/barretenberg.nix" {};
-
       in {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
-#            rustToolchain
+            rustToolchain
 
             pkg-config
             openssl
