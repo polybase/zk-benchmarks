@@ -17,7 +17,7 @@ abi = { git = "https://github.com/polybase/polylang", rev = "52c388e" }
 zstd = "0.12.4"
 
 [dev-dependencies]
-bench = { path = "../bench" }
+benchy = { path = "../bench" }
 
 [[bench]]
 harness = false

@@ -1,7 +1,7 @@
 extern crate noir;
 extern crate rand;
 
-use bench::{benchmark, BenchmarkRun};
+use benchy::{benchmark, BenchmarkRun};
 use noir::{InputMap, InputValue, Proof};
 use rand::Rng;
 
@@ -89,4 +89,4 @@ fn generate_random_u8_slice(len: usize) -> Vec<u8> {
     vec
 }
 
-bench::main!("noir", assert, fibonacci, sha256);
+benchy::main!("noir", assert, fibonacci, sha256);

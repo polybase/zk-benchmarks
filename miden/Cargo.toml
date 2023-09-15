@@ -13,7 +13,7 @@ miden-prover = { git = "https://github.com/0xPolygonMiden/miden-vm", tag = "v0.6
 zstd = "0.12.4"
 
 [dev-dependencies]
-bench = { path = "../bench" }
+benchy = { path = "../bench" }
 
 [features]
 default = []
