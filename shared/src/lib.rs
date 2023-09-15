@@ -126,3 +126,29 @@ pub fn tree_size_n<H: HashFn>(n: usize) -> Tree<H> {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::hash::Sha;
+
+    fn merge_trees(tree1: Tree<Sha>, tree2: Tree<Sha>) -> Tree<Sha> {
+        let hashes = tree1
+            .iter()
+            .chain(tree2.iter())
+            .filter_map(|node| match node {
+                Tree::Leaf(digest) => Some(*digest),
+                Tree::Node { .. } => None,
+            });
+
+        Tree::new(hashes)
+    }
+
+    #[test]
+    fn can_merge_trees_in_rust() {
+        let tree1 = tree_size_n::<Sha>(10);
+        let tree2 = tree_size_n::<Sha>(10);
+
+        merge_trees(tree1, tree2);
+    }
+}
