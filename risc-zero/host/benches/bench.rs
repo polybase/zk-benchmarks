@@ -85,4 +85,4 @@ fn log_session((receipt, session): &(Receipt, Session), b: &mut BenchmarkRun) {
     );
 }
 
-benchy::main!("risc-zero", assert, fibonacci, sha256, blake3_bench);
+benchy::main!("risc_zero", assert, fibonacci, sha256, blake3_bench);
