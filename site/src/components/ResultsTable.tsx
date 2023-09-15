@@ -6,7 +6,7 @@ import {
 import { MdInfo } from 'react-icons/md'
 import { frameworks } from '@/fixtures/frameworks'
 import benchmarks from '@/fixtures/benchmarks.json'
-import { formatDate, timeSinceLastUpdate } from '@/util/date'
+import { timeSinceLastUpdate } from '@/util/date'
 
 interface Duration {
   secs: number;
@@ -158,7 +158,7 @@ export function ResultsTable() {
                 <Th>
                 </Th>
                 {frameworks.map((item) => (
-                  <Th key={item.name}>
+                  <Th key={item.name} fontSize='sm'>
                     <a href={item.url}>
                       {item.name}
                     </a>
@@ -180,7 +180,7 @@ export function ResultsTable() {
                           <Box>
                             <Popover>
                               <PopoverTrigger>
-                                <IconButton opacity={0.3} variant='ghost' aria-label='info' size='xs' icon={<MdInfo />} />
+                                <IconButton opacity={0.3} variant='ghost' aria-label='info' height='18px' size='sm' icon={<MdInfo />} />
                               </PopoverTrigger>
                               <Portal>
                                 <PopoverContent>
@@ -207,7 +207,7 @@ export function ResultsTable() {
                                 <Box>
                                   <Popover>
                                     <PopoverTrigger>
-                                      <IconButton opacity={0.3} variant='ghost' aria-label='info' size='xs' icon={<MdInfo />} />
+                                      <IconButton opacity={0.3} variant='ghost' height='18px' aria-label='info' size='sm' icon={<MdInfo />} />
                                     </PopoverTrigger>
                                     <Portal>
                                       <PopoverContent>
@@ -236,7 +236,7 @@ export function ResultsTable() {
             Last Updated:
           </Text>
           <Box>
-            {timeSinceLastUpdate(benchmarks.meta.lastUpdated)} (<time>{formatDate(benchmarks.meta.lastUpdated)}</time>)
+            {timeSinceLastUpdate(benchmarks.meta.lastUpdated)} (<time>{benchmarks.meta.lastUpdated}</time>)
           </Box>
         </HStack>
       </Box>

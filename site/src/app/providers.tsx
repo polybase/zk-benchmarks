@@ -11,7 +11,7 @@ export function Providers({
 }) {
   return (
     <CacheProvider>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+      <ColorModeScript initialColorMode='system' />
       <ChakraProvider theme={theme}>
         {children}
       </ChakraProvider>

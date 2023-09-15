@@ -40,11 +40,9 @@ export default function Home() {
                 </HStack>
               </Center>
             </Box>
-            <Center>
-              <Box maxW='container.lg'>
-                <ResultsTable />
-              </Box>
-            </Center>
+            <Box maxW='container.lg' margin='0 auto'>
+              <ResultsTable />
+            </Box>
             <Box maxW='container.md' margin='0 auto' width='100%' p={2} pt={10}>
               <Faq />
             </Box>
