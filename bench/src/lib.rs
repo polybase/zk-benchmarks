@@ -114,19 +114,19 @@ const DEFAULT_BENCH_TIMEOUT: Duration = Duration::from_secs(10);
 
 impl BenchmarkConfig {
     pub fn from_env() -> Self {
-        let quick = env::var("BENCH_QUICK").unwrap_or("false".to_string());
+        let quick = env::var("BENCHY_QUICK").unwrap_or("false".to_string());
         BenchmarkConfig {
             quick: quick == "true" || quick == "1",
-            max_default_iterations_duration: env::var("BENCH_MAX_DEFAULT_ITERATIONS_DURATION")
+            max_default_iterations_duration: env::var("BENCHY_MAX_DEFAULT_ITERATIONS_DURATION")
                 .ok()
                 .map(|t| {
                     Duration::from_millis(
                         t.parse()
-                            .expect("BENCH_MAX_DEFAULT_ITERATIONS_DURATION must be a valid number in milliseconds"),
+                            .expect("BENCHY_MAX_DEFAULT_ITERATIONS_DURATION must be a valid number in milliseconds"),
                     )
                 })
                 .unwrap_or(DEFAULT_BENCH_TIMEOUT),
-            output_dir: env::var("BENCH_OUTPUT_DIR").ok(),
+            output_dir: env::var("BENCHY_OUTPUT_DIR").ok(),
         }
     }
 }
