@@ -85,7 +85,7 @@ fn expand_main(MainArgs { name, benchmarks }: MainArgs) -> syn::Result<proc_macr
             extern crate bench as _bench;
             use _bench::BenchmarkFn;
 
-            let mut bench = _bench::Benchmark::new(#name);
+            let mut bench = _bench::Benchmark::from_env(#name);
 
             #(#bench_runs)*
 
