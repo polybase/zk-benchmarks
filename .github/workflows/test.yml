@@ -4,6 +4,22 @@ on:
   push:
 
 jobs:
+  polylang:
+    runs-on: ubuntu-latest-64-cores
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - uses: Swatinem/rust-cache@v2
+  
+    - name: Run Polylang benchmarks
+      working-directory: ./polylang
+      env:
+        BENCHY_QUICK: "1"
+      run: |
+        cargo bench -F multi-cpu
+
   miden:
     runs-on: ubuntu-latest-64-cores
 
@@ -16,7 +32,7 @@ jobs:
     - name: Run Miden benchmarks
       working-directory: ./miden
       env:
-        BENCH_QUICK: "1"
+        BENCHY_QUICK: "1"
       run: |
         cargo bench -F multi-cpu
 
@@ -37,11 +53,13 @@ jobs:
     
       - name: Install risczero
         run: cargo install cargo-risczero && cargo risczero install
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
       - name: Run Risc-Zero benchmarks
         working-directory: ./risc-zero/host
         env:
-          BENCH_QUICK: "1"
+          BENCHY_QUICK: "1"
         run: |
           cargo bench multi-cpu
 
@@ -75,7 +93,7 @@ jobs:
       - name: Run cargo bench in Nix shell
         working-directory: ./noir
         env:
-          BENCH_QUICK: "1"
+          BENCHY_QUICK: "1"
         run: |
           source $HOME/.nix-profile/etc/profile.d/nix.sh
           nix-shell --run "nix-shell -p clang --run 'cargo bench -q'"

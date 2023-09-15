@@ -7,6 +7,8 @@ on:
       - main
     paths:
       - .github/workflows/benchmarks.yml
+      - polylang/Cargo.lock
+      - polylang/benches/bench.rs
       - miden/Cargo.lock
       - miden/benches/bench.rs
       - risc-zero/host/Cargo.toml
@@ -36,6 +38,40 @@ jobs:
         echo "Waiting for instance to be ready..."
         aws ec2 wait instance-running --instance-ids ${INSTANCE_ID}
 
+  polylang:
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        runner: ['ubuntu-16-shared', 'ubuntu-latest-64-cores']
+    needs: start-runner
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+
+    - uses: Swatinem/rust-cache@v2
+  
+    - name: Run Polylang Multi CPU benchmarks
+      working-directory: ./polylang
+      if: matrix.runner != 'macos-dedicated'
+      env:
+        BENCHY_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
+      run: |
+        cargo bench -F multi-cpu
+
+    - name: Run Polylang Metal benchmarks
+      if: matrix.runner == 'macos-dedicated'
+      working-directory: ./polylang
+      env:
+        BENCHY_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
+      run: |
+        cargo bench -F metal
+
   miden:
     runs-on: ${{ matrix.runner }}
     strategy:
@@ -58,7 +94,7 @@ jobs:
       working-directory: ./miden
       if: matrix.runner != 'macos-dedicated'
       env:
-        BENCH_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
+        BENCHY_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
       run: |
         cargo bench -F multi-cpu
 
@@ -66,7 +102,7 @@ jobs:
       if: matrix.runner == 'macos-dedicated'
       working-directory: ./miden
       env:
-        BENCH_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
+        BENCHY_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
       run: |
         cargo bench -F metal
 
@@ -93,14 +129,22 @@ jobs:
 
       - uses: Swatinem/rust-cache@v2
 
+      - name: Cache cargo bin
+        uses: actions/cache@v2
+        with:
+          path: ~/.cargo/bin
+          key: ${{ runner.os }}-cargo-bin-${{ hashFiles('**/Cargo.lock') }}
+
       - name: Install risczero
         run: cargo install cargo-risczero && cargo risczero install
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Risc-Zero Multi CPU benchmarks
         working-directory: ./risc-zero/host
         if: matrix.runner != 'macos-dedicated'
         env:
-          BENCH_OUTPUT_DIR: "../../.benchmarks/${{ matrix.runner }}"
+          BENCHY_OUTPUT_DIR: "../../.benchmarks/${{ matrix.runner }}"
         run: |
           cargo bench multi-cpu
 
@@ -108,7 +152,7 @@ jobs:
         if: matrix.runner == 'macos-dedicated'
         working-directory: ./risc-zero/host
         env:
-          BENCH_OUTPUT_DIR: "../../.benchmarks/${{ matrix.runner }}"
+          BENCHY_OUTPUT_DIR: "../../.benchmarks/${{ matrix.runner }}"
         run: |
           cargo bench -F metal metal
       
@@ -143,7 +187,7 @@ jobs:
       - name: Run cargo bench in Nix shell
         working-directory: ./noir
         env:
-          BENCH_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
+          BENCHY_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
         run: |
           source $HOME/.nix-profile/etc/profile.d/nix.sh
           nix-shell --run "nix-shell -p clang --run 'cargo bench'"
@@ -155,7 +199,7 @@ jobs:
   
   commit:
     runs-on: ubuntu-latest
-    needs: [miden, risc_zero, noir]
+    needs: [polylang, miden, risc_zero, noir]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -182,7 +226,7 @@ jobs:
 
   clean-up:
     runs-on: ubuntu-latest
-    needs: [miden, risc_zero, noir]
+    needs: [polylang, miden, risc_zero, noir]
     if: always()
     steps:
     - name: Configure AWS credentials
