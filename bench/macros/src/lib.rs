@@ -1,5 +1,6 @@
 use proc_macro::TokenStream;
 use quote::{quote, ToTokens};
+use syn::{LitStr, Token};
 
 /// Parses the inner part of main!("name", fn1, fn2) or main!(fn1, fn2)
 struct MainArgs {
@@ -9,13 +10,16 @@ struct MainArgs {
 
 impl syn::parse::Parse for MainArgs {
     fn parse(input: syn::parse::ParseStream) -> syn::Result<Self> {
-        let name = match input.parse::<syn::LitStr>() {
-            Ok(lit) => {
-                input.parse::<syn::Token![,]>()?;
-                Some(lit.value())
-            }
-            Err(_) => None,
+        let name = if input.peek(LitStr) {
+            Some(input.parse::<LitStr>()?.value())
+        } else {
+            None
         };
+
+        if name.is_some() && !input.is_empty() {
+            input.parse::<Token![,]>()?;
+        }
+
         let mut benchmarks = Vec::new();
         while !input.is_empty() {
             let benchmark = input.parse::<syn::Path>()?;
@@ -120,6 +124,10 @@ impl syn::parse::Parse for BenchMarkArgs {
         } else {
             None
         };
+
+        if !input.is_empty() {
+            return Err(input.error("Unexpected input"));
+        }
 
         Ok(BenchMarkArgs { name, params })
     }
