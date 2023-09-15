@@ -12,7 +12,7 @@ use std::fmt::Debug;
 use std::time::{Duration, Instant};
 
 pub trait BenchmarkFn {
-    type ParamType;
+    type ParamType: Clone;
 
     fn name() -> String;
     fn params() -> Option<Vec<(String, Self::ParamType)>>;

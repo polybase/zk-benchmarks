@@ -62,10 +62,10 @@ fn expand_main(MainArgs { name, benchmarks }: MainArgs) -> syn::Result<proc_macr
                     let (param_names, params): (Vec<String>, Vec<_>) = params.into_iter().unzip();
                     let params = param_names.iter().map(|n| n.as_str()).zip(params.into_iter()).collect::<Vec<_>>();
                     bench.benchmark_with(&name, params, |b, p| {
-                        #bench_struct_path::run(b, p);
+                        #bench_struct_path::run(b, p.clone());
                     });
                 } else {
-                    bench.benchmark(&name, |b| {
+                    bench.benchmark(&name, None, |b| {
                         #bench_struct_path::run_without_param(b);
                     });
                 }
