@@ -1,6 +1,6 @@
 extern crate miden_bench;
 
-use bench::{benchmark, BenchmarkRun};
+use benchy::{benchmark, BenchmarkRun};
 use miden_bench::{blake3::blake3, fib::fib, rpo::rpo, sha::sha};
 
 #[benchmark]
@@ -137,7 +137,7 @@ fn rpo_bench(b: &mut BenchmarkRun, p: usize) {
     );
 }
 
-bench::main!(
+benchy::main!(
     "miden",
     assert,
     multiple_assert_proof_compression,

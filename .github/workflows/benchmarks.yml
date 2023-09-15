@@ -60,7 +60,7 @@ jobs:
       working-directory: ./polylang
       if: matrix.runner != 'macos-dedicated'
       env:
-        BENCH_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
+        BENCHY_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
       run: |
         cargo bench -F multi-cpu
 
@@ -68,7 +68,7 @@ jobs:
       if: matrix.runner == 'macos-dedicated'
       working-directory: ./polylang
       env:
-        BENCH_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
+        BENCHY_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
       run: |
         cargo bench -F metal
 
@@ -94,7 +94,7 @@ jobs:
       working-directory: ./miden
       if: matrix.runner != 'macos-dedicated'
       env:
-        BENCH_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
+        BENCHY_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
       run: |
         cargo bench -F multi-cpu
 
@@ -102,7 +102,7 @@ jobs:
       if: matrix.runner == 'macos-dedicated'
       working-directory: ./miden
       env:
-        BENCH_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
+        BENCHY_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
       run: |
         cargo bench -F metal
 
@@ -144,7 +144,7 @@ jobs:
         working-directory: ./risc-zero/host
         if: matrix.runner != 'macos-dedicated'
         env:
-          BENCH_OUTPUT_DIR: "../../.benchmarks/${{ matrix.runner }}"
+          BENCHY_OUTPUT_DIR: "../../.benchmarks/${{ matrix.runner }}"
         run: |
           cargo bench multi-cpu
 
@@ -152,7 +152,7 @@ jobs:
         if: matrix.runner == 'macos-dedicated'
         working-directory: ./risc-zero/host
         env:
-          BENCH_OUTPUT_DIR: "../../.benchmarks/${{ matrix.runner }}"
+          BENCHY_OUTPUT_DIR: "../../.benchmarks/${{ matrix.runner }}"
         run: |
           cargo bench -F metal metal
       
@@ -187,7 +187,7 @@ jobs:
       - name: Run cargo bench in Nix shell
         working-directory: ./noir
         env:
-          BENCH_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
+          BENCHY_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
         run: |
           source $HOME/.nix-profile/etc/profile.d/nix.sh
           nix-shell --run "nix-shell -p clang --run 'cargo bench'"

@@ -21,10 +21,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d468802bab17cbc0cc575e9b053f41e72aa36bfa6b7f55e3529ffa43161b97fa"
 
 [[package]]
-name = "bench"
+name = "benchy"
 version = "0.1.0"
 dependencies = [
- "bench-macros",
+ "benchy-macros",
  "memory-stats",
  "nix",
  "serde",
@@ -32,7 +32,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "bench-macros"
+name = "benchy-macros"
 version = "0.1.0"
 dependencies = [
  "proc-macro2",
@@ -401,7 +401,7 @@ dependencies = [
 name = "miden-bench"
 version = "0.1.0"
 dependencies = [
- "bench",
+ "benchy",
  "miden-processor",
  "miden-prover",
  "miden-stdlib",

@@ -1,4 +1,4 @@
-use bench::{benchmark, BenchmarkRun};
+use benchy::{benchmark, BenchmarkRun};
 use polylang_bench::compile;
 use polylang_prover::RunOutput;
 
@@ -118,4 +118,4 @@ fn report(b: &mut BenchmarkRun, (run_output, proof): (RunOutput, Vec<u8>)) {
     b.log("compressed_proof_size_bytes", compressed_proof.len());
 }
 
-bench::main!("polylang", assert, fibonacci, sha256, blake3, rpo);
+benchy::main!("polylang", assert, fibonacci, sha256, blake3, rpo);

@@ -86,10 +86,10 @@ fn expand_main(MainArgs { name, benchmarks }: MainArgs) -> syn::Result<proc_macr
 
     Ok(quote! {
         fn main() {
-            extern crate bench as _bench;
-            use _bench::BenchmarkFn;
+            extern crate benchy as _benchy;
+            use _benchy::BenchmarkFn;
 
-            let mut bench = _bench::Benchmark::from_env(#name);
+            let mut bench = _benchy::Benchmark::from_env(#name);
 
             #(#bench_runs)*
 
@@ -174,12 +174,12 @@ fn expand_benchmark(attr: TokenStream, item: TokenStream) -> syn::Result<proc_ma
 
     let run_impl = match takes_param {
         true => quote! {
-            fn run(b: &mut _bench::BenchmarkRun, p: Self::ParamType) {
+            fn run(b: &mut _benchy::BenchmarkRun, p: Self::ParamType) {
                 #fn_name(b, p);
             }
         },
         false => quote! {
-            fn run_without_param(b: &mut _bench::BenchmarkRun) {
+            fn run_without_param(b: &mut _benchy::BenchmarkRun) {
                 #fn_name(b);
             }
         },
@@ -191,10 +191,10 @@ fn expand_benchmark(attr: TokenStream, item: TokenStream) -> syn::Result<proc_ma
 
         #[allow(non_upper_case_globals)]
         const _: () = {
-            extern crate bench as _bench;
+            extern crate benchy as _benchy;
 
             #[automatically_derived]
-            impl _bench::BenchmarkFn for #bench_struct_name {
+            impl _benchy::BenchmarkFn for #bench_struct_name {
                 type ParamType = #param_type;
 
                 fn name() -> String {
