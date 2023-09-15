@@ -1,7 +1,11 @@
 extern crate miden_bench;
 
 use benchy::{benchmark, BenchmarkRun};
-use miden_bench::{blake3::blake3, fib::fib, rpo::rpo, sha::sha};
+use miden_bench::{blake3::blake3, fib::fib, merkle, rpo::rpo, sha::sha};
+use shared::{
+    hash::{rpo::Rpo, HashFn},
+    tree_size_n, Tree,
+};
 
 #[benchmark]
 fn assert(b: &mut BenchmarkRun) {
@@ -137,7 +141,7 @@ fn rpo_bench(b: &mut BenchmarkRun, p: usize) {
     ("2^20 + 2^20", (tree_size_n(20), tree_size_n(20))),
 ])]
 fn merkle_tree_merge(b: &mut BenchmarkRun, (tree1, tree2): (Tree<Rpo>, Tree<Rpo>)) {
-    let (prove, iter) = merge_trees(&tree1, &tree2);
+    let (prove, iter) = merkle::merge_trees(&tree1, &tree2);
 
     let proof = b.run(prove);
     let proof_bytes = proof.to_bytes();
@@ -155,7 +159,7 @@ fn merkle_membership(b: &mut BenchmarkRun) {
     let vec = core::iter::from_fn(|| Some(Rpo::random()))
         .take(10)
         .collect();
-    let (prove, iter) = membership(vec, Rpo::random());
+    let (prove, iter) = merkle::membership(vec, Rpo::random());
 
     let proof = b.run(prove);
     let proof_bytes = proof.to_bytes();
@@ -168,7 +172,7 @@ fn merkle_membership(b: &mut BenchmarkRun) {
     b.log("cycles", last_vm_state.clk as usize);
 }
 
-bench::main!(
+benchy::main!(
     "miden",
     assert,
     multiple_assert_proof_compression,
