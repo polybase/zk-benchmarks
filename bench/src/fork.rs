@@ -2,33 +2,28 @@
 pub(crate) fn fork<T: serde::Serialize + serde::de::DeserializeOwned>(
     f: impl FnOnce() -> T,
 ) -> nix::Result<T> {
-    use std::sync::{
-        atomic::{AtomicBool, Ordering},
-        Arc,
-    };
-
     let (read_fd, write_fd) = nix::unistd::pipe()?;
 
     match unsafe { nix::unistd::fork() }? {
         nix::unistd::ForkResult::Parent { child } => {
-            let received_bytes = Arc::new(AtomicBool::new(false));
-            let handle = std::thread::spawn({
-                let received_bytes = received_bytes.clone();
+            let (received_bytes_sender, received_bytes_receiver) =
+                std::sync::mpsc::channel::<bool>();
+            let handle = std::thread::spawn(move || {
+                nix::sys::wait::waitpid(child, None).unwrap();
+                let received_bytes = received_bytes_receiver
+                    .recv_timeout(std::time::Duration::from_secs(1))
+                    .unwrap_or(false);
 
-                move || {
-                    nix::sys::wait::waitpid(child, None).unwrap();
-
-                    if !received_bytes.load(Ordering::Relaxed) {
-                        nix::unistd::write(write_fd, b"exited").unwrap();
-                        return;
-                    }
+                if !received_bytes {
+                    nix::unistd::write(write_fd, b"exited").unwrap();
+                    return;
                 }
             });
 
             let mut buff = [0u8; 8092];
             let len = nix::unistd::read(read_fd, &mut buff)?;
 
-            received_bytes.store(true, Ordering::Relaxed);
+            let _ = received_bytes_sender.send(true);
             handle.join().unwrap();
 
             if &buff[..len] == b"panic" {

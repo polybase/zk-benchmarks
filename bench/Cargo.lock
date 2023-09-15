@@ -3,10 +3,10 @@
 version = 3
 
 [[package]]
-name = "bench"
+name = "benchy"
 version = "0.1.0"
 dependencies = [
- "bench-macros",
+ "benchy-macros",
  "memory-stats",
  "nix",
  "serde",
@@ -14,7 +14,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "bench-macros"
+name = "benchy-macros"
 version = "0.1.0"
 dependencies = [
  "proc-macro2",

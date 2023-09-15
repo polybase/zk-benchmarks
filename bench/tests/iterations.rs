@@ -3,7 +3,7 @@ use std::{
     time::Duration,
 };
 
-use bench::{Benchmark, BenchmarkConfig, BenchmarkParameter};
+use benchy::{Benchmark, BenchmarkConfig, BenchmarkParameter};
 
 enum BenchmarkType {
     Benchmark {

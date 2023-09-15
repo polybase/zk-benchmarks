@@ -2,8 +2,8 @@ extern crate host;
 
 use std::rc::Rc;
 
-use bench::{benchmark, BenchmarkRun};
-use host::{blake3::blake3, fib::fib, merkle, sha::sha};
+use benchy::{benchmark, BenchmarkRun};
+use host::{blake3::blake3, fib::fib, sha::sha};
 use risc0_zkvm::{prove::get_prover, Receipt, Session};
 use shared::{hash::Sha, tree_size_n};
 
@@ -105,6 +105,7 @@ fn log_session((receipt, session): &(Receipt, Session), b: &mut BenchmarkRun) {
 }
 
 bench::main!(
+    "risc-zero"
     assert,
     fibonacci,
     sha256,

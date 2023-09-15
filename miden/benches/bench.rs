@@ -1,17 +1,7 @@
 extern crate miden_bench;
 
-use bench::{benchmark, BenchmarkRun};
-use miden_bench::{
-    blake3::blake3,
-    fib::fib,
-    merkle::{membership, merge_trees},
-    rpo::rpo,
-    sha::sha,
-};
-use shared::{
-    hash::{rpo::Rpo, HashFn},
-    tree_size_n, Tree,
-};
+use benchy::{benchmark, BenchmarkRun};
+use miden_bench::{blake3::blake3, fib::fib, rpo::rpo, sha::sha};
 
 #[benchmark]
 fn assert(b: &mut BenchmarkRun) {

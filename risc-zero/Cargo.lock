@@ -107,10 +107,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "414dcefbc63d77c526a76b3afcf6fbb9b5e2791c19c3aa2297733208750c6e53"
 
 [[package]]
-name = "bench"
+name = "benchy"
 version = "0.1.0"
 dependencies = [
- "bench-macros",
+ "benchy-macros",
  "memory-stats",
  "nix",
  "serde",
@@ -118,7 +118,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "bench-macros"
+name = "benchy-macros"
 version = "0.1.0"
 dependencies = [
  "proc-macro2",
@@ -823,7 +823,7 @@ checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
 name = "host"
 version = "0.1.0"
 dependencies = [
- "bench",
+ "benchy",
  "bincode",
  "methods",
  "risc0-zkvm",

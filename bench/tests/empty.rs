@@ -1,7 +1,7 @@
 #[test]
 fn empty() {
     mod inner {
-        bench::main!();
+        benchy::main!();
 
         pub fn call_main() {
             main();
@@ -14,7 +14,7 @@ fn empty() {
 #[test]
 fn empty_with_name() {
     mod inner {
-        bench::main!("empty_with_name");
+        benchy::main!("empty_with_name");
 
         pub fn call_main() {
             main();

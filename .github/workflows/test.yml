@@ -16,7 +16,7 @@ jobs:
     - name: Run Polylang benchmarks
       working-directory: ./polylang
       env:
-        BENCH_QUICK: "1"
+        BENCHY_QUICK: "1"
       run: |
         cargo bench -F multi-cpu
 
@@ -32,7 +32,7 @@ jobs:
     - name: Run Miden benchmarks
       working-directory: ./miden
       env:
-        BENCH_QUICK: "1"
+        BENCHY_QUICK: "1"
       run: |
         cargo bench -F multi-cpu
 
@@ -59,7 +59,7 @@ jobs:
       - name: Run Risc-Zero benchmarks
         working-directory: ./risc-zero/host
         env:
-          BENCH_QUICK: "1"
+          BENCHY_QUICK: "1"
         run: |
           cargo bench multi-cpu
 
@@ -93,7 +93,7 @@ jobs:
       - name: Run cargo bench in Nix shell
         working-directory: ./noir
         env:
-          BENCH_QUICK: "1"
+          BENCHY_QUICK: "1"
         run: |
           source $HOME/.nix-profile/etc/profile.d/nix.sh
           nix-shell --run "nix-shell -p clang --run 'cargo bench -q'"
