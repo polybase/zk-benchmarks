@@ -3,9 +3,9 @@ extern crate host;
 use std::rc::Rc;
 
 use benchy::{benchmark, BenchmarkRun};
-use host::{blake3::blake3, fib::fib, sha::sha};
+use host::{blake3::blake3, fib::fib, merkle, sha::sha};
 use risc0_zkvm::{prove::get_prover, Receipt, Session};
-use shared::{hash::Sha, tree_size_n, Tree};
+use shared::{hash::Sha, tree_size_n};
 
 fn prover() -> Rc<dyn risc0_zkvm::prove::Prover> {
     match std::env::args().nth(1) {
@@ -76,7 +76,7 @@ fn merkle_merge(b: &mut BenchmarkRun, (tree1, tree2): (Tree<Sha>, Tree<Sha>)) {
 }
 
 #[benchmark("Merkle Tree Membership")]
-fn merkle_membership(b: &mut BenchmarkRun) {
+fn merkle_membership() {
     let prover = prover();
 
     let prove = merkle::merkle_membership(Rc::clone(&prover), 10);
@@ -105,11 +105,11 @@ fn log_session((receipt, session): &(Receipt, Session), b: &mut BenchmarkRun) {
 }
 
 benchy::main!(
-    "risc-zero"
+    "risc-zero",
     assert,
     fibonacci,
     sha256,
     blake3_bench,
     merkle_merge,
-    merkle_membership
+    merkle_membership,
 );
