@@ -121,4 +121,4 @@ fn generate_random_u8_slice(len: usize) -> Vec<u8> {
     vec
 }
 
-bench::main!("noir", assert, fibonacci, sha256, merkle_membership);
+benchy::main!("noir", assert, fibonacci, sha256, merkle_membership);
