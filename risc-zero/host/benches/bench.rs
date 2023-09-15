@@ -77,7 +77,7 @@ fn main() {
         "Merkle Tree Merge",
         &[(
             "2^2 + 2^2",
-            (tree_size_n::<Sha>(10), tree_size_n::<Sha>(10)),
+            (tree_size_n::<Sha>(2), tree_size_n::<Sha>(2)),
         )],
         |b, (n1, n2)| {
             let prover = prover();
