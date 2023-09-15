@@ -38,7 +38,10 @@ fn fibonacci_single(run: &mut BenchmarkRun) {
     });
 }
 
-#[benchmark("Fibonacci", [("1 million iterations", 1_000_000), ("2 million iterations", 2_000_000)])]
+#[benchmark("Fibonacci", [
+    ("1 million iterations", 1_000_000),
+    ("2 million iterations", 2_000_000),
+])]
 fn fibonacci_parametrized(run: &mut BenchmarkRun, iterations: usize) {
     let mut x = 0;
     let mut y = 1;
