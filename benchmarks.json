@@ -1,75 +1,22 @@
 {
     "meta": {
-        "lastUpdated": "2023-09-06T19:25:19.583011+00:00"
+        "lastUpdated": "2023-09-15T16:26:00.465890+00:00"
     },
     "frameworks": {
         "noir": {
             "ubuntu-16-shared": {
-                "SHA256": {
-                    "name": "SHA256",
-                    "results": [
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 173240320,
-                                "proof_size_bytes": 2144
-                            },
-                            "name": "1 byte",
-                            "time": {
-                                "nanos": 862330759,
-                                "secs": 1
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 184676352,
-                                "proof_size_bytes": 2144
-                            },
-                            "name": "10 bytes",
-                            "time": {
-                                "nanos": 813708302,
-                                "secs": 1
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 184201216,
-                                "proof_size_bytes": 2144
-                            },
-                            "name": "100 bytes",
-                            "time": {
-                                "nanos": 867985399,
-                                "secs": 1
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 445046784,
-                                "proof_size_bytes": 2144
-                            },
-                            "name": "1000 bytes",
-                            "time": {
-                                "nanos": 806464256,
-                                "secs": 3
-                            }
-                        }
-                    ]
-                },
                 "assert": {
                     "name": "assert",
                     "results": [
                         {
                             "metrics": {
                                 "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 356937728,
+                                "memory_usage_bytes": 120604,
                                 "proof_size_bytes": 2144
                             },
                             "name": "assert",
                             "time": {
-                                "nanos": 13502017,
+                                "nanos": 9029526,
                                 "secs": 0
                             }
                         }
@@ -81,84 +28,468 @@
                         {
                             "metrics": {
                                 "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 18446744073685430272,
+                                "memory_usage_bytes": 144725,
                                 "proof_size_bytes": 2144
                             },
                             "name": "1",
                             "time": {
-                                "nanos": 5308115,
+                                "nanos": 7420205,
                                 "secs": 0
                             }
                         },
                         {
                             "metrics": {
                                 "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 217088,
+                                "memory_usage_bytes": 96483,
                                 "proof_size_bytes": 2144
                             },
                             "name": "10",
                             "time": {
-                                "nanos": 11357443,
+                                "nanos": 7110885,
                                 "secs": 0
                             }
                         },
                         {
                             "metrics": {
                                 "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 217088,
+                                "memory_usage_bytes": 202979,
                                 "proof_size_bytes": 2144
                             },
                             "name": "100",
                             "time": {
-                                "nanos": 7595009,
+                                "nanos": 7935259,
                                 "secs": 0
                             }
                         },
                         {
                             "metrics": {
                                 "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 217088,
+                                "memory_usage_bytes": 202979,
                                 "proof_size_bytes": 2144
                             },
                             "name": "1000",
                             "time": {
-                                "nanos": 7909238,
+                                "nanos": 7806092,
                                 "secs": 0
                             }
                         },
                         {
                             "metrics": {
                                 "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 18446744073677733888,
+                                "memory_usage_bytes": 162816,
                                 "proof_size_bytes": 2144
                             },
                             "name": "10000",
                             "time": {
-                                "nanos": 5242500,
+                                "nanos": 8015301,
                                 "secs": 0
                             }
                         },
                         {
                             "metrics": {
                                 "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 217088,
+                                "memory_usage_bytes": 293888,
                                 "proof_size_bytes": 2144
                             },
                             "name": "100000",
                             "time": {
-                                "nanos": 7749422,
+                                "nanos": 7796209,
                                 "secs": 0
                             }
                         },
                         {
                             "metrics": {
                                 "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 18446744073201037312,
+                                "memory_usage_bytes": 81920,
                                 "proof_size_bytes": 2144
                             },
                             "name": "1000000",
                             "time": {
-                                "nanos": 7532967,
+                                "nanos": 18940431,
+                                "secs": 0
+                            }
+                        }
+                    ]
+                },
+                "SHA256": {
+                    "name": "SHA256",
+                    "results": [
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 2153,
+                                "memory_usage_bytes": 434810880,
+                                "proof_size_bytes": 2144
+                            },
+                            "name": "1k bytes",
+                            "time": {
+                                "nanos": 486603386,
+                                "secs": 3
+                            }
+                        },
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 2153,
+                                "memory_usage_bytes": 13046677504,
+                                "proof_size_bytes": 2144
+                            },
+                            "name": "10k bytes",
+                            "time": {
+                                "nanos": 987779765,
+                                "secs": 31
+                            }
+                        }
+                    ]
+                }
+            },
+            "ubuntu-latest-64-cores": {
+                "assert": {
+                    "name": "assert",
+                    "results": [
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 2153,
+                                "memory_usage_bytes": 888376,
+                                "proof_size_bytes": 2144
+                            },
+                            "name": "assert",
+                            "time": {
+                                "nanos": 25271650,
+                                "secs": 0
+                            }
+                        }
+                    ]
+                },
+                "Fibonacci": {
+                    "name": "Fibonacci",
+                    "results": [
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 2153,
+                                "memory_usage_bytes": 880640,
+                                "proof_size_bytes": 2144
+                            },
+                            "name": "1",
+                            "time": {
+                                "nanos": 23494518,
+                                "secs": 0
+                            }
+                        },
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 2153,
+                                "memory_usage_bytes": 880640,
+                                "proof_size_bytes": 2144
+                            },
+                            "name": "10",
+                            "time": {
+                                "nanos": 24987520,
+                                "secs": 0
+                            }
+                        },
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 2153,
+                                "memory_usage_bytes": 883825,
+                                "proof_size_bytes": 2144
+                            },
+                            "name": "100",
+                            "time": {
+                                "nanos": 27907078,
+                                "secs": 0
+                            }
+                        },
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 2153,
+                                "memory_usage_bytes": 882005,
+                                "proof_size_bytes": 2144
+                            },
+                            "name": "1000",
+                            "time": {
+                                "nanos": 21542871,
+                                "secs": 0
+                            }
+                        },
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 2153,
+                                "memory_usage_bytes": 880640,
+                                "proof_size_bytes": 2144
+                            },
+                            "name": "10000",
+                            "time": {
+                                "nanos": 24829132,
+                                "secs": 0
+                            }
+                        },
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 2153,
+                                "memory_usage_bytes": 880640,
+                                "proof_size_bytes": 2144
+                            },
+                            "name": "100000",
+                            "time": {
+                                "nanos": 25199123,
+                                "secs": 0
+                            }
+                        },
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 2153,
+                                "memory_usage_bytes": 880640,
+                                "proof_size_bytes": 2144
+                            },
+                            "name": "1000000",
+                            "time": {
+                                "nanos": 24470221,
+                                "secs": 0
+                            }
+                        }
+                    ]
+                },
+                "SHA256": {
+                    "name": "SHA256",
+                    "results": [
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 2153,
+                                "memory_usage_bytes": 920948736,
+                                "proof_size_bytes": 2144
+                            },
+                            "name": "1k bytes",
+                            "time": {
+                                "nanos": 450988213,
+                                "secs": 1
+                            }
+                        },
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 2153,
+                                "memory_usage_bytes": 12985884672,
+                                "proof_size_bytes": 2144
+                            },
+                            "name": "10k bytes",
+                            "time": {
+                                "nanos": 736830492,
+                                "secs": 8
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "miden": {
+            "ubuntu-16-shared": {
+                "assert": {
+                    "name": "assert",
+                    "results": [
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 48479,
+                                "cycles": 8,
+                                "memory_usage_bytes": 11471257,
+                                "proof_size_bytes": 48470
+                            },
+                            "name": "assert",
+                            "time": {
+                                "nanos": 30205256,
+                                "secs": 0
+                            }
+                        }
+                    ]
+                },
+                "multiple assert proof compression": {
+                    "name": "multiple assert proof compression",
+                    "results": [
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 484344,
+                                "proof_size_bytes": 487757
+                            },
+                            "name": "multiple assert proof compression",
+                            "time": {
+                                "nanos": 0,
+                                "secs": 0
+                            }
+                        }
+                    ]
+                },
+                "multiple sha256 proof compression": {
+                    "name": "multiple sha256 proof compression",
+                    "results": [
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 307382,
+                                "proof_size_bytes": 741068
+                            },
+                            "name": "multiple sha256 proof compression",
+                            "time": {
+                                "nanos": 0,
+                                "secs": 0
+                            }
+                        }
+                    ]
+                },
+                "Fibonacci": {
+                    "name": "Fibonacci",
+                    "results": [
+                        {
+                            "metrics": {
+                                "cycles": 8,
+                                "memory_usage_bytes": 11548262
+                            },
+                            "name": "1",
+                            "time": {
+                                "nanos": 29204541,
+                                "secs": 0
+                            }
+                        },
+                        {
+                            "metrics": {
+                                "cycles": 35,
+                                "memory_usage_bytes": 11778867
+                            },
+                            "name": "10",
+                            "time": {
+                                "nanos": 29958759,
+                                "secs": 0
+                            }
+                        },
+                        {
+                            "metrics": {
+                                "cycles": 309,
+                                "memory_usage_bytes": 11816550
+                            },
+                            "name": "100",
+                            "time": {
+                                "nanos": 29978274,
+                                "secs": 0
+                            }
+                        },
+                        {
+                            "metrics": {
+                                "cycles": 3048,
+                                "memory_usage_bytes": 42759782
+                            },
+                            "name": "1000",
+                            "time": {
+                                "nanos": 82448611,
+                                "secs": 0
+                            }
+                        },
+                        {
+                            "metrics": {
+                                "cycles": 30423,
+                                "memory_usage_bytes": 338255872
+                            },
+                            "name": "10000",
+                            "time": {
+                                "nanos": 605684999,
+                                "secs": 0
+                            }
+                        },
+                        {
+                            "metrics": {
+                                "cycles": 304173,
+                                "memory_usage_bytes": 5538234368
+                            },
+                            "name": "100000",
+                            "time": {
+                                "nanos": 734180634,
+                                "secs": 9
+                            }
+                        }
+                    ]
+                },
+                "SHA256": {
+                    "name": "SHA256",
+                    "results": [
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 104510,
+                                "cycles": 464654,
+                                "memory_usage_bytes": 10988400640,
+                                "proof_size_bytes": 104501
+                            },
+                            "name": "1k bytes",
+                            "time": {
+                                "nanos": 548588887,
+                                "secs": 20
+                            }
+                        },
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 122762,
+                                "cycles": 4544774,
+                                "memory_usage_bytes": 88023158784,
+                                "proof_size_bytes": 122753
+                            },
+                            "name": "10k bytes",
+                            "time": {
+                                "nanos": 217825563,
+                                "secs": 180
+                            }
+                        }
+                    ]
+                },
+                "Blake3": {
+                    "name": "Blake3",
+                    "results": [
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 92165,
+                                "cycles": 153854,
+                                "memory_usage_bytes": 2761707520,
+                                "proof_size_bytes": 92156
+                            },
+                            "name": "1k bytes",
+                            "time": {
+                                "nanos": 924253321,
+                                "secs": 4
+                            }
+                        },
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 108665,
+                                "cycles": 1504763,
+                                "memory_usage_bytes": 21529649152,
+                                "proof_size_bytes": 108656
+                            },
+                            "name": "10k bytes",
+                            "time": {
+                                "nanos": 840691055,
+                                "secs": 41
+                            }
+                        }
+                    ]
+                },
+                "RPO": {
+                    "name": "RPO",
+                    "results": [
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 49039,
+                                "cycles": 882,
+                                "memory_usage_bytes": 12599705,
+                                "proof_size_bytes": 49030
+                            },
+                            "name": "1k bytes",
+                            "time": {
+                                "nanos": 30018412,
+                                "secs": 0
+                            }
+                        },
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 68274,
+                                "cycles": 8717,
+                                "memory_usage_bytes": 171621580,
+                                "proof_size_bytes": 68265
+                            },
+                            "name": "10k bytes",
+                            "time": {
+                                "nanos": 310708785,
                                 "secs": 0
                             }
                         }
@@ -166,71 +497,51 @@
                 }
             },
             "ubuntu-latest-64-cores": {
-                "SHA256": {
-                    "name": "SHA256",
-                    "results": [
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 188555264,
-                                "proof_size_bytes": 2144
-                            },
-                            "name": "1 byte",
-                            "time": {
-                                "nanos": 563880833,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 193269760,
-                                "proof_size_bytes": 2144
-                            },
-                            "name": "10 bytes",
-                            "time": {
-                                "nanos": 719168769,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 196247552,
-                                "proof_size_bytes": 2144
-                            },
-                            "name": "100 bytes",
-                            "time": {
-                                "nanos": 670902702,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 453070848,
-                                "proof_size_bytes": 2144
-                            },
-                            "name": "1000 bytes",
-                            "time": {
-                                "nanos": 510250980,
-                                "secs": 1
-                            }
-                        }
-                    ]
-                },
                 "assert": {
                     "name": "assert",
                     "results": [
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 397680640,
-                                "proof_size_bytes": 2144
+                                "compressed_proof_size_bytes": 48889,
+                                "cycles": 8,
+                                "memory_usage_bytes": 18246451,
+                                "proof_size_bytes": 48880
                             },
                             "name": "assert",
                             "time": {
-                                "nanos": 72891248,
+                                "nanos": 63928577,
+                                "secs": 0
+                            }
+                        }
+                    ]
+                },
+                "multiple assert proof compression": {
+                    "name": "multiple assert proof compression",
+                    "results": [
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 484967,
+                                "proof_size_bytes": 487336
+                            },
+                            "name": "multiple assert proof compression",
+                            "time": {
+                                "nanos": 0,
+                                "secs": 0
+                            }
+                        }
+                    ]
+                },
+                "multiple sha256 proof compression": {
+                    "name": "multiple sha256 proof compression",
+                    "results": [
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 488803,
+                                "proof_size_bytes": 735719
+                            },
+                            "name": "multiple sha256 proof compression",
+                            "time": {
+                                "nanos": 0,
                                 "secs": 0
                             }
                         }
@@ -241,85 +552,160 @@
                     "results": [
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 1011712,
-                                "proof_size_bytes": 2144
+                                "cycles": 8,
+                                "memory_usage_bytes": 18467225
                             },
                             "name": "1",
                             "time": {
-                                "nanos": 25499152,
+                                "nanos": 64210720,
                                 "secs": 0
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 1011712,
-                                "proof_size_bytes": 2144
+                                "cycles": 35,
+                                "memory_usage_bytes": 18209177
                             },
                             "name": "10",
                             "time": {
-                                "nanos": 19382391,
+                                "nanos": 62926699,
                                 "secs": 0
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 1011712,
-                                "proof_size_bytes": 2144
+                                "cycles": 309,
+                                "memory_usage_bytes": 18564300
                             },
                             "name": "100",
                             "time": {
-                                "nanos": 41988921,
+                                "nanos": 62755640,
                                 "secs": 0
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 1011712,
-                                "proof_size_bytes": 2144
+                                "cycles": 3048,
+                                "memory_usage_bytes": 49833574
                             },
                             "name": "1000",
                             "time": {
-                                "nanos": 15226260,
+                                "nanos": 108278968,
                                 "secs": 0
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 1011712,
-                                "proof_size_bytes": 2144
+                                "cycles": 30423,
+                                "memory_usage_bytes": 343361945
                             },
                             "name": "10000",
                             "time": {
-                                "nanos": 43635484,
+                                "nanos": 314180033,
                                 "secs": 0
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 1011712,
-                                "proof_size_bytes": 2144
+                                "cycles": 304173,
+                                "memory_usage_bytes": 5547020288
                             },
                             "name": "100000",
                             "time": {
-                                "nanos": 35789695,
+                                "nanos": 953786234,
+                                "secs": 2
+                            }
+                        }
+                    ]
+                },
+                "SHA256": {
+                    "name": "SHA256",
+                    "results": [
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 103032,
+                                "cycles": 464654,
+                                "memory_usage_bytes": 11023269888,
+                                "proof_size_bytes": 103023
+                            },
+                            "name": "1k bytes",
+                            "time": {
+                                "nanos": 980953181,
+                                "secs": 5
+                            }
+                        },
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 124634,
+                                "cycles": 4544774,
+                                "memory_usage_bytes": 89507483648,
+                                "proof_size_bytes": 124625
+                            },
+                            "name": "10k bytes",
+                            "time": {
+                                "nanos": 219792572,
+                                "secs": 44
+                            }
+                        }
+                    ]
+                },
+                "Blake3": {
+                    "name": "Blake3",
+                    "results": [
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 90875,
+                                "cycles": 153854,
+                                "memory_usage_bytes": 2768390553,
+                                "proof_size_bytes": 90866
+                            },
+                            "name": "1k bytes",
+                            "time": {
+                                "nanos": 718794377,
+                                "secs": 1
+                            }
+                        },
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 108665,
+                                "cycles": 1504763,
+                                "memory_usage_bytes": 21900328960,
+                                "proof_size_bytes": 108656
+                            },
+                            "name": "10k bytes",
+                            "time": {
+                                "nanos": 299763390,
+                                "secs": 11
+                            }
+                        }
+                    ]
+                },
+                "RPO": {
+                    "name": "RPO",
+                    "results": [
+                        {
+                            "metrics": {
+                                "compressed_proof_size_bytes": 49170,
+                                "cycles": 882,
+                                "memory_usage_bytes": 18991923,
+                                "proof_size_bytes": 49161
+                            },
+                            "name": "1k bytes",
+                            "time": {
+                                "nanos": 60778681,
                                 "secs": 0
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 2153,
-                                "memory_usage_bytes": 1011712,
-                                "proof_size_bytes": 2144
+                                "compressed_proof_size_bytes": 68003,
+                                "cycles": 8717,
+                                "memory_usage_bytes": 184059494,
+                                "proof_size_bytes": 67994
                             },
-                            "name": "1000000",
+                            "name": "10k bytes",
                             "time": {
-                                "nanos": 45979521,
+                                "nanos": 197807562,
                                 "secs": 0
                             }
                         }
@@ -334,15 +720,15 @@
                     "results": [
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 209269,
+                                "compressed_proof_size_bytes": 209643,
                                 "cycles": 65536,
                                 "instruction_cycles": 751,
-                                "memory_usage_bytes": 691302400,
+                                "memory_usage_bytes": 670291968,
                                 "proof_size_bytes": 215315
                             },
                             "name": "assert",
                             "time": {
-                                "nanos": 937949444,
+                                "nanos": 280181562,
                                 "secs": 6
                             }
                         }
@@ -353,86 +739,86 @@
                     "results": [
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 208393,
+                                "compressed_proof_size_bytes": 209120,
                                 "cycles": 65536,
                                 "instruction_cycles": 696,
-                                "memory_usage_bytes": 670076928,
+                                "memory_usage_bytes": 670359552,
                                 "proof_size_bytes": 215315
                             },
                             "name": "1",
                             "time": {
-                                "nanos": 725194301,
+                                "nanos": 284263847,
                                 "secs": 6
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 209318,
+                                "compressed_proof_size_bytes": 209701,
                                 "cycles": 65536,
                                 "instruction_cycles": 707,
-                                "memory_usage_bytes": 670027776,
+                                "memory_usage_bytes": 670394368,
                                 "proof_size_bytes": 215315
                             },
                             "name": "10",
                             "time": {
-                                "nanos": 716402475,
+                                "nanos": 280216432,
                                 "secs": 6
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 209339,
+                                "compressed_proof_size_bytes": 209310,
                                 "cycles": 65536,
                                 "instruction_cycles": 800,
-                                "memory_usage_bytes": 670031872,
+                                "memory_usage_bytes": 670330880,
                                 "proof_size_bytes": 215315
                             },
                             "name": "100",
                             "time": {
-                                "nanos": 723252335,
+                                "nanos": 276586991,
                                 "secs": 6
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 208658,
+                                "compressed_proof_size_bytes": 209079,
                                 "cycles": 65536,
                                 "instruction_cycles": 5695,
-                                "memory_usage_bytes": 670281728,
+                                "memory_usage_bytes": 670588928,
                                 "proof_size_bytes": 215315
                             },
                             "name": "1000",
                             "time": {
-                                "nanos": 727073240,
+                                "nanos": 315917517,
                                 "secs": 6
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 230252,
+                                "compressed_proof_size_bytes": 229540,
                                 "cycles": 131072,
                                 "instruction_cycles": 50697,
-                                "memory_usage_bytes": 1315807232,
+                                "memory_usage_bytes": 1316069376,
                                 "proof_size_bytes": 238355
                             },
                             "name": "10000",
                             "time": {
-                                "nanos": 722415472,
-                                "secs": 13
+                                "nanos": 772761012,
+                                "secs": 12
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 269308,
+                                "compressed_proof_size_bytes": 269282,
                                 "cycles": 1048576,
                                 "instruction_cycles": 500701,
-                                "memory_usage_bytes": 10343686144,
+                                "memory_usage_bytes": 10344046592,
                                 "proof_size_bytes": 275539
                             },
                             "name": "100000",
                             "time": {
-                                "nanos": 343284685,
-                                "secs": 115
+                                "nanos": 360678532,
+                                "secs": 106
                             }
                         }
                     ]
@@ -442,44 +828,44 @@
                     "results": [
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 208273,
+                                "compressed_proof_size_bytes": 209653,
                                 "cycles": 65536,
                                 "instruction_cycles": 2658,
-                                "memory_usage_bytes": 670224384,
+                                "memory_usage_bytes": 670496768,
                                 "proof_size_bytes": 215315
                             },
-                            "name": "1000 bytes",
+                            "name": "1k bytes",
                             "time": {
-                                "nanos": 718688939,
+                                "nanos": 299090776,
                                 "secs": 6
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 206956,
+                                "compressed_proof_size_bytes": 209340,
                                 "cycles": 65536,
                                 "instruction_cycles": 16131,
-                                "memory_usage_bytes": 670588928,
+                                "memory_usage_bytes": 670867456,
                                 "proof_size_bytes": 215315
                             },
-                            "name": "10000 bytes",
+                            "name": "10k bytes",
                             "time": {
-                                "nanos": 780096825,
+                                "nanos": 348508367,
                                 "secs": 6
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 242138,
+                                "compressed_proof_size_bytes": 240531,
                                 "cycles": 262144,
                                 "instruction_cycles": 150861,
-                                "memory_usage_bytes": 2604916736,
+                                "memory_usage_bytes": 2605121536,
                                 "proof_size_bytes": 250067
                             },
-                            "name": "100000 bytes",
+                            "name": "100k bytes",
                             "time": {
-                                "nanos": 60234470,
-                                "secs": 28
+                                "nanos": 26418356,
+                                "secs": 26
                             }
                         }
                     ]
@@ -489,44 +875,44 @@
                     "results": [
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 229810,
+                                "compressed_proof_size_bytes": 228264,
                                 "cycles": 131072,
                                 "instruction_cycles": 38283,
-                                "memory_usage_bytes": 1315049472,
+                                "memory_usage_bytes": 1315254272,
                                 "proof_size_bytes": 238355
                             },
-                            "name": "1000 bytes",
+                            "name": "1k bytes",
                             "time": {
-                                "nanos": 724923442,
-                                "secs": 13
+                                "nanos": 781755429,
+                                "secs": 12
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 254775,
+                                "compressed_proof_size_bytes": 254591,
                                 "cycles": 524288,
                                 "instruction_cycles": 372381,
-                                "memory_usage_bytes": 5186232320,
+                                "memory_usage_bytes": 5186412544,
                                 "proof_size_bytes": 262291
                             },
-                            "name": "10000 bytes",
+                            "name": "10k bytes",
                             "time": {
-                                "nanos": 692427542,
-                                "secs": 56
+                                "nanos": 719942594,
+                                "secs": 52
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 1060333,
+                                "compressed_proof_size_bytes": 1060190,
                                 "cycles": 4194304,
                                 "instruction_cycles": 3713361,
-                                "memory_usage_bytes": 10472091648,
+                                "memory_usage_bytes": 10472194048,
                                 "proof_size_bytes": 1102096
                             },
-                            "name": "100000 bytes",
+                            "name": "100k bytes",
                             "time": {
-                                "nanos": 793077344,
-                                "secs": 464
+                                "nanos": 700766576,
+                                "secs": 430
                             }
                         }
                     ]
@@ -538,15 +924,15 @@
                     "results": [
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 209367,
+                                "compressed_proof_size_bytes": 209318,
                                 "cycles": 65536,
                                 "instruction_cycles": 751,
-                                "memory_usage_bytes": 698150912,
+                                "memory_usage_bytes": 675086336,
                                 "proof_size_bytes": 215315
                             },
                             "name": "assert",
                             "time": {
-                                "nanos": 295608883,
+                                "nanos": 267092687,
                                 "secs": 2
                             }
                         }
@@ -557,85 +943,85 @@
                     "results": [
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 208976,
+                                "compressed_proof_size_bytes": 208694,
                                 "cycles": 65536,
                                 "instruction_cycles": 696,
-                                "memory_usage_bytes": 667627520,
+                                "memory_usage_bytes": 677191680,
                                 "proof_size_bytes": 215315
                             },
                             "name": "1",
                             "time": {
-                                "nanos": 273263836,
+                                "nanos": 258190443,
                                 "secs": 2
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 207794,
+                                "compressed_proof_size_bytes": 208598,
                                 "cycles": 65536,
                                 "instruction_cycles": 707,
-                                "memory_usage_bytes": 676958208,
+                                "memory_usage_bytes": 677131059,
                                 "proof_size_bytes": 215315
                             },
                             "name": "10",
                             "time": {
-                                "nanos": 281935661,
+                                "nanos": 269187998,
                                 "secs": 2
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 208914,
+                                "compressed_proof_size_bytes": 208960,
                                 "cycles": 65536,
                                 "instruction_cycles": 800,
-                                "memory_usage_bytes": 676843520,
+                                "memory_usage_bytes": 677224448,
                                 "proof_size_bytes": 215315
                             },
                             "name": "100",
                             "time": {
-                                "nanos": 264571702,
+                                "nanos": 274019743,
                                 "secs": 2
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 209469,
+                                "compressed_proof_size_bytes": 208884,
                                 "cycles": 65536,
                                 "instruction_cycles": 5695,
-                                "memory_usage_bytes": 677167104,
+                                "memory_usage_bytes": 674442444,
                                 "proof_size_bytes": 215315
                             },
                             "name": "1000",
                             "time": {
-                                "nanos": 285370495,
+                                "nanos": 278815820,
                                 "secs": 2
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 229717,
+                                "compressed_proof_size_bytes": 230158,
                                 "cycles": 131072,
                                 "instruction_cycles": 50697,
-                                "memory_usage_bytes": 1322663936,
+                                "memory_usage_bytes": 1323834026,
                                 "proof_size_bytes": 238355
                             },
                             "name": "10000",
                             "time": {
-                                "nanos": 365655986,
+                                "nanos": 355817321,
                                 "secs": 4
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 269809,
+                                "compressed_proof_size_bytes": 268396,
                                 "cycles": 1048576,
                                 "instruction_cycles": 500701,
-                                "memory_usage_bytes": 10350866432,
+                                "memory_usage_bytes": 10349531136,
                                 "proof_size_bytes": 275539
                             },
                             "name": "100000",
                             "time": {
-                                "nanos": 672292067,
+                                "nanos": 646337194,
                                 "secs": 33
                             }
                         }
@@ -646,43 +1032,43 @@
                     "results": [
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 209695,
+                                "compressed_proof_size_bytes": 208343,
                                 "cycles": 65536,
                                 "instruction_cycles": 2658,
-                                "memory_usage_bytes": 677216256,
+                                "memory_usage_bytes": 677466931,
                                 "proof_size_bytes": 215315
                             },
-                            "name": "1000 bytes",
+                            "name": "1k bytes",
                             "time": {
-                                "nanos": 294309091,
+                                "nanos": 296965798,
                                 "secs": 2
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 208359,
+                                "compressed_proof_size_bytes": 208409,
                                 "cycles": 65536,
                                 "instruction_cycles": 16131,
-                                "memory_usage_bytes": 677552128,
+                                "memory_usage_bytes": 676344627,
                                 "proof_size_bytes": 215315
                             },
-                            "name": "10000 bytes",
+                            "name": "10k bytes",
                             "time": {
-                                "nanos": 358477386,
+                                "nanos": 383903256,
                                 "secs": 2
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 242491,
+                                "compressed_proof_size_bytes": 242174,
                                 "cycles": 262144,
                                 "instruction_cycles": 150861,
-                                "memory_usage_bytes": 2611929088,
+                                "memory_usage_bytes": 2612766720,
                                 "proof_size_bytes": 250067
                             },
-                            "name": "100000 bytes",
+                            "name": "100k bytes",
                             "time": {
-                                "nanos": 937251996,
+                                "nanos": 875507344,
                                 "secs": 8
                             }
                         }
@@ -693,612 +1079,44 @@
                     "results": [
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 228820,
+                                "compressed_proof_size_bytes": 227783,
                                 "cycles": 131072,
                                 "instruction_cycles": 38283,
-                                "memory_usage_bytes": 1321803776,
+                                "memory_usage_bytes": 1322414080,
                                 "proof_size_bytes": 238355
                             },
-                            "name": "1000 bytes",
+                            "name": "1k bytes",
                             "time": {
-                                "nanos": 359590085,
+                                "nanos": 358255592,
                                 "secs": 4
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 253519,
+                                "compressed_proof_size_bytes": 255087,
                                 "cycles": 524288,
                                 "instruction_cycles": 372381,
-                                "memory_usage_bytes": 5192597504,
+                                "memory_usage_bytes": 5194874880,
                                 "proof_size_bytes": 262291
                             },
-                            "name": "10000 bytes",
+                            "name": "10k bytes",
                             "time": {
-                                "nanos": 168599712,
+                                "nanos": 68830691,
                                 "secs": 17
                             }
                         },
                         {
                             "metrics": {
-                                "compressed_proof_size_bytes": 1056466,
+                                "compressed_proof_size_bytes": 1063681,
                                 "cycles": 4194304,
                                 "instruction_cycles": 3713361,
-                                "memory_usage_bytes": 10482913280,
+                                "memory_usage_bytes": 10483007488,
                                 "proof_size_bytes": 1102096
                             },
-                            "name": "100000 bytes",
+                            "name": "100k bytes",
                             "time": {
-                                "nanos": 618561466,
-                                "secs": 137
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-        "miden": {
-            "ubuntu-16-shared": {
-                "assert": {
-                    "name": "assert",
-                    "results": [
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 48417,
-                                "cycles": 8,
-                                "memory_usage_bytes": 345403392,
-                                "proof_size_bytes": 48408
-                            },
-                            "name": "assert",
-                            "time": {
-                                "nanos": 33291424,
-                                "secs": 0
-                            }
-                        }
-                    ]
-                },
-                "multiple assert proof compression": {
-                    "name": "multiple assert proof compression",
-                    "results": [
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 485845,
-                                "memory_usage_bytes": 355708928,
-                                "proof_size_bytes": 489406
-                            },
-                            "name": "multiple assert proof compression",
-                            "time": {
-                                "nanos": 0,
-                                "secs": 0
-                            }
-                        }
-                    ]
-                },
-                "multiple sha256 proof compression": {
-                    "name": "multiple sha256 proof compression",
-                    "results": [
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 275283,
-                                "memory_usage_bytes": 408408064,
-                                "proof_size_bytes": 740802
-                            },
-                            "name": "multiple sha256 proof compression",
-                            "time": {
-                                "nanos": 0,
-                                "secs": 0
-                            }
-                        }
-                    ]
-                },
-                "Fibonacci": {
-                    "name": "Fibonacci",
-                    "results": [
-                        {
-                            "metrics": {
-                                "cycles": 8,
-                                "memory_usage_bytes": 11141120
-                            },
-                            "name": "1",
-                            "time": {
-                                "nanos": 32472803,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "cycles": 35,
-                                "memory_usage_bytes": 11153408
-                            },
-                            "name": "10",
-                            "time": {
-                                "nanos": 31578588,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "cycles": 309,
-                                "memory_usage_bytes": 11018240
-                            },
-                            "name": "100",
-                            "time": {
-                                "nanos": 32302741,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "cycles": 3048,
-                                "memory_usage_bytes": 41930752
-                            },
-                            "name": "1000",
-                            "time": {
-                                "nanos": 87501884,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "cycles": 30423,
-                                "memory_usage_bytes": 348160000
-                            },
-                            "name": "10000",
-                            "time": {
-                                "nanos": 641175221,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "cycles": 304173,
-                                "memory_usage_bytes": 5548511232
-                            },
-                            "name": "100000",
-                            "time": {
-                                "nanos": 488201128,
-                                "secs": 10
-                            }
-                        }
-                    ]
-                },
-                "SHA256": {
-                    "name": "SHA256",
-                    "results": [
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 73825,
-                                "cycles": 14534,
-                                "memory_usage_bytes": 336031744,
-                                "proof_size_bytes": 73816
-                            },
-                            "name": "1 byte",
-                            "time": {
-                                "nanos": 640332589,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 73922,
-                                "cycles": 14534,
-                                "memory_usage_bytes": 341807104,
-                                "proof_size_bytes": 73913
-                            },
-                            "name": "10 bytes",
-                            "time": {
-                                "nanos": 648538131,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 84121,
-                                "cycles": 58094,
-                                "memory_usage_bytes": 1363152896,
-                                "proof_size_bytes": 84112
-                            },
-                            "name": "100 bytes",
-                            "time": {
-                                "nanos": 541125083,
-                                "secs": 2
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 103502,
-                                "cycles": 464654,
-                                "memory_usage_bytes": 10841710592,
-                                "proof_size_bytes": 103493
-                            },
-                            "name": "1000 bytes",
-                            "time": {
-                                "nanos": 135748671,
-                                "secs": 22
-                            }
-                        }
-                    ]
-                },
-                "Blake3": {
-                    "name": "Blake3",
-                    "results": [
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 61701,
-                                "cycles": 4823,
-                                "memory_usage_bytes": 86224896,
-                                "proof_size_bytes": 61692
-                            },
-                            "name": "1 byte",
-                            "time": {
-                                "nanos": 163552852,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 62109,
-                                "cycles": 4823,
-                                "memory_usage_bytes": 86171648,
-                                "proof_size_bytes": 62100
-                            },
-                            "name": "10 bytes",
-                            "time": {
-                                "nanos": 167221122,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 73864,
-                                "cycles": 19244,
-                                "memory_usage_bytes": 343126016,
-                                "proof_size_bytes": 73855
-                            },
-                            "name": "100 bytes",
-                            "time": {
-                                "nanos": 654905666,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 92165,
-                                "cycles": 153854,
-                                "memory_usage_bytes": 2762842112,
-                                "proof_size_bytes": 92156
-                            },
-                            "name": "1000 bytes",
-                            "time": {
-                                "nanos": 350346230,
-                                "secs": 5
-                            }
-                        }
-                    ]
-                },
-                "RPO": {
-                    "name": "RPO",
-                    "results": [
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 68678,
-                                "cycles": 8717,
-                                "memory_usage_bytes": 176992256,
-                                "proof_size_bytes": 68669
-                            },
-                            "name": "10000 bytes",
-                            "time": {
-                                "nanos": 330664906,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 84697,
-                                "cycles": 86926,
-                                "memory_usage_bytes": 1384112128,
-                                "proof_size_bytes": 84688
-                            },
-                            "name": "100000 bytes",
-                            "time": {
-                                "nanos": 601381385,
-                                "secs": 2
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 104246,
-                                "cycles": 869071,
-                                "memory_usage_bytes": 10874859520,
-                                "proof_size_bytes": 104237
-                            },
-                            "name": "1000000 bytes",
-                            "time": {
-                                "nanos": 242016463,
-                                "secs": 22
-                            }
-                        }
-                    ]
-                }
-            },
-            "ubuntu-latest-64-cores": {
-                "assert": {
-                    "name": "assert",
-                    "results": [
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 48834,
-                                "cycles": 8,
-                                "memory_usage_bytes": 355041280,
-                                "proof_size_bytes": 48825
-                            },
-                            "name": "assert",
-                            "time": {
-                                "nanos": 75247883,
-                                "secs": 0
-                            }
-                        }
-                    ]
-                },
-                "multiple assert proof compression": {
-                    "name": "multiple assert proof compression",
-                    "results": [
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 484786,
-                                "memory_usage_bytes": 365871104,
-                                "proof_size_bytes": 486593
-                            },
-                            "name": "multiple assert proof compression",
-                            "time": {
-                                "nanos": 0,
-                                "secs": 0
-                            }
-                        }
-                    ]
-                },
-                "multiple sha256 proof compression": {
-                    "name": "multiple sha256 proof compression",
-                    "results": [
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 462057,
-                                "memory_usage_bytes": 442179584,
-                                "proof_size_bytes": 739074
-                            },
-                            "name": "multiple sha256 proof compression",
-                            "time": {
-                                "nanos": 0,
-                                "secs": 0
-                            }
-                        }
-                    ]
-                },
-                "Fibonacci": {
-                    "name": "Fibonacci",
-                    "results": [
-                        {
-                            "metrics": {
-                                "cycles": 8,
-                                "memory_usage_bytes": 18468864
-                            },
-                            "name": "1",
-                            "time": {
-                                "nanos": 62678310,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "cycles": 35,
-                                "memory_usage_bytes": 20520960
-                            },
-                            "name": "10",
-                            "time": {
-                                "nanos": 59719723,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "cycles": 309,
-                                "memory_usage_bytes": 18432000
-                            },
-                            "name": "100",
-                            "time": {
-                                "nanos": 57162124,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "cycles": 3048,
-                                "memory_usage_bytes": 50864128
-                            },
-                            "name": "1000",
-                            "time": {
-                                "nanos": 104410364,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "cycles": 30423,
-                                "memory_usage_bytes": 354992128
-                            },
-                            "name": "10000",
-                            "time": {
-                                "nanos": 291257098,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "cycles": 304173,
-                                "memory_usage_bytes": 5554335744
-                            },
-                            "name": "100000",
-                            "time": {
-                                "nanos": 1676663,
-                                "secs": 3
-                            }
-                        }
-                    ]
-                },
-                "SHA256": {
-                    "name": "SHA256",
-                    "results": [
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 73560,
-                                "cycles": 14534,
-                                "memory_usage_bytes": 349306880,
-                                "proof_size_bytes": 73551
-                            },
-                            "name": "1 byte",
-                            "time": {
-                                "nanos": 317448586,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 73408,
-                                "cycles": 14534,
-                                "memory_usage_bytes": 348602368,
-                                "proof_size_bytes": 73399
-                            },
-                            "name": "10 bytes",
-                            "time": {
-                                "nanos": 295493281,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 85274,
-                                "cycles": 58094,
-                                "memory_usage_bytes": 1370181632,
-                                "proof_size_bytes": 85265
-                            },
-                            "name": "100 bytes",
-                            "time": {
-                                "nanos": 879764747,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 103646,
-                                "cycles": 464654,
-                                "memory_usage_bytes": 11028856832,
-                                "proof_size_bytes": 103637
-                            },
-                            "name": "1000 bytes",
-                            "time": {
-                                "nanos": 875702815,
-                                "secs": 5
-                            }
-                        }
-                    ]
-                },
-                "Blake3": {
-                    "name": "Blake3",
-                    "results": [
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 62301,
-                                "cycles": 4823,
-                                "memory_usage_bytes": 93085696,
-                                "proof_size_bytes": 62292
-                            },
-                            "name": "1 byte",
-                            "time": {
-                                "nanos": 139815414,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 63438,
-                                "cycles": 4823,
-                                "memory_usage_bytes": 92991488,
-                                "proof_size_bytes": 63429
-                            },
-                            "name": "10 bytes",
-                            "time": {
-                                "nanos": 130273565,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 74066,
-                                "cycles": 19244,
-                                "memory_usage_bytes": 349954048,
-                                "proof_size_bytes": 74057
-                            },
-                            "name": "100 bytes",
-                            "time": {
-                                "nanos": 305077382,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 90641,
-                                "cycles": 153854,
-                                "memory_usage_bytes": 2770128896,
-                                "proof_size_bytes": 90632
-                            },
-                            "name": "1000 bytes",
-                            "time": {
-                                "nanos": 667068130,
-                                "secs": 1
-                            }
-                        }
-                    ]
-                },
-                "RPO": {
-                    "name": "RPO",
-                    "results": [
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 68341,
-                                "cycles": 8717,
-                                "memory_usage_bytes": 183558144,
-                                "proof_size_bytes": 68332
-                            },
-                            "name": "10000 bytes",
-                            "time": {
-                                "nanos": 192408283,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 85754,
-                                "cycles": 86926,
-                                "memory_usage_bytes": 1391079424,
-                                "proof_size_bytes": 85745
-                            },
-                            "name": "100000 bytes",
-                            "time": {
-                                "nanos": 886248452,
-                                "secs": 0
-                            }
-                        },
-                        {
-                            "metrics": {
-                                "compressed_proof_size_bytes": 103958,
-                                "cycles": 869071,
-                                "memory_usage_bytes": 10885259264,
-                                "proof_size_bytes": 103949
-                            },
-                            "name": "1000000 bytes",
-                            "time": {
-                                "nanos": 119602673,
-                                "secs": 6
+                                "nanos": 713601344,
+                                "secs": 136
                             }
                         }
                     ]

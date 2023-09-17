@@ -8,6 +8,8 @@
         "./risc-zero/methods/blake3/Cargo.toml",
         "./risc-zero/host/Cargo.toml",
         "./risc-zero/methods/assert/Cargo.toml",
-        "./risc-zero/methods/fib/Cargo.toml"
+        "./risc-zero/methods/fib/Cargo.toml",
+        "./polylang/Cargo.toml",
+        "./bench/macros/Cargo.toml"
     ]
 }

@@ -1,0 +1,24 @@
+[package]
+name = "polylang-bench"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[features]
+default = []
+multi-cpu = ["polylang-prover/multi-cpu"]
+metal = ["polylang-prover/metal"]
+
+[dependencies]
+polylang = { git = "https://github.com/polybase/polylang", rev = "52c388e" }
+polylang-prover = { git = "https://github.com/polybase/polylang", rev = "52c388e" }
+abi = { git = "https://github.com/polybase/polylang", rev = "52c388e" }
+zstd = "0.12.4"
+
+[dev-dependencies]
+benchy = { path = "../bench" }
+
+[[bench]]
+harness = false
+name = "bench"

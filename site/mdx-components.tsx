@@ -29,10 +29,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 
     // Table support
     table: ({ children }) => <Box fontSize='sm' my={4} border='1px solid' borderColor='bw.100' borderRadius={5}><Table variant="simple" >{children}</Table></Box>,
-    thead: ({ children }) => <Thead bg="gray.100">{children}</Thead>,
+    thead: ({ children }) => <Thead bg="bw.100">{children}</Thead>,
     tbody: ({ children }) => <Tbody>{children}</Tbody>,
     tr: ({ children }) => <Tr>{children}</Tr>,
-    th: ({ children }) => <Th px={4} py={2}>{children}</Th>,
+    th: ({ children }) => <Th fontSize='sm' px={4} py={2}>{children}</Th>,
     td: ({ children }) => <Td px={4} py={2}>{children}</Td>,
 
     // Text and paragraphs
@@ -42,7 +42,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     inlineCode: ({ children }) => <Code fontSize='sm'>{children}</Code>,
 
     // Block code (You can extend this further with a proper code highlighter)
-    code: ({ children }) => <Box as='pre' p={4} rounded='md' bg='gray.100' fontSize='sm'>{children}</Box>,
+    code: ({ children }) => <Box as='pre' p={4} rounded='md' bg='bw.100' fontSize='sm'>{children}</Box>,
 
     // Unordered list
     ul: ({ children }) => <UnorderedList my={4}>{children}</UnorderedList>,

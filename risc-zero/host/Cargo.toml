@@ -11,7 +11,7 @@ serde = "1.0"
 zstd = "0.12.4"
 
 [dev-dependencies]
-bench = { path = "../../bench" }
+benchy = { path = "../../bench" }
 
 [[bench]]
 name = "bench"

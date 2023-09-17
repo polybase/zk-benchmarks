@@ -6,7 +6,7 @@ import {
 import { MdInfo } from 'react-icons/md'
 import { frameworks } from '@/fixtures/frameworks'
 import benchmarks from '@/fixtures/benchmarks.json'
-import { formatDate, timeSinceLastUpdate } from '@/util/date'
+import { timeSinceLastUpdate } from '@/util/date'
 
 interface Duration {
   secs: number;
@@ -70,31 +70,16 @@ const properties: ResultTableProperty[] = [{
   // value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
 },
 {
-  name: '1 byte',
+  name: '1k bytes',
   indent: 4,
   prop: 'metrics.$machine.SHA256.results.0.time',
   value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
 },
 {
-  name: '10 bytes',
+  name: '10k bytes',
   indent: 4,
   prop: 'metrics.$machine.SHA256.results.1.time',
   value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
-},
-{
-  name: '100 bytes',
-  indent: 4,
-  prop: 'metrics.$machine.SHA256.results.2.time',
-  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
-},
-{
-  name: '1000 bytes',
-  indent: 4,
-  prop: 'metrics.$machine.SHA256.results.3.time',
-  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
-  annotations: {
-    risc_zero: 'This benchmark exceeds the maximum allowed time to run, and therefore is omitted.',
-  },
 }, {
   name: 'Fibonacci',
   // TODO: use markdown for this
@@ -173,7 +158,7 @@ export function ResultsTable() {
                 <Th>
                 </Th>
                 {frameworks.map((item) => (
-                  <Th key={item.name}>
+                  <Th key={item.name} fontSize='sm'>
                     <a href={item.url}>
                       {item.name}
                     </a>
@@ -195,7 +180,7 @@ export function ResultsTable() {
                           <Box>
                             <Popover>
                               <PopoverTrigger>
-                                <IconButton opacity={0.3} variant='ghost' aria-label='info' size='xs' icon={<MdInfo />} />
+                                <IconButton opacity={0.3} variant='ghost' aria-label='info' height='18px' size='sm' icon={<MdInfo />} />
                               </PopoverTrigger>
                               <Portal>
                                 <PopoverContent>
@@ -222,7 +207,7 @@ export function ResultsTable() {
                                 <Box>
                                   <Popover>
                                     <PopoverTrigger>
-                                      <IconButton opacity={0.3} variant='ghost' aria-label='info' size='xs' icon={<MdInfo />} />
+                                      <IconButton opacity={0.3} variant='ghost' height='18px' aria-label='info' size='sm' icon={<MdInfo />} />
                                     </PopoverTrigger>
                                     <Portal>
                                       <PopoverContent>
@@ -251,7 +236,7 @@ export function ResultsTable() {
             Last Updated:
           </Text>
           <Box>
-            {timeSinceLastUpdate(benchmarks.meta.lastUpdated)} (<time>{formatDate(benchmarks.meta.lastUpdated)}</time>)
+            {timeSinceLastUpdate(benchmarks.meta.lastUpdated)} (<time>{benchmarks.meta.lastUpdated}</time>)
           </Box>
         </HStack>
       </Box>
