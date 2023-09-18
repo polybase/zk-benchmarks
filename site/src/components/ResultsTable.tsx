@@ -59,7 +59,7 @@ const properties: ResultTableProperty[] = [{
 }, {
   name: 'Optimised Hashes',
   prop: 'optimisedHash',
-  desc: `The hash provided by the framework has been specifically optimised i.e. it's the fastest hashes available for that framework.`,
+  desc: `Hashes that have been optimised by the framework and therefore should perform faster. SHA-256 and Blake are not optimised for ZK in general, but may still be optimised by a framework.`,
   annotations: {
     risc_zero: 'SHA-256 is the most optimised hash for Risc Zero, but SHA-256 is in general not ZK optimised.'
   }
