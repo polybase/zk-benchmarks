@@ -17,7 +17,7 @@ fn assert(b: &mut BenchmarkRun) {
     "#,
     );
 
-    let output = b.run(|| run_and_prove());
+    let output = b.run(run_and_prove);
     report(b, output);
 }
 
@@ -42,7 +42,7 @@ fn fibonacci(b: &mut BenchmarkRun, p: usize) {
     "#
     ));
 
-    let output = b.run(|| run_and_prove());
+    let output = b.run(run_and_prove);
     report(b, output);
 }
 
@@ -64,7 +64,7 @@ fn sha256(b: &mut BenchmarkRun, p: usize) {
         zeros = (0..arr_size).map(|_| "0").collect::<Vec<_>>().join(", "),
     ));
 
-    let output = b.run(|| run_and_prove());
+    let output = b.run(run_and_prove);
     report(b, output);
 }
 
@@ -85,7 +85,7 @@ fn blake3(b: &mut BenchmarkRun, p: usize) {
         zeros = (0..arr_size).map(|_| "0").collect::<Vec<_>>().join(", "),
     ));
 
-    let output = b.run(|| run_and_prove());
+    let output = b.run(run_and_prove);
     report(b, output);
 }
 
@@ -106,7 +106,7 @@ fn rpo(b: &mut BenchmarkRun, p: usize) {
         zeros = (0..arr_size).map(|_| "0").collect::<Vec<_>>().join(", "),
     ));
 
-    let output = b.run(|| run_and_prove());
+    let output = b.run(run_and_prove);
     report(b, output);
 }
 

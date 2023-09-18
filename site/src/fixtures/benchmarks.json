@@ -3,6 +3,10 @@
         "lastUpdated": "2023-09-15T16:26:00.465890+00:00"
     },
     "frameworks": {
+        "polylang": {
+            "ubuntu-16-shared": {},
+            "ubuntu-latest-64-cores": {}
+        },
         "noir": {
             "ubuntu-16-shared": {
                 "assert": {
