@@ -11,7 +11,7 @@ export const frameworks = [
     existingLibSupport: '❌',
     gpu: ['Metal'],
     optimisedHash: 'RPO',
-    metrics: benchmarks.frameworks.miden,
+    metrics: benchmarks.frameworks.polylang,
   },
   {
     id: 'miden',
