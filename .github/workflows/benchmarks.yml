@@ -70,7 +70,12 @@ jobs:
       env:
         BENCHY_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
       run: |
-        cargo bench -F metal
+        cargo bench
+
+    - name: Upload .benchmarks as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        path: .benchmarks/
 
   miden:
     runs-on: ${{ matrix.runner }}

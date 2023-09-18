@@ -1,4 +1,9 @@
 import benchmarks from './benchmarks.json'
+import { Box, HStack, Text, Tooltip } from '@chakra-ui/react'
+
+const MoreInfo = ({ children, count, more }: any) => (
+  <HStack><Text>{children}</Text><Tooltip label={more}><Text color='blue.700' cursor='pointer'>+{count} more</Text></Tooltip></HStack>
+)
 
 export const frameworks = [
   {
@@ -10,8 +15,8 @@ export const frameworks = [
     unbounded: '✅',
     existingLibSupport: '❌',
     gpu: ['Metal'],
-    optimisedHash: 'RPO',
-    metrics: benchmarks.frameworks.miden,
+    optimisedHash: <MoreInfo count={2} more='Blake3, SHA-256'>RPO</MoreInfo>,
+    metrics: benchmarks.frameworks.polylang,
   },
   {
     id: 'miden',
@@ -22,7 +27,7 @@ export const frameworks = [
     unbounded: '✅',
     existingLibSupport: '⚠️',
     gpu: ['Metal'],
-    optimisedHash: 'RPO, SHA-256',
+    optimisedHash: <MoreInfo count={2} more='Blake3, SHA-256'>RPO</MoreInfo>,
     metrics: benchmarks.frameworks.miden,
   },
   {
@@ -45,7 +50,7 @@ export const frameworks = [
     zk: 'SNARK',
     unbounded: '❌',
     existingLibSupport: '⚠️',
-    optimisedHash: 'SHA-256, Blake2, Pedersen',
+    optimisedHash: <MoreInfo count={2} more='SHA-256, Blake2'>Pedersen</MoreInfo>,
     metrics: benchmarks.frameworks.noir,
   }
 ]
