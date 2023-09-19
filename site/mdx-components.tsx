@@ -28,7 +28,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h6: ({ children }) => <Heading as='h6' size='xs' mt={2} mb={1}>{children}</Heading>,
 
     // Table support
-    table: ({ children }) => <Box fontSize='sm' my={4} border='1px solid' borderColor='bw.100' borderRadius={5}><Table variant="simple" >{children}</Table></Box>,
+    table: ({ children }) => <Box fontSize='sm' my={4} border='1px solid' borderColor='bw.100' borderRadius={5} overflowX='auto'><Table variant="simple" >{children}</Table></Box>,
     thead: ({ children }) => <Thead bg="bw.100">{children}</Thead>,
     tbody: ({ children }) => <Tbody>{children}</Tbody>,
     tr: ({ children }) => <Tr>{children}</Tr>,
