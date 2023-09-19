@@ -5,7 +5,7 @@ version = 3
 [[package]]
 name = "abi"
 version = "0.1.0"
-source = "git+https://github.com/polybase/polylang?rev=9a4c43700b52cbd7bf78138a32d8ab2170863847#9a4c43700b52cbd7bf78138a32d8ab2170863847"
+source = "git+https://github.com/polybase/polylang?rev=d0ab3cc9fa60de18b235a8a51dd0acaf3bbad93c#d0ab3cc9fa60de18b235a8a51dd0acaf3bbad93c"
 dependencies = [
  "base64",
  "error",
@@ -386,7 +386,7 @@ dependencies = [
 [[package]]
 name = "error"
 version = "0.1.0"
-source = "git+https://github.com/polybase/polylang?rev=9a4c43700b52cbd7bf78138a32d8ab2170863847#9a4c43700b52cbd7bf78138a32d8ab2170863847"
+source = "git+https://github.com/polybase/polylang?rev=d0ab3cc9fa60de18b235a8a51dd0acaf3bbad93c#d0ab3cc9fa60de18b235a8a51dd0acaf3bbad93c"
 dependencies = [
  "derive_more",
  "parking_lot",
@@ -885,7 +885,7 @@ checksum = "22686f4785f02a4fcc856d3b3bb19bf6c8160d103f7a99cc258bddd0251dc7f2"
 [[package]]
 name = "polylang"
 version = "0.1.0"
-source = "git+https://github.com/polybase/polylang?rev=9a4c43700b52cbd7bf78138a32d8ab2170863847#9a4c43700b52cbd7bf78138a32d8ab2170863847"
+source = "git+https://github.com/polybase/polylang?rev=d0ab3cc9fa60de18b235a8a51dd0acaf3bbad93c#d0ab3cc9fa60de18b235a8a51dd0acaf3bbad93c"
 dependencies = [
  "abi",
  "base64",
@@ -921,7 +921,7 @@ dependencies = [
 [[package]]
 name = "polylang-prover"
 version = "0.1.0"
-source = "git+https://github.com/polybase/polylang?rev=9a4c43700b52cbd7bf78138a32d8ab2170863847#9a4c43700b52cbd7bf78138a32d8ab2170863847"
+source = "git+https://github.com/polybase/polylang?rev=d0ab3cc9fa60de18b235a8a51dd0acaf3bbad93c#d0ab3cc9fa60de18b235a8a51dd0acaf3bbad93c"
 dependencies = [
  "abi",
  "error",
@@ -936,7 +936,7 @@ dependencies = [
 [[package]]
 name = "polylang_parser"
 version = "0.1.0"
-source = "git+https://github.com/polybase/polylang?rev=9a4c43700b52cbd7bf78138a32d8ab2170863847#9a4c43700b52cbd7bf78138a32d8ab2170863847"
+source = "git+https://github.com/polybase/polylang?rev=d0ab3cc9fa60de18b235a8a51dd0acaf3bbad93c#d0ab3cc9fa60de18b235a8a51dd0acaf3bbad93c"
 dependencies = [
  "derive_more",
  "error",
