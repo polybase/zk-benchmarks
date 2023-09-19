@@ -75,7 +75,7 @@ const properties: ResultTableProperty[] = [{
     risc_zero: 'SHA-256 is the most optimised hash for Risc Zero, but SHA-256 is in general not ZK optimised.'
   }
 }, {
-  name: 'SHA-256',
+  name: 'SHA-256 Hash',
   desc: `Calculating the SHA-256 hash for given input size. SHA-256 is NOT zk optimised so it's normal to see degraded performance compared to other hashes.`,
   // prop: 'metrics.$machine.SHA256.results.0.time',
   // value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
@@ -91,6 +91,29 @@ const properties: ResultTableProperty[] = [{
   indent: 4,
   prop: 'metrics.$machine.SHA256.results.1.time',
   value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+}, {
+  name: 'RPO Hash',
+  desc: `A ZK optimised hash, this should perform better than SHA-256.`,
+},
+{
+  name: '1k bytes',
+  indent: 4,
+  prop: 'metrics.$machine.RPO.results.0.time',
+  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : '❌',
+  annotations: {
+    risc_zero: 'Risc Zero does not support RPO',
+    noir: 'Noir does not support RPO, but does support Pederson which is a ZK optimised hash.',
+  }
+},
+{
+  name: '10k bytes',
+  indent: 4,
+  prop: 'metrics.$machine.RPO.results.1.time',
+  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : '❌',
+  annotations: {
+    risc_zero: 'Risc Zero does not support RPO',
+    noir: 'Noir does not support RPO, but does support Pederson which is a ZK optimised hash.',
+  }
 }, {
   name: 'Fibonacci',
   // TODO: use markdown for this
