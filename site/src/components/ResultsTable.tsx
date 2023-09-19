@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Image from 'next/image'
 import {
   TableContainer, Box, Table, Thead, Tbody, Th, Tr, Td, Stack, HStack, Text, Button, IconButton,
   Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, Portal, PopoverBody
@@ -161,7 +162,16 @@ export function ResultsTable() {
                 {frameworks.map((item) => (
                   <Th key={item.name} fontSize='sm'>
                     <a href={item.url}>
-                      {item.name}
+                      <Stack spacing={2}>
+                        <Box>
+                          <Image
+                            alt={item.name}
+                            src={item.logo.src}
+                            height={item.logo.height}
+                            width={item.logo.width} />
+                        </Box>
+                        <Box>{item.name}</Box>
+                      </Stack>
                     </a>
                   </Th>
                 ))}
