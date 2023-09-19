@@ -25,6 +25,7 @@ interface ResultTableProperty {
 const properties: ResultTableProperty[] = [{
   name: 'Frontend',
   prop: 'frontend',
+  desc: 'Frontend is the technical term for a programming language that is compiled into a lower level language',
 }, {
   name: 'ZK',
   prop: 'zk',

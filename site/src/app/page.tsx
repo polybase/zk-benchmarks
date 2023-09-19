@@ -43,7 +43,7 @@ export default function Home() {
                   </Center>
                   <Stack>
                     <Heading as='h2' fontSize='md' fontFamily={rounded.style.fontFamily} textAlign='center'>Impartial benchmarks for your favourite ZK frameworks</Heading>
-                    <Heading as='h3' fontSize='xs' textAlign='center' fontWeight='normal'>(if it’s not fair, <Link as='a' href='https://github.com/polybase/zk-benchmarks/issues' target='_blank' color={useColorModeValue('blue.600', 'blue.200')}>raise a PR!</Link>)</Heading>
+                    <Heading as='h3' fontSize='xs' textAlign='center' fontWeight='normal'>(if it’s not fair, <Link as='a' href='https://github.com/polybase/zk-benchmarks' target='_blank' color={useColorModeValue('blue.600', 'blue.200')}>raise a PR!</Link>)</Heading>
                   </Stack>
                 </Stack>
               </Center>

@@ -104,7 +104,7 @@ Benchmarks are updated automatically whenever we update the benchmarks or the ve
 
 ## What benchmark tool do you use?
 
-We actually created our own 😅, which you can find here on [crates.io [tbc]](...). We tried using criterion which is pretty much the default for Rust, 
+We actually created our own 😅, which you can find here on [crates.io](https://crates.io/crates/benchy). We tried using criterion which is pretty much the default for Rust, 
 but it didn't really serve our needs for the kinds of tests we are running. Criterion is tailored for nanosecond-level performance measurements of quick, simple functions, but we needed something that worked well with longer running benchmarks (ZK is still quite slow in many cases). We were also able to automatically profile the memory requirements of each benchmark, which is something we couldn't do with criterion.
 
 
