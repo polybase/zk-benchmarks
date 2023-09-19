@@ -2,9 +2,10 @@ import { useState } from 'react'
 import Image from 'next/image'
 import {
   TableContainer, Box, Table, Thead, Tbody, Th, Tr, Td, Stack, HStack, Text, Button, IconButton,
-  Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, Portal, PopoverBody
+  Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, Portal, PopoverBody, Icon
 } from '@chakra-ui/react'
 import { MdInfo } from 'react-icons/md'
+import { FaExternalLinkAlt } from 'react-icons/fa'
 import { frameworks } from '@/fixtures/frameworks'
 import benchmarks from '@/fixtures/benchmarks.json'
 import { timeSinceLastUpdate } from '@/util/date'
@@ -26,6 +27,7 @@ interface ResultTableProperty {
 const properties: ResultTableProperty[] = [{
   name: 'Frontend',
   prop: 'frontend',
+  desc: 'Frontend is the technical term for a programming language that is compiled into a lower level language',
 }, {
   name: 'ZK',
   prop: 'zk',
@@ -160,16 +162,17 @@ export function ResultsTable() {
                 </Th>
                 {frameworks.map((item) => (
                   <Th key={item.name} fontSize='sm'>
-                    <a href={item.url}>
+                    <a href={item.url} target='_blank'>
                       <Stack spacing={2}>
-                        <Box>
+                        <Box textDecorationColor='#fff'>
                           <Image
                             alt={item.name}
                             src={item.logo.src}
                             height={item.logo.height}
-                            width={item.logo.width} />
+                            width={item.logo.width}
+                          />
                         </Box>
-                        <Box>{item.name}</Box>
+                        <Box>{item.name} <Icon opacity='0.4' fontSize='xs' as={FaExternalLinkAlt} /></Box>
                       </Stack>
                     </a>
                   </Th>
