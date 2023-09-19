@@ -5,7 +5,7 @@ version = 3
 [[package]]
 name = "abi"
 version = "0.1.0"
-source = "git+https://github.com/polybase/polylang?rev=52c388e#52c388e57ff6c2e55d762677f21a33440dc1a5f9"
+source = "git+https://github.com/polybase/polylang?rev=1b45919eb73b85b40c7a21d8f5d2eb571dd1c243#1b45919eb73b85b40c7a21d8f5d2eb571dd1c243"
 dependencies = [
  "base64",
  "error",
@@ -386,7 +386,7 @@ dependencies = [
 [[package]]
 name = "error"
 version = "0.1.0"
-source = "git+https://github.com/polybase/polylang?rev=52c388e#52c388e57ff6c2e55d762677f21a33440dc1a5f9"
+source = "git+https://github.com/polybase/polylang?rev=1b45919eb73b85b40c7a21d8f5d2eb571dd1c243#1b45919eb73b85b40c7a21d8f5d2eb571dd1c243"
 dependencies = [
  "derive_more",
  "parking_lot",
@@ -885,7 +885,7 @@ checksum = "22686f4785f02a4fcc856d3b3bb19bf6c8160d103f7a99cc258bddd0251dc7f2"
 [[package]]
 name = "polylang"
 version = "0.1.0"
-source = "git+https://github.com/polybase/polylang?rev=52c388e#52c388e57ff6c2e55d762677f21a33440dc1a5f9"
+source = "git+https://github.com/polybase/polylang?rev=1b45919eb73b85b40c7a21d8f5d2eb571dd1c243#1b45919eb73b85b40c7a21d8f5d2eb571dd1c243"
 dependencies = [
  "abi",
  "base64",
@@ -921,7 +921,7 @@ dependencies = [
 [[package]]
 name = "polylang-prover"
 version = "0.1.0"
-source = "git+https://github.com/polybase/polylang?rev=52c388e#52c388e57ff6c2e55d762677f21a33440dc1a5f9"
+source = "git+https://github.com/polybase/polylang?rev=1b45919eb73b85b40c7a21d8f5d2eb571dd1c243#1b45919eb73b85b40c7a21d8f5d2eb571dd1c243"
 dependencies = [
  "abi",
  "error",
@@ -936,7 +936,7 @@ dependencies = [
 [[package]]
 name = "polylang_parser"
 version = "0.1.0"
-source = "git+https://github.com/polybase/polylang?rev=52c388e#52c388e57ff6c2e55d762677f21a33440dc1a5f9"
+source = "git+https://github.com/polybase/polylang?rev=1b45919eb73b85b40c7a21d8f5d2eb571dd1c243#1b45919eb73b85b40c7a21d8f5d2eb571dd1c243"
 dependencies = [
  "derive_more",
  "error",
