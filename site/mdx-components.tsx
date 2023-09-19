@@ -42,7 +42,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     inlineCode: ({ children }) => <Code fontSize='sm'>{children}</Code>,
 
     // Block code (You can extend this further with a proper code highlighter)
-    code: ({ children }) => <Box as='pre' p={4} rounded='md' bg='bw.100' fontSize='sm'>{children}</Box>,
+    code: ({ children }) => <Box as='pre' p={4} rounded='md' bg='bw.100' fontSize='sm' overflowX='auto'>{children}</Box>,
 
     // Unordered list
     ul: ({ children }) => <UnorderedList my={4}>{children}</UnorderedList>,
