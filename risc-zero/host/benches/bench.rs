@@ -112,6 +112,6 @@ benchy::main!(
     fibonacci,
     sha256,
     blake3_bench,
-    merkle_merge,
-    merkle_membership,
+    // merkle_merge,
+    // merkle_membership,
 );
