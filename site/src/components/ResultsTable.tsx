@@ -2,9 +2,10 @@ import { useState } from 'react'
 import Image from 'next/image'
 import {
   TableContainer, Box, Table, Thead, Tbody, Th, Tr, Td, Stack, HStack, Text, Button, IconButton,
-  Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, Portal, PopoverBody
+  Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, Portal, PopoverBody, Icon
 } from '@chakra-ui/react'
 import { MdInfo } from 'react-icons/md'
+import { FaExternalLinkAlt } from 'react-icons/fa'
 import { frameworks } from '@/fixtures/frameworks'
 import benchmarks from '@/fixtures/benchmarks.json'
 import { timeSinceLastUpdate } from '@/util/date'
@@ -163,14 +164,15 @@ export function ResultsTable() {
                   <Th key={item.name} fontSize='sm'>
                     <a href={item.url}>
                       <Stack spacing={2}>
-                        <Box>
+                        <Box textDecorationColor='#fff'>
                           <Image
                             alt={item.name}
                             src={item.logo.src}
                             height={item.logo.height}
-                            width={item.logo.width} />
+                            width={item.logo.width}
+                          />
                         </Box>
-                        <Box>{item.name}</Box>
+                        <Box>{item.name} <Icon opacity='0.4' fontSize='xs' as={FaExternalLinkAlt} /></Box>
                       </Stack>
                     </a>
                   </Th>
