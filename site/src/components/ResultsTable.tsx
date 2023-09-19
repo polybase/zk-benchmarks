@@ -47,6 +47,14 @@ const properties: ResultTableProperty[] = [{
     noir: 'Noir does support loading library modules, but these must also be written in Noir. There is no existing library ecosystem for Noir.',
   }
 }, {
+  name: 'EVM Verifier',
+  desc: 'Does the framework provide a verifier that can be used on the Ethereum Virtual Machine?',
+  prop: 'evmVerifier',
+  annotations: {
+    polylang: 'Polylang is scheduled to have an EVM verifier in Q1 2023.',
+    miden: 'Polylang is scheduled to have an EVM verifier in Q1 2023.',
+  }
+}, {
   name: 'GPU',
   prop: 'gpu',
   desc: 'Does the framework support GPU acceleration? Metal is specific to Apple devices.',
