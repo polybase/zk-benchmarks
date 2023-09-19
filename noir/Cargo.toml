@@ -18,7 +18,7 @@ tokio = { version = "1.0", features = ["io-std"] }
 zstd = "0.12.4"
 
 [dev-dependencies]
-benchy = { path = "../bench" }
+benchy = "0.1.1"
 rand = "0.8.4"
 
 [features]
