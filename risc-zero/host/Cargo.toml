@@ -8,8 +8,8 @@ bincode = "1.3.3"
 methods = { path = "../methods" }
 risc0-zkvm = { version = "0.18.0" }
 serde = "1.0"
-zstd = "0.12.4"
 shared = { path = "../../shared", features = ["std"] }
+zstd = "0.12.4"
 
 [dev-dependencies]
 benchy = { path = "../../bench" }

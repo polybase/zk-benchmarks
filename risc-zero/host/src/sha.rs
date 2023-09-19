@@ -1,4 +1,3 @@
-
 use methods::SHA_ELF;
 use risc0_zkvm::{Executor, ExecutorEnv, Receipt, Session};
 
@@ -12,8 +11,7 @@ pub fn sha(n_thousands: usize) -> impl FnMut() -> (Receipt, Session) {
 
     move || {
         let session = exec.run().unwrap();
-        let receipt = session.prove()
-            .unwrap();
+        let receipt = session.prove().unwrap();
 
         (receipt, session)
     }

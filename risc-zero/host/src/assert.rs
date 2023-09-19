@@ -1,4 +1,3 @@
-
 use methods::ASSERT_ELF;
 use risc0_zkvm::{Executor, ExecutorEnv, Receipt, Session};
 

@@ -30,7 +30,7 @@ fn fibonacci(b: &mut BenchmarkRun, n: u32) {
     ("100k bytes", 100),
 ])]
 fn sha256(b: &mut BenchmarkRun, n: usize) {
-    let prove = sha( n);
+    let prove = sha(n);
     log_session(&b.run(prove), b);
 }
 

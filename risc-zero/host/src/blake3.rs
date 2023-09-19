@@ -1,4 +1,3 @@
-
 use methods::BLAKE3_ELF;
 use risc0_zkvm::{Executor, ExecutorEnv, Receipt, Session};
 
