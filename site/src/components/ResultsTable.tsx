@@ -162,7 +162,7 @@ export function ResultsTable() {
                 </Th>
                 {frameworks.map((item) => (
                   <Th key={item.name} fontSize='sm'>
-                    <a href={item.url}>
+                    <a href={item.url} target='_blank'>
                       <Stack spacing={2}>
                         <Box textDecorationColor='#fff'>
                           <Image
