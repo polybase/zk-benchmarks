@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import Image from 'next/image'
 import {
   TableContainer, Box, Table, Thead, Tbody, Th, Tr, Td, Stack, HStack, Text, Button, IconButton,
-  Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, Portal, PopoverBody
+  Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, Portal, PopoverBody, Icon
 } from '@chakra-ui/react'
 import { MdInfo } from 'react-icons/md'
+import { FaExternalLinkAlt } from 'react-icons/fa'
 import { frameworks } from '@/fixtures/frameworks'
 import benchmarks from '@/fixtures/benchmarks.json'
 import { timeSinceLastUpdate } from '@/util/date'
@@ -25,6 +27,7 @@ interface ResultTableProperty {
 const properties: ResultTableProperty[] = [{
   name: 'Frontend',
   prop: 'frontend',
+  desc: 'Frontend is the technical term for a programming language that is compiled into a lower level language',
 }, {
   name: 'ZK',
   prop: 'zk',
@@ -46,20 +49,20 @@ const properties: ResultTableProperty[] = [{
 }, {
   name: 'GPU',
   prop: 'gpu',
-  desc: 'Does the framework support GPU acceleration? Metal is a specific to Apple devices.',
+  desc: 'Does the framework support GPU acceleration? Metal is specific to Apple devices.',
   value: (val?: string[]) => val ? `✅ ${val.join(', ')}` : "❌",
 }, {
   name: 'Assert',
-  desc: `A very simple assertion a != b, this can be used to test the frameworks minimum proving performance.`,
+  desc: `A very simple assertion a != b, this can be used to test the framework's minimum proving performance.`,
   prop: 'metrics.$machine.assert.results.0.time',
   value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
   annotations: {
-    risc_zero: 'Risc Zero is significantly slower for this test, as the minumum number of cycles for all Risc Zero programs is 64k. Therefore this very small program still requires a large number of cycles.',
+    risc_zero: 'Risc Zero is significantly slower for this test, as the minimum number of cycles for all Risc Zero programs is 64k. Therefore this very small program still requires a large number of cycles.',
   }
 }, {
   name: 'Optimised Hashes',
   prop: 'optimisedHash',
-  desc: `The hash provided by the framework has been specifically optmised i.e. its the fastest hashes available for that framework.`,
+  desc: `Hashes that have been optimised by the framework and therefore should perform faster. SHA-256 and Blake are not optimised for ZK in general, but may still be optimised by a framework.`,
   annotations: {
     risc_zero: 'SHA-256 is the most optimised hash for Risc Zero, but SHA-256 is in general not ZK optimised.'
   }
@@ -83,7 +86,7 @@ const properties: ResultTableProperty[] = [{
 }, {
   name: 'Fibonacci',
   // TODO: use markdown for this
-  desc: `A fibonacci sequence is calculated for a given input size. This is a good test of the frameworks ability to handle recursion.`,
+  desc: `A fibonacci sequence is calculated for a given input size. This is a good test of the framework's ability to handle recursion.`,
   // prop: 'metrics.$machine.SHA256.results.0.time',
   // value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
 },
@@ -159,8 +162,18 @@ export function ResultsTable() {
                 </Th>
                 {frameworks.map((item) => (
                   <Th key={item.name} fontSize='sm'>
-                    <a href={item.url}>
-                      {item.name}
+                    <a href={item.url} target='_blank'>
+                      <Stack spacing={2}>
+                        <Box textDecorationColor='#fff'>
+                          <Image
+                            alt={item.name}
+                            src={item.logo.src}
+                            height={item.logo.height}
+                            width={item.logo.width}
+                          />
+                        </Box>
+                        <Box>{item.name} <Icon opacity='0.4' fontSize='xs' as={FaExternalLinkAlt} /></Box>
+                      </Stack>
                     </a>
                   </Th>
                 ))}

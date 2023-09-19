@@ -1,7 +1,7 @@
 "use client";
 
 import Image from 'next/image'
-import { Flex, Center, Heading, VStack, HStack, Box, Spacer, Stack, Link } from '@chakra-ui/react'
+import { Flex, Center, Heading, useColorModeValue, HStack, Box, Spacer, Stack, Link } from '@chakra-ui/react'
 import logo from '@/img/logo.png'
 import { ResultsTable } from '@/components/ResultsTable'
 import { M_PLUS_Rounded_1c } from 'next/font/google'
@@ -34,10 +34,18 @@ export default function Home() {
           <Stack spacing={10}>
             <Box p={2}>
               <Center>
-                <HStack>
-                  <Image width={50} height={50} alt='zk-bench' src={logo} />
-                  <Heading as='h1' fontWeight={700} fontFamily={rounded.style.fontFamily}>zk-bench</Heading>
-                </HStack>
+                <Stack spacing={4}>
+                  <Center>
+                    <HStack>
+                      <Image width={50} height={50} alt='zk-bench' src={logo} />
+                      <Heading as='h1' fontWeight={700} fontFamily={rounded.style.fontFamily}>zk-bench</Heading>
+                    </HStack>
+                  </Center>
+                  <Stack>
+                    <Heading as='h2' fontSize='md' fontFamily={rounded.style.fontFamily} textAlign='center'>Impartial benchmarks for your favourite ZK frameworks</Heading>
+                    <Heading as='h3' fontSize='xs' textAlign='center' fontWeight='normal'>(if it’s not fair, <Link as='a' href='https://github.com/polybase/zk-benchmarks' target='_blank' color={useColorModeValue('blue.600', 'blue.200')}>raise a PR!</Link>)</Heading>
+                  </Stack>
+                </Stack>
               </Center>
             </Box>
             <Box maxW='container.lg' margin='0 auto'>
