@@ -24,6 +24,7 @@
     "eslint-config-next": "13.4.19",
     "framer-motion": "^10.16.4",
     "next": "13.4.19",
+    "posthog-js": "^1.79.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
