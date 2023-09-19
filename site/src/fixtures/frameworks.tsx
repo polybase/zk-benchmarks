@@ -18,7 +18,7 @@ export const frameworks = [
       width: 30,
       src: polylangLogo,
     },
-    url: 'https://polylang.xyz',
+    url: 'https://polylang.dev',
     frontend: 'Typescript-like',
     zk: 'STARK',
     unbounded: '✅',
