@@ -52,7 +52,7 @@ fn fibonacci(b: &mut BenchmarkRun, p: usize) {
 #[benchmark("SHA256", [
     ("1k bytes", 1000),
     // 10k bytes needs more than 32GB of ram
-    // ("10k bytes", 10000)
+    ("10k bytes", 10000)
 ])]
 fn sha256(b: &mut BenchmarkRun, p: usize) {
     let bytes_per_element = 4.;
