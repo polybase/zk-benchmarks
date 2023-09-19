@@ -65,23 +65,25 @@ fn blake3_bench(b: &mut BenchmarkRun, n: usize) {
     log_session(&b.run(prove), b);
 }
 
-#[benchmark("Merkle Merge", [
-    ("1 + 1", (tree_size_n::<Sha>(0), tree_size_n::<Sha>(0)))
-])]
-fn merkle_merge(b: &mut BenchmarkRun, (tree1, tree2): (Tree<Sha>, Tree<Sha>)) {
-    let prover = prover();
+// we don't run this because it OOMs even with very small trees
 
-    let prove = merkle::merkle(Rc::clone(&prover), &tree1, &tree2);
-    log_session(&b.run(prove), b);
-}
-
-#[benchmark("Merkle Tree Membership")]
-fn merkle_membership() {
-    let prover = prover();
-
-    let prove = merkle::merkle_membership(Rc::clone(&prover), 10);
-    log_session(&b.run(prove), b);
-}
+// #[benchmark("Merkle Merge", [
+//     ("1 + 1", (tree_size_n::<Sha>(0), tree_size_n::<Sha>(0)))
+// ])]
+// fn merkle_merge(b: &mut BenchmarkRun, (tree1, tree2): (Tree<Sha>, Tree<Sha>)) {
+//     let prover = prover();
+//
+//     let prove = merkle::merkle(Rc::clone(&prover), &tree1, &tree2);
+//     log_session(&b.run(prove), b);
+// }
+//
+// #[benchmark("Merkle Tree Membership")]
+// fn merkle_membership() {
+//     let prover = prover();
+//
+//     let prove = merkle::merkle_membership(Rc::clone(&prover), 10);
+//     log_session(&b.run(prove), b);
+// }
 
 fn log_session((receipt, session): &(Receipt, Session), b: &mut BenchmarkRun) {
     let segments = session.resolve().unwrap();
