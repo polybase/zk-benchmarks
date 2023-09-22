@@ -12,7 +12,7 @@ zstd = "0.12.4"
 shared = { path = "../../shared", features = ["std"] }
 
 [dev-dependencies]
-benchy = { path = "../../bench" }
+benchy = "0.1.1"
 
 [[bench]]
 name = "bench"

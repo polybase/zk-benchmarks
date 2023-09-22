@@ -1,12 +1,14 @@
-import { HStack, Box, Text, Stack } from '@chakra-ui/react'
+import { useColorMode } from '@chakra-ui/react'
 import Image from 'next/image'
 // import logo from '@/img/polybase-logo-outline.svg'
-import madeBy from '@/img/made-by.png'
+import dark from '@/img/made-by/dark.png'
+import light from '@/img/made-by/light.png'
 
 export function PoweredBy() {
+  const { colorMode } = useColorMode()
   return (
     <a href='https://polybaselabs.com' target='_blank'>
-      <Image src={madeBy} alt='Made by Polybase Labs' height={37} width={135} />
+      <Image src={colorMode == 'dark' ? dark : light} alt='Made by Polybase Labs' height={37} width={135} />
     </a>
   )
 }

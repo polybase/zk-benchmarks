@@ -2,6 +2,16 @@ name: Test
 
 on:
   push:
+    paths:
+      - .github/workflows/benchmarks.yml
+      - polylang/Cargo.lock
+      - polylang/benches/bench.rs
+      - miden/Cargo.lock
+      - miden/benches/bench.rs
+      - risc-zero/host/Cargo.toml
+      - risc-zero/host/benches/bench.rs
+      - noir/benches/bench.rs
+      - noir/Cargo.lock
 
 jobs:
   polylang:
