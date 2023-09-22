@@ -146,7 +146,7 @@ jobs:
         env:
           BENCHY_OUTPUT_DIR: "../../.benchmarks/${{ matrix.runner }}"
         run: |
-          cargo bench multi-cpu
+          cargo bench
 
       - name: Run Risc-Zero Metal benchmarks
         if: matrix.runner == 'macos-dedicated'
@@ -154,7 +154,7 @@ jobs:
         env:
           BENCHY_OUTPUT_DIR: "../../.benchmarks/${{ matrix.runner }}"
         run: |
-          cargo bench -F metal metal
+          cargo bench -F metal
       
       - name: Upload .benchmarks as artifact
         uses: actions/upload-artifact@v3
