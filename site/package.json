@@ -20,6 +20,7 @@
     "@types/node": "20.5.9",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
+    "bytes": "^3.1.2",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
     "framer-motion": "^10.16.4",
@@ -33,5 +34,8 @@
     "remark-gfm": "^3.0.1",
     "remark-html": "^15.0.2",
     "typescript": "5.2.2"
+  },
+  "devDependencies": {
+    "@types/bytes": "^3.1.2"
   }
 }
