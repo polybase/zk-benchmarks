@@ -1,13 +1,14 @@
 "use client";
 
 import Image from 'next/image'
-import { Flex, Center, Heading, useColorModeValue, HStack, Box, Spacer, Stack, Link } from '@chakra-ui/react'
+import { Flex, Center, Text, Heading, Button, useColorModeValue, HStack, Box, Spacer, Stack, Link, Divider } from '@chakra-ui/react'
 import logo from '@/img/logo.png'
 import { ResultsTable } from '@/components/ResultsTable'
 import { M_PLUS_Rounded_1c } from 'next/font/google'
-import { ColorModeSwitcher } from '@/components/ColorModeSwitcher';
+import { ColorModeSwitcher } from '@/components/ColorModeSwitcher'
 import Faq from '../mkd/faq.mdx'
-import { PoweredBy } from '@/components/PoweredBy';
+import { PoweredBy } from '@/components/PoweredBy'
+import x from '@/img/X.png'
 
 
 const rounded = M_PLUS_Rounded_1c({ subsets: ['latin'], weight: ["700"], fallback: ['SF Rounded'] })
@@ -51,7 +52,23 @@ export default function Home() {
             <Box maxW='container.lg' margin='0 auto'>
               <ResultsTable />
             </Box>
-            <Box maxW='container.md' margin='0 auto' width='100%' p={2} pt={10}>
+            <Box maxW='container.md' width='100%' margin='0 auto' p={2}>
+              <Stack bg='bw.50' borderRadius={10} textAlign='center' padding={10} spacing={4} mt={10}>
+                <Stack>
+                  <Heading fontFamily={rounded.style.fontFamily}>Follow us on <Text as='span' textDecoration='line-through'>Twitter</Text> X</Heading>
+                  <Heading fontSize='xl' color='bw.700'>To get updates on zk-bench follow the Polybase Labs team.</Heading>
+                </Stack>
+                <Center>
+                  <Button as='a' href='https://twitter.com/intent/user?screen_name=polybase_xyz' target='_blank' size='lg' background='bw.900' _hover={{ background: 'bw.800' }} _active={{ background: 'bw.700' }} colorScheme='white'>
+                    <HStack>
+                      <Image width={22} src={x} alt='X Logo' />
+                      <Text>@polybase_xyz</Text>
+                    </HStack>
+                  </Button>
+                </Center>
+              </Stack>
+            </Box>
+            <Box maxW='container.md' margin='0 auto' width='100%' p={2}>
               <Faq />
             </Box>
           </Stack>
