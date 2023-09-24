@@ -11,7 +11,6 @@
         sha256 = "sha256-w7yMeYp50KrlTn23TTKfYmLOQL4uIgw0wSX67v2tvvc=";
     };
     libbarretenberg = callPackage "${barretenberg}/barretenberg.nix" {};
-    isDarwin = pkgs.stdenv.isDarwin;
 in mkShell {
     buildInputs = [
         libbarretenberg

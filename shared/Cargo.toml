@@ -1,0 +1,16 @@
+[package]
+name = "shared"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+miden-crypto = { version = "0.6", optional = true }
+fastrand = { version = "2", optional = true }
+serde = { version = "1", features = ["derive"], default-features = false }
+serde_json = { version = "1", features = ["alloc"], default-features = false }
+risc0-zkvm = { version = "0.18.0", default-features = false }
+
+[features]
+std = ["dep:fastrand", "dep:miden-crypto", "serde_json/std"]

@@ -52,6 +52,38 @@ fn fibonacci(b: &mut BenchmarkRun, p: usize) {
     );
 }
 
+#[benchmark("Merkle Membership")]
+fn merkle_membership(b: &mut BenchmarkRun) {
+    let backend = noir::backends::ConcreteBackend::default();
+    let dir = std::env::current_dir().expect("current dir to exist");
+
+    let mut inputs = InputMap::new();
+
+    let path = generate_random_u8_slice(320)
+        .iter()
+        .map(|b| InputValue::Field((*b as u128).into()))
+        .collect::<Vec<_>>();
+    let hash = generate_random_u8_slice(32)
+        .iter()
+        .map(|b| InputValue::Field((*b as u128).into()))
+        .collect::<Vec<_>>();
+
+    inputs.insert("hash".to_string(), InputValue::Vec(hash));
+    inputs.insert("path".to_string(), InputValue::Vec(path));
+
+    let proof = Proof::new(
+        &backend,
+        "merkle_membership",
+        dir.join("pkgs/merkle_membership"),
+    );
+    let proof_bytes = b.run(|| proof.run_and_prove(&inputs));
+    b.log("proof_size_bytes", proof_bytes.len());
+    b.log(
+        "compressed_proof_size_bytes",
+        zstd::encode_all(&proof_bytes[..], 21).unwrap().len(),
+    );
+}
+
 #[benchmark("SHA256", [
     ("1k bytes", 1000),
     ("10k bytes", 10000),
@@ -89,4 +121,4 @@ fn generate_random_u8_slice(len: usize) -> Vec<u8> {
     vec
 }
 
-benchy::main!("noir", assert, fibonacci, sha256);
+benchy::main!("noir", assert, fibonacci, sha256, merkle_membership);

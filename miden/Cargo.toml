@@ -10,10 +10,13 @@ miden-vm = { git = "https://github.com/0xPolygonMiden/miden-vm", tag = "v0.6.1" 
 miden-processor = { git = "https://github.com/0xPolygonMiden/miden-vm", tag = "v0.6.1" }
 miden-stdlib = { git = "https://github.com/0xPolygonMiden/miden-vm", tag = "v0.6.1" }
 miden-prover = { git = "https://github.com/0xPolygonMiden/miden-vm", tag = "v0.6.1" }
+miden-crypto = "0.6"
 zstd = "0.12.4"
+shared = { path = "../shared", features = ["std"] }
 
 [dev-dependencies]
 benchy = "0.1.1"
+
 
 [features]
 default = []

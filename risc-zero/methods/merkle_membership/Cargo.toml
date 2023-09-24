@@ -1,10 +1,10 @@
 [package]
-name = "assert"
+name = "merkle_membership"
 version = "0.1.0"
 edition = "2021"
 
 [workspace]
 
 [dependencies]
-# If you want to try (experimental) std support, add `features = [ "std" ]` to risc0-zkvm
 risc0-zkvm = { version = "0.18.0", default-features = false }
+shared = { path = "../../../shared" }

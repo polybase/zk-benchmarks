@@ -1,0 +1,8 @@
+begin
+  adv_push.1
+  repeat.10
+    padw
+    adv_push.1
+    hmerge
+  end
+end
