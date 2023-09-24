@@ -25,7 +25,7 @@ interface ResultTableProperty {
 }
 
 const properties: ResultTableProperty[] = [{
-  name: 'Frontend',
+  name: 'Frontend (Language)',
   prop: 'frontend',
   desc: 'Frontend is the technical term for a programming language that is compiled into a lower level language',
 }, {
@@ -36,6 +36,11 @@ const properties: ResultTableProperty[] = [{
   name: 'Unbounded Programs',
   prop: 'unbounded',
   desc: 'Unbounded programs allow inputs of variable size and loops where the number of iterations is not known at compile time. See the FAQ below for more detail on unbounded v. bounded programs.',
+},
+{
+  name: 'Audit',
+  prop: 'audit',
+  desc: 'Has the framework been audited by a reputable security firm? This is generally required before using the framework for mainnet applications.',
 }, {
   name: 'External Libraries',
   desc: 'Does the framework allow leveraging a languages existing library ecosystem? For example, in Rust this would be crates.io.',
