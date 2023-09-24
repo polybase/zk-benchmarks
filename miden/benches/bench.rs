@@ -70,7 +70,9 @@ fn multiple_sha256_proof_comperssion(b: &mut BenchmarkRun) {
 fn fibonacci(b: &mut BenchmarkRun, p: u32) {
     let (setup, vm) = fib(p);
     let last_vm_state = vm.last().unwrap().unwrap();
-    b.run(setup);
+    let proof = b.run(setup);
+    let proof = proof.to_bytes();
+    b.log("proof_size_bytes", proof.len());
     b.log("cycles", last_vm_state.clk as usize);
 }
 
