@@ -7,7 +7,7 @@ export const theme = extendTheme({
     colors: {
       error: 'red.500',
       warning: mode('#ca4b03c7', '#cc630887'),
-      'bws': mode('rgba(255, 255, 255)', 'rgba(15, 17, 22)'),
+      'bws': mode('rgba(255, 255, 255)', 'rgba(26, 32, 44)'),
       'bws.100': mode('rgba(240, 240, 240)', 'rgba(29, 31, 36)'),
       'bw.10': mode('rgba(0, 0, 0, 0.01)', 'rgba(255, 255, 255, 0.01)'),
       'bw.50': mode('rgba(0, 0, 0, 0.04)', 'rgba(255, 255, 255, 0.04)'),
