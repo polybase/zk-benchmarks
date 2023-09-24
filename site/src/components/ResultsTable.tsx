@@ -2,12 +2,13 @@ import { useState } from 'react'
 import Image from 'next/image'
 import {
   TableContainer, Box, Table, Thead, Tbody, Th, Tr, Td, Stack, HStack, Text, Button, IconButton,
-  Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, Portal, PopoverBody, Icon
+  Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, Portal, PopoverBody, Icon, Spacer
 } from '@chakra-ui/react'
 import { MdInfo } from 'react-icons/md'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 import { frameworks } from '@/fixtures/frameworks'
 import benchmarks from '@/fixtures/benchmarks.json'
+import bytes from 'bytes'
 import { timeSinceLastUpdate } from '@/util/date'
 
 interface Duration {
@@ -21,7 +22,17 @@ interface ResultTableProperty {
   prop?: string;
   indent?: number;
   annotations?: Record<string, string | JSX.Element>
-  value?: (val: any) => any;
+  value?: (val: any, vars: Record<string, any>) => any;
+}
+
+const metricFormatter = (val: any, vars: Record<string, any>) => {
+  if (!val) return '❌'
+  if (vars.metric == 'time') {
+    return val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null
+
+  }
+  console.log(val, vars)
+  return bytes(val)
 }
 
 const properties: ResultTableProperty[] = [{
@@ -67,8 +78,8 @@ const properties: ResultTableProperty[] = [{
 }, {
   name: 'Assert',
   desc: `A very simple assertion a != b, this can be used to test the framework's minimum proving performance.`,
-  prop: 'metrics.$machine.assert.results.0.time',
-  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+  prop: 'metrics.$machine.assert.results.0.$metric',
+  value: metricFormatter,
   annotations: {
     risc_zero: 'Risc Zero is significantly slower for this test, as the minimum number of cycles for all Risc Zero programs is 64k. Therefore this very small program still requires a large number of cycles.',
   }
@@ -88,14 +99,14 @@ const properties: ResultTableProperty[] = [{
 {
   name: '1k bytes',
   indent: 4,
-  prop: 'metrics.$machine.SHA256.results.0.time',
-  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+  prop: 'metrics.$machine.SHA256.results.0.$metric',
+  value: metricFormatter,
 },
 {
   name: '10k bytes',
   indent: 4,
-  prop: 'metrics.$machine.SHA256.results.1.time',
-  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+  prop: 'metrics.$machine.SHA256.results.1.$metric',
+  value: metricFormatter,
 }, {
   name: 'RPO Hash',
   desc: `A ZK optimised hash, this should perform better than SHA-256.`,
@@ -103,8 +114,8 @@ const properties: ResultTableProperty[] = [{
 {
   name: '1k bytes',
   indent: 4,
-  prop: 'metrics.$machine.RPO.results.0.time',
-  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : '❌',
+  prop: 'metrics.$machine.RPO.results.0.$metric',
+  value: metricFormatter,
   annotations: {
     risc_zero: 'Risc Zero does not support RPO',
     noir: 'Noir does not support RPO, but does support Pederson which is a ZK optimised hash.',
@@ -113,8 +124,8 @@ const properties: ResultTableProperty[] = [{
 {
   name: '10k bytes',
   indent: 4,
-  prop: 'metrics.$machine.RPO.results.1.time',
-  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : '❌',
+  prop: 'metrics.$machine.RPO.results.1.$metric',
+  value: metricFormatter,
   annotations: {
     risc_zero: 'Risc Zero does not support RPO',
     noir: 'Noir does not support RPO, but does support Pederson which is a ZK optimised hash.',
@@ -129,37 +140,37 @@ const properties: ResultTableProperty[] = [{
 {
   name: '1',
   indent: 4,
-  prop: 'metrics.$machine.Fibonacci.results.0.time',
-  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+  prop: 'metrics.$machine.Fibonacci.results.0.$metric',
+  value: metricFormatter,
 },
 {
   name: '10',
   indent: 4,
-  prop: 'metrics.$machine.Fibonacci.results.1.time',
-  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+  prop: 'metrics.$machine.Fibonacci.results.1.$metric',
+  value: metricFormatter,
 },
 {
   name: '100',
   indent: 4,
-  prop: 'metrics.$machine.Fibonacci.results.2.time',
-  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+  prop: 'metrics.$machine.Fibonacci.results.2.$metric',
+  value: metricFormatter,
 },
 {
   name: '1,000',
   indent: 4,
-  prop: 'metrics.$machine.Fibonacci.results.3.time',
-  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+  prop: 'metrics.$machine.Fibonacci.results.3.$metric',
+  value: metricFormatter,
 }, {
   name: '10,000',
   indent: 4,
-  prop: 'metrics.$machine.Fibonacci.results.4.time',
-  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+  prop: 'metrics.$machine.Fibonacci.results.4.$metric',
+  value: metricFormatter,
 },
 {
   name: '100,000',
   indent: 4,
-  prop: 'metrics.$machine.Fibonacci.results.5.time',
-  value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
+  prop: 'metrics.$machine.Fibonacci.results.5.$metric',
+  value: metricFormatter,
 }]
 
 
@@ -171,23 +182,49 @@ const machines = [{
   prop: 'ubuntu-latest-64-cores',
 }]
 
+const metrics = [{
+  name: 'Time',
+  prop: 'time',
+}, {
+  name: 'Memory',
+  prop: 'metrics.memory_usage_bytes',
+}, {
+  name: 'Proof Size',
+  prop: 'metrics.proof_size_bytes',
+}]
+
 export function ResultsTable() {
   const [machine, setMachine] = useState(machines[0].prop)
+  const [metric, setMetric] = useState(metrics[0].prop)
   const vars = {
     machine,
+    metric,
   }
 
   return (
     <Stack fontSize='sm' spacing={4}>
       <HStack>
-        {machines.map(({ name, prop }) => {
-          const selected = machine === prop;
-          return (
-            <Button size='sm' variant={selected ? 'solid' : 'ghost'} key={prop} onClick={() => {
-              setMachine(prop)
-            }}>{name}</Button>
-          )
-        })}
+        <HStack>
+          {machines.map(({ name, prop }) => {
+            const selected = machine === prop;
+            return (
+              <Button size='sm' variant={selected ? 'solid' : 'ghost'} key={prop} onClick={() => {
+                setMachine(prop)
+              }}>{name}</Button>
+            )
+          })}
+        </HStack>
+        <Spacer />
+        <HStack>
+          {metrics.map(({ name, prop }) => {
+            const selected = metric === prop;
+            return (
+              <Button size='sm' variant={selected ? 'solid' : 'ghost'} key={prop} onClick={() => {
+                setMetric(prop)
+              }}>{name}</Button>
+            )
+          })}
+        </HStack>
       </HStack>
       <Box border='1px solid' borderBottomWidth={0} borderColor='bw.100' borderRadius={5}>
         <TableContainer>
@@ -244,7 +281,7 @@ export function ResultsTable() {
                     </Td>
                     {
                       frameworks.map((fw: any) => {
-                        let value = prop.value ? prop.value(getPathValue(fw, prop.prop, vars)) : getPathValue(fw, prop.prop, vars);
+                        let value = prop.value ? prop.value(getPathValue(fw, prop.prop, vars), vars) : getPathValue(fw, prop.prop, vars);
                         const annotation = prop.annotations?.[fw.id]
                         return (
                           <Td key={fw.name}>
@@ -301,6 +338,12 @@ function getPathValue(data: any, path?: string, vars?: Record<string, any>) {
     if (!current) return undefined;
     if (part.startsWith('$')) {
       part = vars?.[part.slice(1)]
+      if (part.split('.').length > 1) {
+        for (let sub of part.split('.')) {
+          current = current[sub]
+        }
+        continue
+      }
     }
     current = current[part]
   }
