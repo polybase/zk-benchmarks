@@ -13,7 +13,7 @@ use shared::Tree;
 risc0_zkvm::guest::entry!(main);
 
 pub fn main() {
-    let string = env::read();
+    let string: String = env::read();
     let (tree1, tree2) = parse_trees(string);
     let tree = merge_trees(tree1, tree2);
     black_box(tree);
