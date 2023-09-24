@@ -27,6 +27,7 @@ fn assert(b: &mut BenchmarkRun) {
     ("100", 100),
     ("1000", 1000),
     ("10000", 10000),
+    ("100000", 100000),
 ])]
 fn fibonacci(b: &mut BenchmarkRun, p: usize) {
     let run_and_prove = compile(&format!(
