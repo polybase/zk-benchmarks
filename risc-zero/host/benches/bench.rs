@@ -27,7 +27,7 @@ fn fibonacci(b: &mut BenchmarkRun, n: u32) {
 #[benchmark("SHA256", [
     ("1k bytes", 1),
     ("10k bytes", 10),
-    ("100k bytes", 100),
+    // ("100k bytes", 100),
 ])]
 fn sha256(b: &mut BenchmarkRun, n: usize) {
     let prove = sha(n);
@@ -37,7 +37,7 @@ fn sha256(b: &mut BenchmarkRun, n: usize) {
 #[benchmark("Blake3", [
     ("1k bytes", 1),
     ("10k bytes", 10),
-    ("100k bytes", 100),
+    // ("100k bytes", 100),
 ])]
 fn blake3_bench(b: &mut BenchmarkRun, n: usize) {
     let prove = blake3(n);
@@ -46,6 +46,9 @@ fn blake3_bench(b: &mut BenchmarkRun, n: usize) {
 
 #[benchmark("Merkle Merge", [
     ("1 + 1", (tree_size_n::<Sha>(0), tree_size_n::<Sha>(0)))
+    ("2^10 + 2^10", (tree_size_n(10), tree_size_n(10))),
+    ("2^10 + 2^20", (tree_size_n(10), tree_size_n(20))),
+    ("2^20 + 2^20", (tree_size_n(20), tree_size_n(20))),
 ])]
 fn merkle_merge(b: &mut BenchmarkRun, (tree1, tree2): (Tree<Sha>, Tree<Sha>)) {
     let prove = merkle::merkle(tree1, tree2);

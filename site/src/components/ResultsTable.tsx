@@ -26,7 +26,7 @@ interface ResultTableProperty {
 }
 
 const metricFormatter = (val: any, vars: Record<string, any>) => {
-  if (!val) return '❌'
+  if (!val) return ''
   if (vars.metric == 'time') {
     return val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null
 
@@ -170,6 +170,36 @@ const properties: ResultTableProperty[] = [{
   name: '100,000',
   indent: 4,
   prop: 'metrics.$machine.Fibonacci.results.5.$metric',
+  value: metricFormatter,
+}, {
+  name: 'Merkle Tree',
+}, {
+  name: 'Membership Proof',
+  prop: 'metrics.$machine.Merkle Membership.results.0.$metric',
+  value: metricFormatter,
+  indent: 4,
+}, {
+  name: 'Merge',
+  indent: 4,
+}, {
+  name: '1 + 1',
+  indent: 8,
+  prop: 'metrics.$machine.Merkle Tree Merge.results.0.$metric',
+  value: metricFormatter,
+}, {
+  name: '2^10 + 2^10',
+  indent: 8,
+  prop: 'metrics.$machine.Merkle Tree Merge.results.1.$metric',
+  value: metricFormatter,
+}, {
+  name: '2^10 + 2^20',
+  indent: 8,
+  prop: 'metrics.$machine.Merkle Tree Merge.results.2.$metric',
+  value: metricFormatter,
+}, {
+  name: '2^20 + 2^20',
+  indent: 8,
+  prop: 'metrics.$machine.Merkle Tree Merge.results.3.$metric',
   value: metricFormatter,
 }]
 
