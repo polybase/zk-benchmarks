@@ -117,7 +117,9 @@ checksum = "9ba43ea6f343b788c8764558649e08df62f86c6ef251fdaeb1ffd010a9ae50a2"
 
 [[package]]
 name = "benchy"
-version = "0.1.0"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a02b4df38b8de5ea77a5caee888d4dfaa50044b01ad3609f14bcbe93d4d609f3"
 dependencies = [
  "benchy-macros",
  "memory-stats",
@@ -128,7 +130,9 @@ dependencies = [
 
 [[package]]
 name = "benchy-macros"
-version = "0.1.0"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "24c27b215b0291aee9ce4167bca78bf1ecbaea93dae3020b9542c45843f0eda4"
 dependencies = [
  "proc-macro2",
  "quote",

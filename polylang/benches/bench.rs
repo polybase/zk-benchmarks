@@ -17,24 +17,27 @@ fn assert(b: &mut BenchmarkRun) {
     "#,
     );
 
-    let output = b.run(|| run_and_prove());
+    let output = b.run(run_and_prove);
     report(b, output);
 }
 
 #[benchmark("Fibonacci", [
     ("1", 1),
-    ("10", 10),
+    // ("10", 10), // Miden prover panics with "index out of bounds: the len is 259 but the index is 259"
     ("100", 100),
+    ("1000", 1000),
+    ("10000", 10000),
 ])]
 fn fibonacci(b: &mut BenchmarkRun, p: usize) {
     let run_and_prove = compile(&format!(
         r#"
         function main() {{
-            let a = 0;
-            let b = 1;
+            let p: u32 = {p};
+            let a: u32 = 0;
+            let b: u32 = 1;
 
-            for (let i = 0; i < {p}; i++) {{
-                let c = a + b;
+            for (let i: u32 = 0; i < p; i++) {{
+                let c = a.wrappingAdd(b);
                 a = b;
                 b = c;
             }}
@@ -42,14 +45,14 @@ fn fibonacci(b: &mut BenchmarkRun, p: usize) {
     "#
     ));
 
-    let output = b.run(|| run_and_prove());
+    let output = b.run(run_and_prove);
     report(b, output);
 }
 
 #[benchmark("SHA256", [
     ("1k bytes", 1000),
     // 10k bytes needs more than 32GB of ram
-    // ("10k bytes", 10000)
+    ("10k bytes", 10000)
 ])]
 fn sha256(b: &mut BenchmarkRun, p: usize) {
     let bytes_per_element = 4.;
@@ -64,7 +67,7 @@ fn sha256(b: &mut BenchmarkRun, p: usize) {
         zeros = (0..arr_size).map(|_| "0").collect::<Vec<_>>().join(", "),
     ));
 
-    let output = b.run(|| run_and_prove());
+    let output = b.run(run_and_prove);
     report(b, output);
 }
 
@@ -85,7 +88,7 @@ fn blake3(b: &mut BenchmarkRun, p: usize) {
         zeros = (0..arr_size).map(|_| "0").collect::<Vec<_>>().join(", "),
     ));
 
-    let output = b.run(|| run_and_prove());
+    let output = b.run(run_and_prove);
     report(b, output);
 }
 
@@ -106,7 +109,7 @@ fn rpo(b: &mut BenchmarkRun, p: usize) {
         zeros = (0..arr_size).map(|_| "0").collect::<Vec<_>>().join(", "),
     ));
 
-    let output = b.run(|| run_and_prove());
+    let output = b.run(run_and_prove);
     report(b, output);
 }
 
