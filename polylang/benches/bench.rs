@@ -24,9 +24,11 @@ fn assert(b: &mut BenchmarkRun) {
 #[benchmark("Fibonacci", [
     ("1", 1),
     // ("10", 10), // Miden prover panics with "index out of bounds: the len is 259 but the index is 259"
+    ("16", 16),
     ("100", 100),
     ("1000", 1000),
     ("10000", 10000),
+    ("100000", 100000),
 ])]
 fn fibonacci(b: &mut BenchmarkRun, p: usize) {
     let run_and_prove = compile(&format!(
