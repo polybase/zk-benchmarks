@@ -257,14 +257,14 @@ export function ResultsTable() {
         </HStack>
       </HStack>
       <Box border='1px solid' borderBottomWidth={0} borderColor='bw.100' borderRadius={5}>
-        <TableContainer>
+        <TableContainer overflowX="unset" overflowY="unset">
           <Table>
             <Thead>
               <Tr>
-                <Th>
+                <Th position='sticky' top={0} background='bws' zIndex={1000}>
                 </Th>
                 {frameworks.map((item) => (
-                  <Th key={item.name} fontSize='sm'>
+                  <Th key={item.name} fontSize='sm' position='sticky' top={0} background='bws' zIndex={1000}>
                     <a href={item.url} target='_blank'>
                       <Stack spacing={2}>
                         <Box textDecorationColor='#fff'>
