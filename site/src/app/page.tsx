@@ -59,7 +59,7 @@ export default function Home() {
                   <Heading fontSize='xl' color='bw.700'>To get updates on zk-bench follow the Polybase Labs team.</Heading>
                 </Stack>
                 <Center>
-                  <Button as='a' href='https://twitter.com/intent/user?screen_name=polybase_xyz' target='_blank' size='lg' background='bw.900' _hover={{ background: 'bw.800' }} _active={{ background: 'bw.700' }} colorScheme='white'>
+                  <Button as='a' href='https://twitter.com/intent/user?screen_name=polybase_xyz' target='_blank' size='lg' background='blackAlpha.900' color='white' _hover={{ background: 'blackAlpha.800' }} _active={{ background: 'blackAlpha.700' }} colorScheme='white'>
                     <HStack>
                       <Image width={22} src={x} alt='X Logo' />
                       <Text>@polybase_xyz</Text>
