@@ -1475,7 +1475,7 @@
                         }
                     ]
                 },
-                "Merkle Merge": {
+                "Merkle Tree Merge": {
                     "name": "Merkle Merge",
                     "results": [
                         {
@@ -1494,7 +1494,7 @@
                         }
                     ]
                 },
-                "Merkle Tree Membership": {
+                "Merkle Membership": {
                     "name": "Merkle Tree Membership",
                     "results": [
                         {
@@ -1689,8 +1689,8 @@
                         }
                     ]
                 },
-                "Merkle Merge": {
-                    "name": "Merkle Merge",
+                "Merkle Tree Merge": {
+                    "name": "Merkle Tree Merge",
                     "results": [
                         {
                             "metrics": {
@@ -1708,8 +1708,8 @@
                         }
                     ]
                 },
-                "Merkle Tree Membership": {
-                    "name": "Merkle Tree Membership",
+                "Merkle Membership": {
+                    "name": "Merkle Membership",
                     "results": [
                         {
                             "metrics": {
@@ -1719,7 +1719,7 @@
                                 "memory_usage_bytes": 1321953962,
                                 "proof_size_bytes": 238355
                             },
-                            "name": "Merkle Tree Membership",
+                            "name": "Merkle Membership",
                             "time": {
                                 "nanos": 136370537,
                                 "secs": 4

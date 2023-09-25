@@ -44,7 +44,7 @@ fn blake3_bench(b: &mut BenchmarkRun, n: usize) {
     log_session(&b.run(prove), b);
 }
 
-#[benchmark("Merkle Merge", [
+#[benchmark("Merkle Tree Merge", [
     ("1 + 1", (tree_size_n::<Sha>(0), tree_size_n::<Sha>(0))),
     // ("2^10 + 2^10", (tree_size_n(10), tree_size_n(10))),
     // ("2^10 + 2^20", (tree_size_n(10), tree_size_n(20))),
@@ -55,7 +55,7 @@ fn merkle_merge(b: &mut BenchmarkRun, (tree1, tree2): (Tree<Sha>, Tree<Sha>)) {
     log_session(&b.run(prove), b);
 }
 
-#[benchmark("Merkle Tree Membership")]
+#[benchmark("Merkle Membership")]
 fn merkle_membership(b: &mut BenchmarkRun) {
     let prove = merkle::merkle_membership(10);
     log_session(&b.run(prove), b);

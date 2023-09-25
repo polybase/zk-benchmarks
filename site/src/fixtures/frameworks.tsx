@@ -65,7 +65,7 @@ export const frameworks = [
     evmVerifier: '✅',
     gpu: ['Metal', 'CUDA'],
     optimisedHash: 'SHA-256',
-    metrics: benchmarks.frameworks.risc_zero,
+    metrics: benchmarks.frameworks['risc-zero'],
   },
   {
     id: 'noir',
