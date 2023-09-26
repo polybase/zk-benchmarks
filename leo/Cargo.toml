@@ -1,0 +1,21 @@
+[package]
+name = "leo"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+snarkvm = { git = "https://github.com/AleoHQ/snarkVM.git", branch = "testnet3", features = [ "circuit", "console" ] }
+leo-package = { git = "https://github.com/AleoHQ/leo", branch = "testnet3" }
+leo-compiler = { git = "https://github.com/AleoHQ/leo", branch = "testnet3" }
+leo-span = { git = "https://github.com/AleoHQ/leo", branch = "testnet3" }
+leo-errors = { git = "https://github.com/AleoHQ/leo", branch = "testnet3" }
+tempdir = "0.3.7"
+
+[dev-dependencies]
+benchy = "0.1.1"
+
+[[bench]]
+name = "bench"
+harness = false
