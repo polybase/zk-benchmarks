@@ -1,4 +1,5 @@
 import type { MDXComponents } from 'mdx/types';
+import NextLink from 'next/link'
 import {
   Heading,
   Text,
@@ -17,15 +18,44 @@ import {
   Td,
 } from '@chakra-ui/react';
 
+const CustomHeading = ({ as, id, ...props }: any) => {
+  if (id) {
+    return (
+      <Link as={NextLink} href={`#${id}`} textDecoration='none !important'>
+        {/* <NextLink href={`#${id}`}> */}
+        <Heading
+          as={as}
+          id={id}
+          lineHeight='1em'
+          textDecoration='none'
+          {...props}
+          _hover={{
+            _before: {
+              content: '"#"',
+              opacity: 0.7,
+              textDecoration: 'none',
+              position: 'relative',
+              marginLeft: '-1.2ch',
+              paddingRight: '0.2ch',
+            },
+          }}
+        />
+        {/* </NextLink> */}
+      </Link>
+    );
+  }
+  return <Heading as={as} {...props} />;
+};
+
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     // Headings
-    h1: ({ children }) => <Heading as='h1' size='xl' mt={12} mb={4}>{children}</Heading>,
-    h2: ({ children }) => <Heading as='h2' size='lg' mt={12} mb={4}>{children}</Heading>,
-    h3: ({ children }) => <Heading as='h3' size='md' mt={8} mb={3}>{children}</Heading>,
-    h4: ({ children }) => <Heading as='h4' size='sm' mt={4} mb={2}>{children}</Heading>,
-    h5: ({ children }) => <Heading as='h5' size='xs' mt={3} mb={2}>{children}</Heading>,
-    h6: ({ children }) => <Heading as='h6' size='xs' mt={2} mb={1}>{children}</Heading>,
+    h1: ({ children, ...props }) => <CustomHeading as='h1' size='xl' mt={12} mb={4} {...props}>{children}</CustomHeading>,
+    h2: ({ children, ...props }) => <CustomHeading as='h2' size='lg' mt={12} mb={4} {...props}>{children}</CustomHeading>,
+    h3: ({ children, ...props }) => <CustomHeading as='h3' size='md' mt={8} mb={3} {...props}>{children}</CustomHeading>,
+    h4: ({ children, ...props }) => <CustomHeading as='h4' size='sm' mt={4} mb={2} {...props}>{children}</CustomHeading>,
+    h5: ({ children, ...props }) => <CustomHeading as='h5' size='xs' mt={3} mb={2} {...props}>{children}</CustomHeading>,
+    h6: ({ children, ...props }) => <CustomHeading as='h6' size='xs' mt={2} mb={1}{...props}>{children}</CustomHeading>,
 
     // Table support
     table: ({ children }) => <Box fontSize='sm' my={4} border='1px solid' borderColor='bw.100' borderRadius={5} overflowX='auto'><Table variant="simple" >{children}</Table></Box>,
