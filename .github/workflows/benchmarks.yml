@@ -201,6 +201,36 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           path: .benchmarks/
+
+  leo:
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        runner: ['ubuntu-16-shared', 'ubuntu-latest-64-cores']
+    needs: start-runner
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+
+    - uses: Swatinem/rust-cache@v2
+  
+    - name: Run Leo benchmarks
+      working-directory: ./leo
+      env:
+        BENCHY_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
+      run: |
+        cargo bench
+
+    - name: Upload .benchmarks as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        path: .benchmarks/
   
   commit:
     runs-on: ubuntu-latest
