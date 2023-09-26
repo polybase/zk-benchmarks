@@ -15,7 +15,7 @@ use snarkvm::{
 };
 
 pub fn assert() -> impl FnOnce() -> Execution<Testnet3> {
-    let prove = prepare(
+    let run_and_prove = prepare(
         "asrt",
         "
     program asrt.aleo {
@@ -27,11 +27,11 @@ pub fn assert() -> impl FnOnce() -> Execution<Testnet3> {
         &["1field".to_string(), "2field".to_string()],
     );
 
-    prove
+    run_and_prove
 }
 
 pub fn fib(n: u32) -> impl FnOnce() -> Execution<Testnet3> {
-    let prove = prepare(
+    let run_and_prove = prepare(
         "fib",
         &format!(
             "
@@ -52,12 +52,12 @@ pub fn fib(n: u32) -> impl FnOnce() -> Execution<Testnet3> {
         &[],
     );
 
-    prove
+    run_and_prove
 }
 
 pub fn sha_3_256(n_bytes: u32) -> impl FnOnce() -> Execution<Testnet3> {
     let iterations = (n_bytes as f64 / (256. / 8.)).ceil(); // 32 bytes at a time
-    let prove = prepare(
+    let run_and_prove = prepare(
         "sha",
         &format!(
             "
@@ -80,12 +80,12 @@ pub fn sha_3_256(n_bytes: u32) -> impl FnOnce() -> Execution<Testnet3> {
         &[],
     );
 
-    prove
+    run_and_prove
 }
 
 pub fn pedersen_128(n_bytes: u32) -> impl FnOnce() -> Execution<Testnet3> {
     let iterations = (n_bytes as f64 / (64. / 8.)).ceil(); // 8 bytes at a time
-    let prove = prepare(
+    let run_and_prove = prepare(
         "pedersen",
         &format!(
             "
@@ -102,7 +102,7 @@ pub fn pedersen_128(n_bytes: u32) -> impl FnOnce() -> Execution<Testnet3> {
         &[],
     );
 
-    prove
+    run_and_prove
 }
 
 pub fn prepare(name: &str, code: &str, inputs: &[String]) -> impl FnOnce() -> Execution<Testnet3> {

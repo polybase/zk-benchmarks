@@ -6,9 +6,9 @@ use snarkvm::{
 
 #[benchmark]
 fn assert(b: &mut BenchmarkRun) {
-    let run = leo::assert();
+    let run_and_prove = leo::assert();
 
-    let execution = b.run(|| run());
+    let execution = b.run(|| run_and_prove());
     report(b, execution);
 }
 
@@ -18,12 +18,12 @@ fn assert(b: &mut BenchmarkRun) {
     ("100", 100),
     ("1000", 1000),
     ("10000", 10000),
-    // ("100000", 100000), // Failes to compile with VerboseError { errors: [("\n", Nom(MapRes)) ... <code> ... <expanded for loop> add.w r99997 r99998 into r99999;\n", Nom(Many1))] }'
+    // ("100000", 100000), // Fails to compile with VerboseError { errors: [("\n", Nom(MapRes)) ... <code> ... <expanded for loop> add.w r99997 r99998 into r99999;\n", Nom(Many1))] }'
 ])]
 fn fibonacci(b: &mut BenchmarkRun, n: u32) {
-    let run = leo::fib(n);
+    let run_and_prove = leo::fib(n);
 
-    let execution = b.run(|| run());
+    let execution = b.run(|| run_and_prove());
     report(b, execution);
 }
 
@@ -32,9 +32,9 @@ fn fibonacci(b: &mut BenchmarkRun, n: u32) {
     ("10k bytes", 10000),
 ])]
 fn sha_3_256(b: &mut BenchmarkRun, n_bytes: u32) {
-    let run = leo::sha_3_256(n_bytes);
+    let run_and_prove = leo::sha_3_256(n_bytes);
 
-    let execution = b.run(|| run());
+    let execution = b.run(|| run_and_prove());
     report(b, execution);
 }
 
@@ -44,9 +44,9 @@ fn sha_3_256(b: &mut BenchmarkRun, n_bytes: u32) {
     ("100k bytes", 100000),
 ])]
 fn pedersen_128(b: &mut BenchmarkRun, n_bytes: u32) {
-    let run = leo::pedersen_128(n_bytes);
+    let run_and_prove = leo::pedersen_128(n_bytes);
 
-    let execution = b.run(|| run());
+    let execution = b.run(|| run_and_prove());
     report(b, execution);
 }
 
