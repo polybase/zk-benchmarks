@@ -15,7 +15,7 @@ use dep::std;
 fn main(x: [Field; $n]) -> pub [Field; 2] {
     std::hash::pedersen(x)
 }"
-    toml="
+    toml=$(cat <<EOF
 [package]
 name = "pedersen_$n"
 type = "bin"
@@ -23,7 +23,8 @@ authors = [""]
 compiler_version = "0.10.3"
 
 [dependencies]
-"
+EOF
+)
 
     mkdir -p "$n/src"
     echo "$code" > "$n/src/main.nr"

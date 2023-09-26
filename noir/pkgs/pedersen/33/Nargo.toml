@@ -1,9 +1,7 @@
-
 [package]
-name = pedersen_33
-type = bin
-authors = []
-compiler_version = 0.10.3
+name = "pedersen_33"
+type = "bin"
+authors = [""]
+compiler_version = "0.10.3"
 
 [dependencies]
-

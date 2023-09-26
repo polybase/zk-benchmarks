@@ -1,4 +1,3 @@
-
 fn main(a_start: Field, b_start: Field) -> pub Field {
     let mut a = a_start;
     let mut b = b_start;

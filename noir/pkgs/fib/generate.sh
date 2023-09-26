@@ -4,7 +4,7 @@ set -eo pipefail
 
 function generate() {
     n="$1"
-    code="
+    code=$(cat <<EOF
 fn main(a_start: Field, b_start: Field) -> pub Field {
     let mut a = a_start;
     let mut b = b_start;
@@ -15,8 +15,11 @@ fn main(a_start: Field, b_start: Field) -> pub Field {
     }
 
     b
-}"
-    toml="
+}
+EOF
+)
+
+    toml=$(cat <<EOF
 [package]
 name = "fib_$n"
 type = "bin"
@@ -24,7 +27,8 @@ authors = [""]
 compiler_version = "0.10.3"
 
 [dependencies]
-"
+EOF
+)
 
     mkdir -p "$n/src"
     echo "$code" > "$n/src/main.nr"
