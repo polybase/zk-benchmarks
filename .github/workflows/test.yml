@@ -107,3 +107,19 @@ jobs:
         run: |
           source $HOME/.nix-profile/etc/profile.d/nix.sh
           nix-shell --run "nix-shell -p clang --run 'cargo bench -q'"
+
+  leo:
+    runs-on: ubuntu-latest-64-cores
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - uses: Swatinem/rust-cache@v2
+  
+    - name: Run Leo benchmarks
+      working-directory: ./leo
+      env:
+        BENCHY_QUICK: "1"
+      run: |
+        cargo bench
