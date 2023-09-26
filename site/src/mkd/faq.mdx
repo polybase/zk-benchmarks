@@ -1,6 +1,7 @@
 import { Heading, Alert, AlertIcon, Text } from '@chakra-ui/react'
 import Image from 'next/image'
 import vitalik from '@/img/vitalik-zk-bench.gif'
+import recurse from '@/img/recurse.png'
 
 # FAQ
 
@@ -13,6 +14,10 @@ of frameworks. Whilst the frameworks themselves often provide a set of benchmark
 create similar conditions for the benchmarks across all frameworks.
 
 We're also the team behind [Polylang](https://polylang.dev), and we wanted to be able to understand the performance we're able to achieve in comparison to other frameworks.
+
+## Which is the best framework?
+
+There is no “best” framework. As you can see from the table above, there are a lot of caveats and trade offs. You should choose the framework that best meets your needs, which will depend on what kind of application you are building. If you have questions about which framework is best for you, feel free to reach out [on ~Twitter~ X @polybase_xyz](https://x.com/polybase_xyz).
 
 
 ## What is ZK?
@@ -63,12 +68,11 @@ Or more simply:
 
 These are programs which have inputs or logic where the number of cycles or iterations is not known at compile time. For example, a program that iterates over a list of items and checks if each item is greater than 18. The number of items in the list is not known at compile time, so the program is unbounded.
 
-In general, SNARKS require a program to be bounded at compile time, whereas STARKS do not.
+In general, SNARKs require a program to be bounded at compile time, whereas STARKs do not.
 
 ### Unbounded Program
 
 The following is an example of a program that is unbounded, as you can see the number of items in the list is not known at compile time as it is supplied as an argument when calling the program.
-
 
 ```
 function sum(list: number[]): number {
@@ -94,9 +98,29 @@ function sum(list: number[10]): number {
 }
 ```
 
-## Which is the best framework?
+### Bounded Programs with Recursive Proofs
 
-There is no “best” framework. As you can see from the table above, there are a lot of caveats and trade offs. You should choose the framework that best meets your needs, which will depend on what kind of application you are building. If you have questions about which framework is best for you, feel free to reach out [on ~Twitter~ X @polybase_xyz](https://x.com/polybase_xyz).
+It's possible to use ZK recursive proofs to break up a bounded program, to allow it to be effectively unbounded. This could be done either at the application level or the framework level. 
+
+At the application level, the developer would break up their program at logical points. For example, imagine we're building a zk-chain, and we want to prove an unbounded number of transactions per block (i.e. some blocks have 10 txns, others 20, etc). Instead of proving all of the transactions in a single proof, we could generate each proof, merging it with the last proof until we've included all txns. In the end we'd have one proof, that could contain any number of txns.
+
+<Image alt='recurse-zk-bench' src={recurse} />
+
+At the framework level, the frontend language or IR (intermediate representation) could translate for loops and unbounded inputs into separate program proofs, and then merge them for the user. This would be easier for the user, although we're not aware of any framework that provides this functionality today.
+
+
+## What is a ZK Recursive Proof?
+
+A ZK recursive proof (often just called "recursion") is the ability to verify a proof, or many proofs, into another proof. There's nothing crazy going on here. Verification of proofs is simply a computation and ZK already enables proving of arbitrary computations.
+
+Recursion has a lot of benefits, it allows us to:
+
+  - Turn bounded programs into practically unbounded programs
+  - Break up larger computations into multiple parts, useful for:
+    - RAM constrained environments like the browser
+    - Parallazing proofs across many different machines
+  - Aggregating multiple proofs into a single proof (e.g. to minimize network bandwidth)
+
 
 ## How do you run the benchmarks?
 
