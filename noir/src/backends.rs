@@ -7,3 +7,5 @@ compile_error!("please specify a backend to compile with");
 compile_error!(
     "feature \"plonk_bn254\"  and feature \"plonk_bn254_wasm\" cannot be enabled at the same time"
 );
+
+pub const FIELD_BITS: usize = 254;
