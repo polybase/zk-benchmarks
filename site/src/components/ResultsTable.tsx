@@ -4,9 +4,10 @@ import NextLink from 'next/link'
 import {
   TableContainer, Box, Table, Thead, Tbody, Th, Tr, Td, Stack, HStack, Text, Button, IconButton,
   Popover, PopoverTrigger, PopoverContent, PopoverArrow, Portal, PopoverBody, Icon, Spacer, Link,
-  useColorModeValue
+  useColorModeValue,
 } from '@chakra-ui/react'
-import { MdInfo } from 'react-icons/md'
+import { WarningIcon, InfoIcon } from '@chakra-ui/icons'
+// import { MdInfo } from 'react-icons/md'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 import { frameworks } from '@/fixtures/frameworks'
 import benchmarks from '@/fixtures/benchmarks.json'
@@ -360,7 +361,7 @@ export function ResultsTable() {
                           <Box>
                             <Popover>
                               <PopoverTrigger>
-                                <IconButton opacity={0.3} variant='ghost' aria-label='info' height='18px' size='sm' icon={<MdInfo />} />
+                                <IconButton opacity={0.3} variant='ghost' aria-label='info' height='18px' size='sm' icon={<InfoIcon />} />
                               </PopoverTrigger>
                               <Portal>
                                 <PopoverContent>
@@ -387,7 +388,7 @@ export function ResultsTable() {
                                 <Box>
                                   <Popover>
                                     <PopoverTrigger>
-                                      <IconButton opacity={0.3} variant='ghost' height='18px' aria-label='info' size='sm' icon={<MdInfo />} />
+                                      <IconButton variant='ghost' height='18px' aria-label='info' size='sm' icon={<WarningIcon color='orange.400' />} />
                                     </PopoverTrigger>
                                     <Portal>
                                       <PopoverContent>
