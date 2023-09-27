@@ -15,7 +15,7 @@ console.log(process?.env)
 
 if (typeof window !== 'undefined') {
   posthog.init('phc_7qOsZoc2928qXJa4LlQQS8qj7pVdqtrv7PCk5wdLYp7', {
-    api_host: 'https://app.posthog.com',
+    api_host: 'https://a.polybase.xyz',
     capture_pageview: false // Disable automatic pageview capture, as we capture manually
   })
 }
