@@ -165,6 +165,23 @@ Benchmarks are updated automatically whenever we update the benchmarks or the ve
 We actually created our own 😅, which you can find here on [crates.io](https://crates.io/crates/benchy). We tried using criterion which is pretty much the default for Rust, 
 but it didn't really serve our needs for the kinds of tests we are running. Criterion is tailored for nanosecond-level performance measurements of quick, simple functions, but we needed something that worked well with longer running benchmarks (ZK is still quite slow in many cases). We were also able to automatically profile the memory requirements of each benchmark, which is something we couldn't do with criterion.
 
+# How much does it cost to run the benchmarks?
+
+Actually quite a lot 😅, we burned through $600 in a week of AWS + Github Actions. We hope to add some bigger machines soon too 😬.
+
+
+## What’s next on the roadmap?
+
+These benchmarks should be a living breathing thing, we’re committed to improving it over time, and we hope you join in by [raising a PR](https://github.com/polybase/zk-benchmarks) of your own.
+
+We have a couple of ideas of things we’d like to tackle next - 
+
+- Browser benchmarks
+- More common/real world programs
+- Recursive proof benchmarks
+- Loading large amounts of data into ZK frameworks
+
+We’d like this to be community driven, let us know on Twitter what you’d like us to work on, or better yet - raise a PR!
 
 ## Can you benchmark X or add framework Y?
 

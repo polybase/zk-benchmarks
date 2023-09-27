@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import Image from 'next/image'
+import NextLink from 'next/link'
 import {
   TableContainer, Box, Table, Thead, Tbody, Th, Tr, Td, Stack, HStack, Text, Button, IconButton,
-  Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, Portal, PopoverBody, Icon, Spacer
+  Popover, PopoverTrigger, PopoverContent, PopoverArrow, Portal, PopoverBody, Icon, Spacer, Link
 } from '@chakra-ui/react'
 import { MdInfo } from 'react-icons/md'
 import { FaExternalLinkAlt } from 'react-icons/fa'
@@ -264,6 +265,15 @@ export function ResultsTable() {
               }}>{name}</Button>
             )
           })}
+          <Popover trigger='hover' placement='top'>
+            <PopoverTrigger>
+              <Button size='sm' opacity='0.4' variant='ghost'>CUDA</Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverArrow />
+              <PopoverBody><Text overflowWrap='anywhere' fontSize='sm'>Follow on Twitter <Link as={NextLink} color='blue.600' href='https://twitter.com/intent/user?screen_name=polybase_xyz'>@polybase_xyz </Link>to be notified when we add this</Text></PopoverBody>
+            </PopoverContent>
+          </Popover>
         </HStack>
         <Spacer />
         <HStack>
@@ -377,7 +387,7 @@ export function ResultsTable() {
           </Box>
         </HStack>
       </Box>
-    </Stack>
+    </Stack >
   )
 }
 
