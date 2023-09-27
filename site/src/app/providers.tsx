@@ -11,6 +11,8 @@ const {
   NEXT_PUBLIC_POSTHOG_HOST
 } = process?.env ?? {}
 
+console.log(process?.env)
+
 if (typeof window !== 'undefined' && NEXT_PUBLIC_POSTHOG_KEY) {
   posthog.init(NEXT_PUBLIC_POSTHOG_KEY, {
     api_host: NEXT_PUBLIC_POSTHOG_HOST,
