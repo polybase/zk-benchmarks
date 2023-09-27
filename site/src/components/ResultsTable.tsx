@@ -213,7 +213,8 @@ const properties: ResultTableProperty[] = [{
   value: metricFormatter(),
   annotations: {
     risc_zero: 'Slower due to minimum 64k cycles, regardless of program complexity',
-    noir: 'We use bounded program, which is probably not a fair comparison. This will be updated to use recursive proofs.'
+    noir: 'We use bounded program, which is probably not a fair comparison.',
+    leo: 'We use bounded program, which is probably not a fair comparison.',
   }
 },
 {
@@ -223,7 +224,8 @@ const properties: ResultTableProperty[] = [{
   value: metricFormatter(),
   annotations: {
     risc_zero: 'Slower due to minimum 64k cycles, regardless of program complexity',
-    noir: 'We use bounded program, which is probably not a fair comparison. This will be updated to use recursive proofs.'
+    noir: 'We use bounded program, which is probably not a fair comparison. This will be updated to use recursive proofs.',
+    leo: 'We use bounded program, which is probably not a fair comparison.',
   }
 },
 {
@@ -233,7 +235,8 @@ const properties: ResultTableProperty[] = [{
   value: metricFormatter(),
   annotations: {
     risc_zero: 'Slower due to minimum 64k cycles, regardless of program complexity',
-    noir: 'We use bounded program, which is probably not a fair comparison. This will be updated to use recursive proofs.'
+    noir: 'We use bounded program, which is probably not a fair comparison.',
+    leo: 'We use bounded program, which is probably not a fair comparison.',
   }
 },
 {
@@ -243,7 +246,8 @@ const properties: ResultTableProperty[] = [{
   value: metricFormatter(),
   annotations: {
     risc_zero: 'Slower due to minimum 64k cycles, regardless of program complexity',
-    noir: 'We use bounded program, which is probably not a fair comparison. This will be updated to use recursive proofs.'
+    noir: 'We use bounded program, which is probably not a fair comparison.',
+    leo: 'We use bounded program, which is probably not a fair comparison.',
   }
 }, {
   name: '10,000',
@@ -251,7 +255,8 @@ const properties: ResultTableProperty[] = [{
   prop: 'metrics.$machine.Fibonacci.results.4.$metric',
   value: metricFormatter(),
   annotations: {
-    noir: 'We use bounded program, which is probably not a fair comparison. This will be updated to use recursive proofs.'
+    noir: 'We use bounded program, which is probably not a fair comparison.',
+    leo: 'We use bounded program, which is probably not a fair comparison.',
   }
 },
 {
@@ -260,7 +265,7 @@ const properties: ResultTableProperty[] = [{
   prop: 'metrics.$machine.Fibonacci.results.5.$metric',
   value: metricFormatter('🚧'),
   annotations: {
-    noir: 'We use bounded program, which is probably not a fair comparison. This will be updated to use recursive proofs.'
+    noir: 'We use bounded program, which is probably not a fair comparison.',
   }
 }, {
   name: 'Merkle Tree',
