@@ -1,9 +1,7 @@
-
 [package]
-name = fib_1000000
-type = bin
-authors = []
-compiler_version = 0.10.3
+name = "fib_1000000"
+type = "bin"
+authors = [""]
+compiler_version = "0.10.3"
 
 [dependencies]
-

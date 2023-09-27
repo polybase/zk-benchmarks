@@ -2,26 +2,22 @@
 
 set -eo pipefail
 
+field_bits=254
+
 function generate() {
-    n="$1"
-    code=$(cat <<EOF
-fn main(a_start: Field, b_start: Field) -> pub Field {
-    let mut a = a_start;
-    let mut b = b_start;
-    for _ in 0..$n {
-        let c = a + b;
-        a = b;
-        b = c;
-    }
+    n_bytes="$1"
+    n_fields="$(python3 -c "import math; print(math.ceil($n_bytes / math.floor($field_bits / 8)))")"
+    n="$n_fields"
 
-    b
-}
-EOF
-)
+    code="
+use dep::std;
 
+fn main(x: [Field; $n]) -> pub [Field; 2] {
+    std::hash::pedersen(x)
+}"
     toml=$(cat <<EOF
 [package]
-name = "fib_$n"
+name = "pedersen_$n"
 type = "bin"
 authors = [""]
 compiler_version = "0.10.3"
@@ -35,10 +31,6 @@ EOF
     echo "$toml" > "$n/Nargo.toml"
 }
 
-generate 1
-generate 10
-generate 100
 generate 1000
 generate 10000
 generate 100000
-generate 1000000
