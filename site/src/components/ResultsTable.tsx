@@ -133,7 +133,7 @@ const properties: ResultTableProperty[] = [{
 }, {
   name: 'Fibonacci',
   // TODO: use markdown for this
-  desc: `A fibonacci sequence is calculated for a given input size. This is a good test of the framework's ability to handle recursion.`,
+  desc: `A fibonacci sequence is calculated for a given input size. This is a good test of the framework's ability to handle a looping data-strcuture.`,
   // prop: 'metrics.$machine.SHA256.results.0.time',
   // value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
 },
