@@ -534,8 +534,8 @@
                         }
                     ]
                 },
-                "pedersen": {
-                    "name": "pedersen",
+                "Pedersen": {
+                    "name": "Pedersen",
                     "results": [
                         {
                             "metrics": {
@@ -729,8 +729,8 @@
                         }
                     ]
                 },
-                "pedersen": {
-                    "name": "pedersen",
+                "Pedersen": {
+                    "name": "Pedersen",
                     "results": [
                         {
                             "metrics": {
@@ -1895,7 +1895,7 @@
                         }
                     ]
                 },
-                "SHA-3-256": {
+                "SHA256": {
                     "name": "SHA-3-256",
                     "results": [
                         {
@@ -2049,7 +2049,7 @@
                         }
                     ]
                 },
-                "SHA-3-256": {
+                "SHA-256": {
                     "name": "SHA-3-256",
                     "results": [
                         {

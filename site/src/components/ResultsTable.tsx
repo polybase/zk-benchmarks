@@ -3,7 +3,8 @@ import Image from 'next/image'
 import NextLink from 'next/link'
 import {
   TableContainer, Box, Table, Thead, Tbody, Th, Tr, Td, Stack, HStack, Text, Button, IconButton,
-  Popover, PopoverTrigger, PopoverContent, PopoverArrow, Portal, PopoverBody, Icon, Spacer, Link
+  Popover, PopoverTrigger, PopoverContent, PopoverArrow, Portal, PopoverBody, Icon, Spacer, Link,
+  useColorModeValue
 } from '@chakra-ui/react'
 import { MdInfo } from 'react-icons/md'
 import { FaExternalLinkAlt } from 'react-icons/fa'
@@ -101,12 +102,43 @@ const properties: ResultTableProperty[] = [{
   indent: 4,
   prop: 'metrics.$machine.SHA256.results.0.$metric',
   value: metricFormatter(),
+  annotations: {
+    leo: 'We used SHA3, as no SHA2 was available'
+  }
 },
 {
   name: '10k bytes',
   indent: 4,
   prop: 'metrics.$machine.SHA256.results.1.$metric',
   value: metricFormatter(),
+  annotations: {
+    leo: 'We used SHA3, as no SHA2 was available'
+  }
+}, {
+  name: 'Pedersen Hash',
+  desc: `A ZK optimised hash, this should perform better than SHA-256.`,
+},
+{
+  name: '1k bytes',
+  indent: 4,
+  prop: 'metrics.$machine.Pedersen.results.0.$metric',
+  value: metricFormatter('❌'),
+  annotations: {
+    risc_zero: 'Risc Zero does not support Pedersen',
+    polylang: 'Miden does not support Pedersen',
+    miden: 'Miden does not support Pedersen',
+  }
+},
+{
+  name: '10k bytes',
+  indent: 4,
+  prop: 'metrics.$machine.Pedersen.results.1.$metric',
+  value: metricFormatter('❌'),
+  annotations: {
+    polylang: 'Miden does not support Pedersen',
+    risc_zero: 'Risc Zero does not support Pedersen',
+    miden: 'Miden does not support Pedersen',
+  }
 }, {
   name: 'RPO Hash',
   desc: `A ZK optimised hash, this should perform better than SHA-256.`,
@@ -189,7 +221,7 @@ const properties: ResultTableProperty[] = [{
   name: '100,000',
   indent: 4,
   prop: 'metrics.$machine.Fibonacci.results.5.$metric',
-  value: metricFormatter(),
+  value: metricFormatter('🚧'),
   annotations: {
     noir: 'We use bounded program, which is probably not a fair comparison. This will be updated to use recursive proofs.'
   }
@@ -246,6 +278,7 @@ const metrics = [{
 }]
 
 export function ResultsTable() {
+  const colorMode = useColorModeValue('light', 'dark')
   const [machine, setMachine] = useState(machines[0].prop)
   const [metric, setMetric] = useState(metrics[0].prop)
   const vars = {
@@ -301,7 +334,7 @@ export function ResultsTable() {
                         <Box textDecorationColor='#fff'>
                           <Image
                             alt={item.name}
-                            src={item.logo.src}
+                            src={item.logo.src[colorMode]}
                             height={item.logo.height}
                             width={item.logo.width}
                           />

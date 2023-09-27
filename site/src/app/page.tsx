@@ -49,7 +49,7 @@ export default function Home() {
                 </Stack>
               </Center>
             </Box>
-            <Box maxW='container.lg' margin='0 auto'>
+            <Box maxW='container.xl' margin='0 auto'>
               <ResultsTable />
             </Box>
             <Box maxW='container.md' width='100%' margin='0 auto' p={2}>
