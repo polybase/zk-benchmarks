@@ -39,7 +39,7 @@ export const frameworks = [
     },
     url: 'https://wiki.polygon.technology/docs/miden/',
     frontend: 'MASM (Assembly)',
-    zk: 'STARK',
+    zk: 'STARK / zkVM',
     unbounded: '✅',
     existingLibSupport: '⚠️',
     audit: '❌ Planned 2024',
@@ -58,7 +58,7 @@ export const frameworks = [
     },
     url: 'https://risczero.com',
     frontend: 'Rust, C, C++',
-    zk: 'STARK',
+    zk: 'STARK / zkVM',
     unbounded: '✅',
     existingLibSupport: '✅',
     audit: '❌ Planned 2024',
@@ -69,7 +69,7 @@ export const frameworks = [
   },
   {
     id: 'noir',
-    name: 'Noir',
+    name: 'Noir\n (Barretenberg)',
     logo: {
       height: 30,
       width: 80,

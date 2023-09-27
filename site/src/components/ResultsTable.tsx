@@ -25,13 +25,12 @@ interface ResultTableProperty {
   value?: (val: any, vars: Record<string, any>) => any;
 }
 
-const metricFormatter = (val: any, vars: Record<string, any>) => {
-  if (!val) return ''
+const metricFormatter = (empty = '') => (val: any, vars: Record<string, any>) => {
+  if (!val) return empty
   if (vars.metric == 'time') {
     return val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null
 
   }
-  console.log(val, vars)
   return bytes(val)
 }
 
@@ -68,7 +67,7 @@ const properties: ResultTableProperty[] = [{
   prop: 'evmVerifier',
   annotations: {
     polylang: 'Polylang is scheduled to have an EVM verifier in Q1 2023.',
-    miden: 'Polylang is scheduled to have an EVM verifier in Q1 2023.',
+    miden: 'Miden is scheduled to have an EVM verifier in Q1 2023.',
   }
 }, {
   name: 'GPU',
@@ -79,7 +78,7 @@ const properties: ResultTableProperty[] = [{
   name: 'Assert',
   desc: `A very simple assertion a != b, this can be used to test the framework's minimum proving performance.`,
   prop: 'metrics.$machine.assert.results.0.$metric',
-  value: metricFormatter,
+  value: metricFormatter(),
   annotations: {
     risc_zero: 'Risc Zero is significantly slower for this test, as the minimum number of cycles for all Risc Zero programs is 64k. Therefore this very small program still requires a large number of cycles.',
   }
@@ -92,7 +91,7 @@ const properties: ResultTableProperty[] = [{
   }
 }, {
   name: 'SHA-256 Hash',
-  desc: `Calculating the SHA-256 hash for given input size. SHA-256 is NOT zk optimised so it's normal to see degraded performance compared to other hashes.`,
+  desc: `Calculating the SHA-256 hash for given input size. SHA-256 is NOT zk optimised so it's normal to see degraded performance compared to other hashes. You SHOULD use an alterantive ZK-optimised hash if your use case allows and the framework provides it.`,
   // prop: 'metrics.$machine.SHA256.results.0.time',
   // value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
 },
@@ -100,13 +99,13 @@ const properties: ResultTableProperty[] = [{
   name: '1k bytes',
   indent: 4,
   prop: 'metrics.$machine.SHA256.results.0.$metric',
-  value: metricFormatter,
+  value: metricFormatter(),
 },
 {
   name: '10k bytes',
   indent: 4,
   prop: 'metrics.$machine.SHA256.results.1.$metric',
-  value: metricFormatter,
+  value: metricFormatter(),
 }, {
   name: 'RPO Hash',
   desc: `A ZK optimised hash, this should perform better than SHA-256.`,
@@ -115,7 +114,7 @@ const properties: ResultTableProperty[] = [{
   name: '1k bytes',
   indent: 4,
   prop: 'metrics.$machine.RPO.results.0.$metric',
-  value: metricFormatter,
+  value: metricFormatter('❌'),
   annotations: {
     risc_zero: 'Risc Zero does not support RPO',
     noir: 'Noir does not support RPO, but does support Pederson which is a ZK optimised hash.',
@@ -125,7 +124,7 @@ const properties: ResultTableProperty[] = [{
   name: '10k bytes',
   indent: 4,
   prop: 'metrics.$machine.RPO.results.1.$metric',
-  value: metricFormatter,
+  value: metricFormatter('❌'),
   annotations: {
     risc_zero: 'Risc Zero does not support RPO',
     noir: 'Noir does not support RPO, but does support Pederson which is a ZK optimised hash.',
@@ -141,42 +140,64 @@ const properties: ResultTableProperty[] = [{
   name: '1',
   indent: 4,
   prop: 'metrics.$machine.Fibonacci.results.0.$metric',
-  value: metricFormatter,
+  value: metricFormatter(),
+  annotations: {
+    risc_zero: 'Slower due to minimum 64k cycles, regardless of program complexity',
+    noir: 'We use bounded program, which is probably not a fair comparison. This will be updated to use recursive proofs.'
+  }
 },
 {
   name: '10',
   indent: 4,
   prop: 'metrics.$machine.Fibonacci.results.1.$metric',
-  value: metricFormatter,
+  value: metricFormatter(),
+  annotations: {
+    risc_zero: 'Slower due to minimum 64k cycles, regardless of program complexity',
+    noir: 'We use bounded program, which is probably not a fair comparison. This will be updated to use recursive proofs.'
+  }
 },
 {
   name: '100',
   indent: 4,
   prop: 'metrics.$machine.Fibonacci.results.2.$metric',
-  value: metricFormatter,
+  value: metricFormatter(),
+  annotations: {
+    risc_zero: 'Slower due to minimum 64k cycles, regardless of program complexity',
+    noir: 'We use bounded program, which is probably not a fair comparison. This will be updated to use recursive proofs.'
+  }
 },
 {
   name: '1,000',
   indent: 4,
   prop: 'metrics.$machine.Fibonacci.results.3.$metric',
-  value: metricFormatter,
+  value: metricFormatter(),
+  annotations: {
+    risc_zero: 'Slower due to minimum 64k cycles, regardless of program complexity',
+    noir: 'We use bounded program, which is probably not a fair comparison. This will be updated to use recursive proofs.'
+  }
 }, {
   name: '10,000',
   indent: 4,
   prop: 'metrics.$machine.Fibonacci.results.4.$metric',
-  value: metricFormatter,
+  value: metricFormatter(),
+  annotations: {
+    noir: 'We use bounded program, which is probably not a fair comparison. This will be updated to use recursive proofs.'
+  }
 },
 {
   name: '100,000',
   indent: 4,
   prop: 'metrics.$machine.Fibonacci.results.5.$metric',
-  value: metricFormatter,
+  value: metricFormatter(),
+  annotations: {
+    noir: 'We use bounded program, which is probably not a fair comparison. This will be updated to use recursive proofs.'
+  }
 }, {
   name: 'Merkle Tree',
 }, {
   name: 'Membership Proof',
   prop: 'metrics.$machine.Merkle Membership.results.0.$metric',
-  value: metricFormatter,
+  value: metricFormatter('🚧'),
   indent: 4,
 }, {
   name: 'Merge',
@@ -185,8 +206,8 @@ const properties: ResultTableProperty[] = [{
   name: '1 + 1',
   indent: 8,
   prop: 'metrics.$machine.Merkle Tree Merge.results.0.$metric',
-  value: metricFormatter,
-}, {
+  value: metricFormatter('🚧'),
+}, /* {
   name: '2^10 + 2^10',
   indent: 8,
   prop: 'metrics.$machine.Merkle Tree Merge.results.1.$metric',
@@ -201,7 +222,7 @@ const properties: ResultTableProperty[] = [{
   indent: 8,
   prop: 'metrics.$machine.Merkle Tree Merge.results.3.$metric',
   value: metricFormatter,
-}]
+}*/]
 
 
 const machines = [{

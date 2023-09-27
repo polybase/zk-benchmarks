@@ -17,7 +17,7 @@ We're also the team behind [Polylang](https://polylang.dev), and we wanted to be
 
 ## Which is the best framework?
 
-There is no “best” framework. As you can see from the table above, there are a lot of caveats and trade offs. You should choose the framework that best meets your needs, which will depend on what kind of application you are building. If you have questions about which framework is best for you, feel free to reach out [on ~Twitter~ X @polybase_xyz](https://x.com/polybase_xyz) or to me directly [@calummoore](https://x.com/calummoore).
+There is no “best” framework. As you can see from the table above, there are a lot of caveats and trade offs. You should choose the framework that best meets your needs, which will depend on what kind of application you are building. In addition to what we have provided above, you should check the developer experience for each framework, and that the level of abstraction meets your needs. If you have questions about which framework is best for you, feel free to reach out [on ~Twitter~ X @polybase_xyz](https://x.com/polybase_xyz) or to me directly [@calummoore](https://x.com/calummoore).
 
 
 ## Are these frameworks even comparable?
@@ -38,6 +38,14 @@ We also wanted our framework benchmarks to be holistic, while developing in ZK w
 ## Noir can compile to many backends?
 
 That is definitely the goal for Noir, but right now it compiles only to one: Barretenberg. When more backends are added to Noir, we will add them as separate benchmarks. We also plan to benchmark using Barretenberg directly, as this is a valid choice for developers, albeit with a higher development cost.
+
+## X could be optimised further?
+
+It probably can. In this case, it's probably one of two things:
+
+ 1. We did not write a fair benchmark - [raise a PR](https://github.com/polybase/zk-benchmarks)
+
+ 2. The framework hasn't optimised for X yet, but it could theoretically be faster - I'm sure it could (everything can), but we're benchmarking things that exist today, because that's what a developer has available to them when they use a framework
 
 
 ## What is ZK?
@@ -145,8 +153,7 @@ Recursion has a lot of benefits, it allows us to:
 ## How do you run the benchmarks?
 
 We run the benchmarks using a [Github Action](https://github.com/polybase/zk-benchmarks/actions) using a self-hosted runner, 
-running on a dedicated AWS instance. We use a dedicated instance to ensure that the performance calculations are not degraded 
-by other users that might otherwise be using the shared instance.
+running on a ~dedicated~ shared AWS instance (still fighting with AWS to give us access to a dedicated instance). 
 Benchmarks are updated automatically whenever we update the benchmarks or the versions of the frameworks we are testing.
 
 ## What benchmark tool do you use?
