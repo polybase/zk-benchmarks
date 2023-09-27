@@ -4,6 +4,8 @@ import midenLogo from '@/img/frameworks/miden.png'
 import noirLogo from '@/img/frameworks/noir.svg'
 import polylangLogo from '@/img/frameworks/polylang.png'
 import riscZeroLogo from '@/img/frameworks/risc-zero.png'
+import leoLogo from '@/img/frameworks/leo.svg'
+import leoLightLogo from '@/img/frameworks/leo-light.svg'
 
 const MoreInfo = ({ children, count, more }: any) => (
   <HStack><Text>{children}</Text><Tooltip label={more}><Text color='blue.700' cursor='pointer'>+{count} more</Text></Tooltip></HStack>
@@ -16,7 +18,10 @@ export const frameworks = [
     logo: {
       height: 30,
       width: 30,
-      src: polylangLogo,
+      src: {
+        light: polylangLogo,
+        dark: polylangLogo,
+      }
     },
     url: 'https://polylang.dev',
     frontend: 'Typescript-like',
@@ -35,7 +40,10 @@ export const frameworks = [
     logo: {
       height: 30,
       width: 30,
-      src: midenLogo,
+      src: {
+        light: midenLogo,
+        dark: midenLogo,
+      }
     },
     url: 'https://wiki.polygon.technology/docs/miden/',
     frontend: 'MASM (Assembly)',
@@ -54,7 +62,10 @@ export const frameworks = [
     logo: {
       height: 30,
       width: 30,
-      src: riscZeroLogo,
+      src: {
+        light: riscZeroLogo,
+        dark: riscZeroLogo,
+      }
     },
     url: 'https://risczero.com',
     frontend: 'Rust, C, C++',
@@ -69,11 +80,14 @@ export const frameworks = [
   },
   {
     id: 'noir',
-    name: 'Noir\n (Barretenberg)',
+    name: 'Noir (Barretenberg)',
     logo: {
       height: 30,
       width: 80,
-      src: noirLogo,
+      src: {
+        light: noirLogo,
+        dark: noirLogo,
+      },
     },
     url: 'https://noir-lang.org',
     frontend: 'Rust-like',
@@ -84,5 +98,26 @@ export const frameworks = [
     evmVerifier: '✅',
     optimisedHash: <MoreInfo count={2} more='SHA-256, Blake2'>Pedersen</MoreInfo>,
     metrics: benchmarks.frameworks.noir,
+  },
+  {
+    id: 'leo',
+    name: 'Leo',
+    logo: {
+      height: 40,
+      width: 46,
+      src: {
+        light: leoLightLogo,
+        dark: leoLogo,
+      },
+    },
+    url: 'https://leo-lang.org/',
+    frontend: 'Leo (DSL)',
+    zk: 'SNARK',
+    unbounded: '❌',
+    existingLibSupport: '⚠️',
+    audit: '❌ Planned 2023',
+    evmVerifier: '❌',
+    optimisedHash: <MoreInfo count={3} more='SHA3-256, Keccak256, Poseidon, BHP'>Pedersen</MoreInfo>,
+    metrics: benchmarks.frameworks.leo,
   }
 ]
