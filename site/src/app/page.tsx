@@ -1,8 +1,10 @@
 "use client";
 
 import Image from 'next/image'
-import { Flex, Center, Text, Heading, Button, useColorModeValue, HStack, Box, Spacer, Stack, Link, Divider } from '@chakra-ui/react'
+import { Flex, Center, Text, Heading, Button, useColorModeValue, HStack, Box, Spacer, Stack, Link, Divider, Alert, AlertIcon, Icon } from '@chakra-ui/react'
+import { WarningIcon, InfoIcon } from '@chakra-ui/icons'
 import logo from '@/img/logo.png'
+import { MdInfo } from 'react-icons/md'
 import { ResultsTable } from '@/components/ResultsTable'
 import { M_PLUS_Rounded_1c } from 'next/font/google'
 import { ColorModeSwitcher } from '@/components/ColorModeSwitcher'
@@ -56,7 +58,15 @@ export default function Home() {
               </Center>
             </Box>
             <Box maxW='container.xl' margin='0 auto'>
-              <ResultsTable />
+              <Stack spacing={4}>
+                <ResultsTable />
+                <Box>
+                  <Alert status='warning' borderRadius={5}>
+                    <AlertIcon />
+                    <Text fontSize='md' fontWeight='bold'>We provide important caveats in the info <WarningIcon color='orange.400' /> and <InfoIcon color='gray.400' /> buttons</Text>
+                  </Alert>
+                </Box>
+              </Stack>
             </Box>
             <Box maxW='container.md' width='100%' margin='0 auto' p={2}>
               <Stack bg='bw.50' borderRadius={10} textAlign='center' padding={10} spacing={4} mt={10}>
