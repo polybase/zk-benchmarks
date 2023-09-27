@@ -21,6 +21,12 @@ export default function Home() {
           <Spacer />
           <HStack p={3}>
             <ColorModeSwitcher />
+            <Button as='a' href='https://twitter.com/polybase_xyz' target='_blank' size='sm' background='blackAlpha.900' color='white' _hover={{ background: 'blackAlpha.800' }} _active={{ background: 'blackAlpha.700' }} colorScheme='white'>
+              <HStack>
+                <Image width={20} src={x} alt='X Logo' />
+                <Text>Follow</Text>
+              </HStack>
+            </Button>
             <Box pr={2}>
               <Link as='a' href='https://github.com/polybase/zk-benchmarks' target='_blank' fontWeight='600'>
                 github
@@ -59,7 +65,7 @@ export default function Home() {
                   <Heading fontSize='xl' color='bw.700'>To get updates on zk-bench follow the Polybase Labs team.</Heading>
                 </Stack>
                 <Center>
-                  <Button as='a' href='https://twitter.com/intent/user?screen_name=polybase_xyz' target='_blank' size='lg' background='blackAlpha.900' color='white' _hover={{ background: 'blackAlpha.800' }} _active={{ background: 'blackAlpha.700' }} colorScheme='white'>
+                  <Button as='a' href='https://twitter.com/polybase_xyz' target='_blank' size='lg' background='blackAlpha.900' color='white' _hover={{ background: 'blackAlpha.800' }} _active={{ background: 'blackAlpha.700' }} colorScheme='white'>
                     <HStack>
                       <Image width={22} src={x} alt='X Logo' />
                       <Text>@polybase_xyz</Text>
