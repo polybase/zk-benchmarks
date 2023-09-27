@@ -26,9 +26,13 @@ Are we comparing 🍎 to 🍏? It depends.
 
 These frameworks are all different levels of abstraction, but at the end of the day they all trying to achieve the same thing - prove some computation in zero knowledge. 
 
-A developer should choose the level of abstraction they want, keeping in mind tha each level of abstraction generally reduces performance, but increases developer speed, maintainability and auditability.
+There are generally three levels of abstraction:
 
-We directly compare different levels of abstraction because this is a valid choice that developers face when choosing a framework. 
+ 1. High level language (HLL) - Rust, C, Noir
+ 2. Intermediate representation (IR) - VAMP-IR, ACIR, Miden-IR
+ 3. Circuit, Assembly, Byte Code - Miden Assembly, Risc-V, 
+
+A developer should choose the level of abstraction they want, keeping in mind that each level of abstraction generally reduces performance, but increases developer speed, maintainability and auditability.  We directly compare different levels of abstraction because this is a valid choice that developers face when choosing a framework to use. 
 
 Our goal is to provide a living, breathing document of where ZK frameworks are today (not what they could be). We want this to be a practical (not theoretical) resource for protocol developers who are faced with the decision, what ZK stack should I use? If you're looking to perform zk research or understand performance at a constraint level then we highly recommend [watching this talk at ZK Summit 10](https://www.youtube.com/watch?v=9VigkMeh-og&t=16200s).
 
