@@ -4,7 +4,7 @@ import NextLink from 'next/link'
 import {
   TableContainer, Box, Table, Thead, Tbody, Th, Tr, Td, Stack, HStack, Text, Button, IconButton,
   Popover, PopoverTrigger, PopoverContent, PopoverArrow, Portal, PopoverBody, Icon, Spacer, Link,
-  useColorModeValue,
+  useColorModeValue, Tooltip
 } from '@chakra-ui/react'
 import { WarningIcon, InfoIcon } from '@chakra-ui/icons'
 // import { MdInfo } from 'react-icons/md'
@@ -68,6 +68,10 @@ const metricFormatter = (empty = '') => (val: any, vars: Record<string, any>) =>
   return bytes(val)
 }
 
+const MoreInfo = ({ children, count, more }: any) => (
+  <HStack><Text>{children}</Text><Tooltip label={more}><Text color='blue.700' cursor='pointer'>+{count} more</Text></Tooltip></HStack>
+)
+
 const properties: ResultTableProperty[] = [{
   name: 'Frontend (Language)',
   prop: 'frontend',
@@ -120,6 +124,7 @@ const properties: ResultTableProperty[] = [{
   name: 'Optimised Hashes',
   prop: 'optimisedHash',
   desc: `Hashes that have been optimised by the framework and therefore should perform faster. SHA-256 and Blake are not optimised for ZK in general, but may still be optimised by a framework.`,
+  value: (val) => val.length > 1 ? <MoreInfo count={val.length - 1} more={val.slice(1).join(', ')}>{val[0]}</MoreInfo> : val?.[0],
   annotations: {
     risc_zero: 'SHA-256 is the most optimised hash for Risc Zero, but SHA-256 is in general not ZK optimised.'
   }
