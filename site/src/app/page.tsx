@@ -11,6 +11,7 @@ import { ColorModeSwitcher } from '@/components/ColorModeSwitcher'
 import Faq from '../mkd/faq.mdx'
 import { PoweredBy } from '@/components/PoweredBy'
 import x from '@/img/X.png'
+import vitalik from '@/img/vitalik-zk-bench.gif'
 
 
 const rounded = M_PLUS_Rounded_1c({ subsets: ['latin'], weight: ["700"], fallback: ['SF Rounded'] })
@@ -54,6 +55,9 @@ export default function Home() {
                     <Heading as='h2' fontSize='lg' fontFamily={rounded.style.fontFamily} textAlign='center'>Impartial benchmarks for your favourite ZK frameworks</Heading>
                     <Heading as='h3' fontSize='md' textAlign='center' fontWeight='normal'>(if it’s not fair, <Link as='a' href='https://github.com/polybase/zk-benchmarks' target='_blank' color={useColorModeValue('blue.600', 'blue.200')}>raise a PR!</Link>)</Heading>
                   </Stack>
+                  <Center>
+                    <Image src={vitalik} alt='vitalik bench' width={400} />
+                  </Center>
                 </Stack>
               </Center>
             </Box>
