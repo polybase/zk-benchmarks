@@ -1,15 +1,10 @@
 import benchmarks from './benchmarks.json'
-import { Box, HStack, Text, Tooltip } from '@chakra-ui/react'
 import midenLogo from '@/img/frameworks/miden.png'
 import noirLogo from '@/img/frameworks/noir.svg'
 import polylangLogo from '@/img/frameworks/polylang.png'
 import riscZeroLogo from '@/img/frameworks/risc-zero.png'
 import leoLogo from '@/img/frameworks/leo.svg'
 import leoLightLogo from '@/img/frameworks/leo-light.svg'
-
-const MoreInfo = ({ children, count, more }: any) => (
-  <HStack><Text>{children}</Text><Tooltip label={more}><Text color='blue.700' cursor='pointer'>+{count} more</Text></Tooltip></HStack>
-)
 
 export const frameworks = [
   {
@@ -31,7 +26,7 @@ export const frameworks = [
     audit: '❌ Planned 2024',
     evmVerifier: '⚠️',
     gpu: ['Metal'],
-    optimisedHash: <MoreInfo count={2} more='Blake3, SHA-256'>RPO</MoreInfo>,
+    optimisedHash: ['RPO', 'Blake3', 'SHA-256'],
     metrics: benchmarks.frameworks.polylang,
   },
   {
@@ -53,7 +48,7 @@ export const frameworks = [
     audit: '❌ Planned 2024',
     evmVerifier: '⚠️',
     gpu: ['Metal'],
-    optimisedHash: <MoreInfo count={2} more='Blake3, SHA-256'>RPO</MoreInfo>,
+    optimisedHash: ['RPO', 'Blake3', 'SHA-256'],
     metrics: benchmarks.frameworks.miden,
   },
   {
@@ -75,7 +70,7 @@ export const frameworks = [
     audit: '❌ Planned 2024',
     evmVerifier: '✅',
     gpu: ['Metal', 'CUDA'],
-    optimisedHash: 'SHA-256',
+    optimisedHash: ['SHA-256'],
     metrics: benchmarks.frameworks['risc-zero'],
   },
   {
@@ -96,7 +91,7 @@ export const frameworks = [
     existingLibSupport: '⚠️',
     audit: '❌ Planned 2024',
     evmVerifier: '✅',
-    optimisedHash: <MoreInfo count={2} more='SHA-256, Blake2'>Pedersen</MoreInfo>,
+    optimisedHash: ['Pedersen', 'SHA-256', 'Keccak256', 'Blake2'],
     metrics: benchmarks.frameworks.noir,
   },
   {
@@ -117,7 +112,7 @@ export const frameworks = [
     existingLibSupport: '⚠️',
     audit: '❌ Planned 2023',
     evmVerifier: '❌',
-    optimisedHash: <MoreInfo count={3} more='SHA3-256, Keccak256, Poseidon, BHP'>Pedersen</MoreInfo>,
+    optimisedHash: ['Pedersen', 'SHA3-256', 'Keccak256', 'Poseidon', 'BHP'],
     metrics: benchmarks.frameworks.leo,
   }
 ]
