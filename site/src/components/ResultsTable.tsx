@@ -115,6 +115,31 @@ const properties: ResultTableProperty[] = [{
     leo: 'We used SHA3, as no SHA2 was available'
   }
 }, {
+  name: 'Pedersen Hash',
+  desc: `A ZK optimised hash, this should perform better than SHA-256.`,
+},
+{
+  name: '1k bytes',
+  indent: 4,
+  prop: 'metrics.$machine.Pedersen.results.0.$metric',
+  value: metricFormatter('❌'),
+  annotations: {
+    risc_zero: 'Risc Zero does not support Pedersen',
+    polylang: 'Miden does not support Pedersen',
+    miden: 'Miden does not support Pedersen',
+  }
+},
+{
+  name: '10k bytes',
+  indent: 4,
+  prop: 'metrics.$machine.Pedersen.results.1.$metric',
+  value: metricFormatter('❌'),
+  annotations: {
+    polylang: 'Miden does not support Pedersen',
+    risc_zero: 'Risc Zero does not support Pedersen',
+    miden: 'Miden does not support Pedersen',
+  }
+}, {
   name: 'RPO Hash',
   desc: `A ZK optimised hash, this should perform better than SHA-256.`,
 },

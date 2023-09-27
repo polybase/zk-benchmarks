@@ -534,8 +534,8 @@
                         }
                     ]
                 },
-                "pedersen": {
-                    "name": "pedersen",
+                "Pedersen": {
+                    "name": "Pedersen",
                     "results": [
                         {
                             "metrics": {
@@ -729,8 +729,8 @@
                         }
                     ]
                 },
-                "pedersen": {
-                    "name": "pedersen",
+                "Pedersen": {
+                    "name": "Pedersen",
                     "results": [
                         {
                             "metrics": {
