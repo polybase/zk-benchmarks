@@ -271,9 +271,12 @@ const properties: ResultTableProperty[] = [{
   name: 'Merkle Tree',
 }, {
   name: 'Membership Proof',
+  indent: 4,
+}, {
+  name: '2^10',
+  indent: 8,
   prop: 'metrics.$machine.Merkle Membership.results.0.$metric',
   value: metricFormatter('🚧'),
-  indent: 4,
 }, {
   name: 'Merge',
   indent: 4,
