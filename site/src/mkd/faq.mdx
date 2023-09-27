@@ -9,20 +9,40 @@ import recurse from '@/img/recurse.png'
 
 Hi, I'm [Calum](https://x.com/calummoore), CTO of [Polybase Labs](https://x.com/polybase_xyz) 👋
 
-We made ZK-bench to help the ZK community to better understand the trade-offs and performance of different frameworks. It can be really hard to setup and run your own benchmarks for each of the growing numbers
-of frameworks. Whilst the frameworks themselves often provide a set of benchmarks, it's often hard to make direct comparisons as there are many factors that can affect the performance of a benchmark. We've tried hard to 
-create similar conditions for the benchmarks across all frameworks.
+We made ZK-bench to help the ZK community better understand the trade-offs and performance of different frameworks. It can be really hard to setup and run your own benchmarks for each of the growing numbers
+of frameworks. Whilst the frameworks themselves often provide a set of benchmarks, it can be hard to make direct comparisons as there are many factors that can affect the performance of a benchmark. We've tried hard to 
+create similar conditions for the benchmarks across all frameworks (keeping in mind that these frameworks have different levels of abstraction, see below). We aim to provide a practical comparison between benchmarks, so that protocol developers can answer the question - which framework should I use?
 
 We're also the team behind [Polylang](https://polylang.dev), and we wanted to be able to understand the performance we're able to achieve in comparison to other frameworks.
 
 ## Which is the best framework?
 
-There is no “best” framework. As you can see from the table above, there are a lot of caveats and trade offs. You should choose the framework that best meets your needs, which will depend on what kind of application you are building. If you have questions about which framework is best for you, feel free to reach out [on ~Twitter~ X @polybase_xyz](https://x.com/polybase_xyz).
+There is no “best” framework. As you can see from the table above, there are a lot of caveats and trade offs. You should choose the framework that best meets your needs, which will depend on what kind of application you are building. If you have questions about which framework is best for you, feel free to reach out [on ~Twitter~ X @polybase_xyz](https://x.com/polybase_xyz) or to me directly [@calummoore](https://x.com/calummoore).
+
+
+## Are these frameworks even comparable?
+
+Are we comparing 🍎 to 🍏? It depends.
+
+These frameworks are all different levels of abstraction, but at the end of the day they all trying to achieve the same thing - prove some computation in zero knowledge. 
+
+A developer should choose the level of abstraction they want, keeping in mind tha each level of abstraction generally reduces performance, but increases developer speed, maintainability and auditability.
+
+We directly compare different levels of abstraction because this is a valid choice that developers face when choosing a framework. 
+
+Our goal is to provide a living, breathing document of where ZK frameworks are today (not what they could be). We want this to be a practical (not theoretical) resource for protocol developers who are faced with the decision, what ZK stack should I use? If you're looking to perform zk research or understand performance at a constraint level then we highly recommend [watching this talk at ZK Summit 10](https://www.youtube.com/watch?v=9VigkMeh-og&t=16200s).
+
+We also wanted our framework benchmarks to be holistic, while developing in ZK we've often found that defined/expected performance doesn't always match reality - so we wanted to provide something that tests a framework in the real world.
+
+
+## Noir can compile to many backends?
+
+That is definitely the goal for Noir, but right now it compiles only to one: Barretenberg. When more backends are added to Noir, we will add them as separate benchmarks. We also plan to benchmark using Barretenberg directly, as this is a valid choice for developers, albeit with a higher development cost.
 
 
 ## What is ZK?
 
-ZK (Zero Knowledge) is a type of cryptography that allows a proof (a kind of certificate) to be generated that allows one party to prove to another that they know a value (or that some condition holds true), without revealing any information about the value itself. 
+ZK (zero knowledge) is a type of cryptography that allows a proof (a kind of certificate) to be generated that allows one party to prove to another that they know a value (or that some condition holds true), without revealing any information about the value itself. 
 
 There are two main components to ZK:
 
