@@ -102,6 +102,9 @@ const properties: ResultTableProperty[] = [{
   indent: 4,
   prop: 'metrics.$machine.SHA256.results.0.$metric',
   value: metricFormatter(),
+  annotations: {
+    leo: 'We used SHA3, as no SHA2 was available'
+  }
 },
 {
   name: '10k bytes',
@@ -111,6 +114,9 @@ const properties: ResultTableProperty[] = [{
 }, {
   name: 'RPO Hash',
   desc: `A ZK optimised hash, this should perform better than SHA-256.`,
+  annotations: {
+    leo: 'We used SHA3, as no SHA2 was available'
+  }
 },
 {
   name: '1k bytes',
