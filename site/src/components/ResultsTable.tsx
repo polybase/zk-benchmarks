@@ -14,10 +14,35 @@ import benchmarks from '@/fixtures/benchmarks.json'
 import bytes from 'bytes'
 import { timeSinceLastUpdate } from '@/util/date'
 
-interface Duration {
-  secs: number;
-  nanos: number;
-}
+const machines = [{
+  name: '16x CPU',
+  prop: 'ubuntu-16-shared',
+  // Cost per hour
+  cost: 1.008,
+}, {
+  name: '64x CPU',
+  prop: 'ubuntu-latest-64-cores',
+  // Cost per hour
+  cost: 4.032,
+}]
+
+const metrics = [{
+  id: 'time',
+  name: 'Time',
+  prop: 'time',
+}, {
+  id: 'memory',
+  name: 'Memory',
+  prop: 'metrics.memory_usage_bytes',
+}, {
+  id: 'proof_size',
+  name: 'Proof Size',
+  prop: 'metrics.proof_size_bytes',
+}, {
+  id: 'cost',
+  name: 'Cost',
+  prop: 'time',
+}]
 
 interface ResultTableProperty {
   name: string;
@@ -30,8 +55,14 @@ interface ResultTableProperty {
 
 const metricFormatter = (empty = '') => (val: any, vars: Record<string, any>) => {
   if (!val) return empty
+  if (vars.cost) {
+    const machineCost = machines.find((m) => m.prop === vars.machine)?.cost
+    if (!machineCost) return empty
+    const machinePerSecond = machineCost / 60 / 60
+    return `$${formatToTwoSignificantDigits((val.secs + val?.nanos / 1000000000) * machinePerSecond)}`
+  }
   if (vars.metric == 'time') {
-    return val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null
+    return `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s`
 
   }
   return bytes(val)
@@ -259,32 +290,14 @@ const properties: ResultTableProperty[] = [{
 }*/]
 
 
-const machines = [{
-  name: '16x CPU',
-  prop: 'ubuntu-16-shared',
-}, {
-  name: '64x CPU',
-  prop: 'ubuntu-latest-64-cores',
-}]
-
-const metrics = [{
-  name: 'Time',
-  prop: 'time',
-}, {
-  name: 'Memory',
-  prop: 'metrics.memory_usage_bytes',
-}, {
-  name: 'Proof Size',
-  prop: 'metrics.proof_size_bytes',
-}]
-
 export function ResultsTable() {
   const colorMode = useColorModeValue('light', 'dark')
   const [machine, setMachine] = useState(machines[0].prop)
-  const [metric, setMetric] = useState(metrics[0].prop)
+  const [metric, setMetric] = useState(metrics[0].id)
   const vars = {
     machine,
-    metric,
+    metric: metrics.find((a) => a.id === metric)?.prop,
+    cost: metric === 'cost',
   }
 
   return (
@@ -311,11 +324,11 @@ export function ResultsTable() {
         </HStack>
         <Spacer />
         <HStack>
-          {metrics.map(({ name, prop }) => {
-            const selected = metric === prop;
+          {metrics.map(({ name, prop, id }) => {
+            const selected = metric === id;
             return (
-              <Button size='sm' variant={selected ? 'solid' : 'ghost'} key={prop} onClick={() => {
-                setMetric(prop)
+              <Button size='sm' variant={selected ? 'solid' : 'ghost'} key={id} onClick={() => {
+                setMetric(id)
               }}>{name}</Button>
             )
           })}
@@ -443,4 +456,23 @@ function getPathValue(data: any, path?: string, vars?: Record<string, any>) {
     current = current[part]
   }
   return current;
+}
+
+function formatToTwoSignificantDigits(num: number): string {
+  if (num === 0) {
+    return "0.00";
+  }
+
+  const magnitude = Math.floor(Math.log10(Math.abs(num)));
+  const power = 1 - magnitude;
+  const roundedNumber = Math.round(num * Math.pow(10, power)) * Math.pow(10, -power);
+
+  // When the number is less than 1
+  if (magnitude < 0) {
+    const placesAfterDecimal = Math.abs(magnitude) + 1;
+    return roundedNumber.toFixed(placesAfterDecimal);
+  } else {
+    const factor = Math.pow(10, magnitude - 1);
+    return (roundedNumber * factor).toFixed(Math.max(0, magnitude - 1));
+  }
 }
