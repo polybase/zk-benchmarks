@@ -15,3 +15,7 @@ methods = [
     "merkle",
     "merkle_membership",
 ]
+
+[profile.release]
+lto = true
+opt-level = 3
