@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import NextLink from 'next/link'
 import {
@@ -312,6 +312,32 @@ export function ResultsTable() {
     metric: metrics.find((a) => a.id === metric)?.prop,
     cost: metric === 'cost',
   }
+  const tableRef = useRef<HTMLDivElement | null>(null)
+  const [shadow, setShadow] = useState("")
+
+  const handleScroll = (e: any) => {
+    if (tableRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = tableRef.current
+
+      if (scrollLeft <= 0) {
+        setShadow('right')
+      } else if (scrollWidth - scrollLeft === clientWidth) {
+        setShadow('left')
+      } else {
+        setShadow('both')
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (tableRef.current) {
+      const tableElement = tableRef.current
+      tableElement.addEventListener('scroll', handleScroll)
+      return () => {
+        tableElement.removeEventListener('scroll', handleScroll)
+      }
+    }
+  }, [])
 
   return (
     <Stack fontSize='sm' spacing={4}>
@@ -347,8 +373,18 @@ export function ResultsTable() {
           })}
         </HStack>
       </HStack>
-      <Box border='1px solid' borderBottomWidth={0} borderColor='bw.100' borderRadius={5}>
-        <TableContainer overflowX="unset" overflowY="unset">
+      <Box
+        border='1px solid'
+        borderBottomWidth={0}
+        borderColor='bw.100'
+        borderRadius={5}
+        boxShadow={
+          shadow === 'right' ? '5px 0px 15px rgba(0,0,0,0.2)' :
+            shadow === 'left' ? '-5px 0px 15px rgba(0,0,0,0.2)' :
+              shadow === 'both' ? '5px 0px 15px rgba(0,0,0,0.2), -5px 0px 15px rgba(0,0,0,0.2)' : 'none'
+        }
+      >
+        <TableContainer ref={tableRef} overflowX="auto" overflowY="unset">
           <Table>
             <Thead>
               <Tr>
