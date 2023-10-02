@@ -6,8 +6,9 @@ edition = "2021"
 [workspace]
 
 [dependencies]
+nalgebra = "0.32"
 # If you want to try (experimental) std support, add `features = [ "std" ]` to risc0-zkvm
-risc0-zkvm = { version = "0.18.0", default-features = false }
+risc0-zkvm = { version = "0.18.0", default-features = false, features = [ "std" ] }
 
 [profile.release]
 lto = true
