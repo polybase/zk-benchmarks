@@ -24,7 +24,7 @@ export default function Home() {
           <Box py={2} maxW='100%' bgGradient='linear(to-l, #7928CA, #FF0080)'>
             <Container maxW='container.md'>
               <Text fontWeight='bold' color='#fff' textAlign='center'>
-                We're hiring a ZK (Halo 2) engineer 👀 -&gt;
+                We&apos;re hiring a ZK (Halo 2) engineer 👀 -&gt;
               </Text>
             </Container>
           </Box>
