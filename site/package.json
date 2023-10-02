@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "fix": "eslint \"./src/**/*.{ts,tsx}\" --fix"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
@@ -37,7 +38,68 @@
     "remark-html": "^15.0.2",
     "typescript": "5.2.2"
   },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "next",
+      "next/core-web-vitals"
+    ],
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "rules": {
+      "react/prop-types": [
+        2,
+        {
+          "skipUndeclared": true
+        }
+      ],
+      "react/jsx-handler-names": "off",
+      "quotes": "off",
+      "jsx-quotes": [
+        2,
+        "prefer-single"
+      ],
+      "comma-dangle": [
+        2,
+        "always-multiline"
+      ],
+      "object-curly-spacing": [
+        2,
+        "always"
+      ],
+      "react/display-name": 0,
+      "semi": [
+        "error",
+        "never"
+      ],
+      "no-underscore-dangle": 0,
+      "space-before-function-paren": 0,
+      "arrow-body-style": 0,
+      "no-use-before-define": 0,
+      "arrow-parens": 0,
+      "no-trailing-spaces": "error",
+      "@typescript-eslint/quotes": [
+        "error",
+        "single"
+      ],
+      "@typescript-eslint/indent": [
+        "error",
+        4
+      ],
+      "keyword-spacing": "error",
+      "key-spacing": [
+        "error",
+        {
+          "mode": "strict"
+        }
+      ]
+    }
+  },
   "devDependencies": {
-    "@types/bytes": "^3.1.2"
+    "@types/bytes": "^3.1.2",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3"
   }
 }

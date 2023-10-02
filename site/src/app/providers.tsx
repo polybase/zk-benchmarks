@@ -7,33 +7,33 @@ import posthog from 'posthog-js'
 import { PostHogProvider } from 'posthog-js/react'
 
 const {
-  NEXT_PUBLIC_POSTHOG_KEY,
-  NEXT_PUBLIC_POSTHOG_HOST
+    NEXT_PUBLIC_POSTHOG_KEY,
+    NEXT_PUBLIC_POSTHOG_HOST,
 } = process?.env ?? {}
 
 console.log(process?.env)
 
 if (typeof window !== 'undefined') {
-  posthog.init('phc_7qOsZoc2928qXJa4LlQQS8qj7pVdqtrv7PCk5wdLYp7', {
-    api_host: 'https://a.polybase.xyz',
-    capture_pageview: false // Disable automatic pageview capture, as we capture manually
-  })
+    posthog.init('phc_7qOsZoc2928qXJa4LlQQS8qj7pVdqtrv7PCk5wdLYp7', {
+        api_host: 'https://a.polybase.xyz',
+        capture_pageview: false, // Disable automatic pageview capture, as we capture manually
+    })
 }
 
 export function Providers({
-  children
+    children,
 }: {
-  children: React.ReactNode
+    children: React.ReactNode
 }) {
-  return (
-    <CacheProvider>
-      <PostHogProvider client={posthog}>
-        <ColorModeScript initialColorMode='system' />
-        <ChakraProvider theme={theme}>
-          {children}
-        </ChakraProvider>
-      </PostHogProvider>
-    </CacheProvider>
-  )
+    return (
+        <CacheProvider>
+            <PostHogProvider client={posthog}>
+                <ColorModeScript initialColorMode='system' />
+                <ChakraProvider theme={theme}>
+                    {children}
+                </ChakraProvider>
+            </PostHogProvider>
+        </CacheProvider>
+    )
 }
 
