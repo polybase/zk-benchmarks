@@ -1,7 +1,7 @@
 "use client";
 
 import Image from 'next/image'
-import { Flex, Center, Text, Heading, Button, useColorModeValue, HStack, Box, Spacer, Stack, Link, Divider, Alert, AlertIcon, Icon } from '@chakra-ui/react'
+import { Flex, Center, Text, Container, Heading, Button, useColorModeValue, HStack, Box, Spacer, Stack, Link, Divider, Alert, AlertIcon, Icon } from '@chakra-ui/react'
 import { WarningIcon, InfoIcon } from '@chakra-ui/icons'
 import logo from '@/img/logo.png'
 import { MdInfo } from 'react-icons/md'
@@ -20,6 +20,15 @@ export default function Home() {
   return (
     <main>
       <Box mb={20}>
+        <Link href='https://polybase.notion.site/Halo2-Engineer-Rust-ccea568bbfd64afa81d548d5c6fc429e'>
+          <Box py={2} maxW='100%' bgGradient='linear(to-l, #7928CA, #FF0080)'>
+            <Container maxW='container.md'>
+              <Text fontWeight='bold' color='#fff' textAlign='center'>
+                We&apos;re hiring a ZK (Halo 2) engineer 👀 -&gt;
+              </Text>
+            </Container>
+          </Box>
+        </Link>
         <Flex>
           <Spacer />
           <HStack p={3}>
