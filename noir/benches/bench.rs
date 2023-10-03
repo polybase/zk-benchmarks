@@ -106,12 +106,24 @@ fn merkle_insert(b: &mut BenchmarkRun, (tree1, tree2): (Tree<Sha>, Tree<Sha>)) {
                 leaves[index] = hash;
             }
 
+            let leaves = leaves
+                .into_iter()
+                .map(|hash| InputValue::Vec(hash.as_bytes().to_vec()))
+                .collect();
+            let leaves = InputValue::Vec(leaves);
+
             let root_hash = tree_before.digest();
 
             let mut inputs = InputMap::new();
-            inputs.insert("node".to_string(), node);
+            inputs.insert(
+                "node".to_string(),
+                InputValue::Vec(node.as_bytes().to_vec()),
+            );
             inputs.insert("leaves".to_string(), leaves);
-            inputs.insert("root_hash".to_string(), root_hash);
+            inputs.insert(
+                "root_hash".to_string(),
+                InputValue::Vec(root_hash.as_bytes().to_vec()),
+            );
 
             let proof = Proof::new(&backend, "sha256", dir.join("pkgs/merkle_insert"));
             let proof_bytes = proof.run_and_prove(&inputs);
