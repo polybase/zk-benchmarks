@@ -192,4 +192,11 @@ fn slice_to_input(slice: &[u8]) -> InputValue {
     InputValue::Vec(vec)
 }
 
-benchy::main!("noir", assert, fibonacci, sha256, merkle_membership);
+benchy::main!(
+    "noir",
+    assert,
+    fibonacci,
+    sha256,
+    merkle_membership,
+    merkle_insert
+);
