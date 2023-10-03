@@ -8,3 +8,7 @@ edition = "2021"
 [dependencies]
 risc0-zkvm = { version = "0.18.0", default-features = false }
 shared = { path = "../../../shared" }
+
+[profile.release]
+lto = true
+opt-level = 3

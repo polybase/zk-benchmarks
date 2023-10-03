@@ -6,10 +6,9 @@ use shared::{
 };
 
 pub fn merkle(tree1: Tree<Sha>, tree2: Tree<Sha>) -> impl FnMut() -> (Receipt, Session) {
-    let string = format!("{};;{}", tree1.to_json(), tree2.to_json());
-
     let env = ExecutorEnv::builder()
-        .add_input(&to_vec(&string).unwrap())
+        .add_input(&to_vec(&tree1).unwrap())
+        .add_input(&to_vec(&tree2).unwrap())
         .build()
         .unwrap();
 
