@@ -4,6 +4,10 @@ extern crate rand;
 use benchy::{benchmark, BenchmarkRun};
 use noir::{backends::FIELD_BITS, InputMap, InputValue, Proof};
 use rand::Rng;
+use shared::{
+    hash::{random_hashes, HashFn, Sha},
+    tree_size_n, Tree,
+};
 
 #[benchmark]
 fn assert(b: &mut BenchmarkRun) {
@@ -77,6 +81,63 @@ fn merkle_membership(b: &mut BenchmarkRun) {
         dir.join("pkgs/merkle_membership"),
     );
     let proof_bytes = b.run(|| proof.run_and_prove(&inputs));
+    b.log("proof_size_bytes", proof_bytes.len());
+    b.log(
+        "compressed_proof_size_bytes",
+        zstd::encode_all(&proof_bytes[..], 21).unwrap().len(),
+    );
+}
+
+#[benchmark("Merkle Insert", [
+   ("1k tree", ( tree_size_n(9), tree_size_n(9) ))
+])]
+fn merkle_insert(b: &mut BenchmarkRun, (tree1, tree2): (Tree<Sha>, Tree<Sha>)) {
+    let backend = noir::backends::ConcreteBackend::default();
+    let dir = std::env::current_dir().expect("current dir to exist");
+
+    let proofs = b.run(|| {
+        let mut proofs = vec![];
+
+        let mut tree_before = tree1;
+
+        for node in tree2.leaves() {
+            let mut leaves = vec![Sha::null(); 1024];
+            for (index, hash) in tree_before.leaves().enumerate() {
+                leaves[index] = hash;
+            }
+
+            let leaves = leaves
+                .into_iter()
+                .map(|hash| InputValue::Vec(hash.as_bytes().to_vec()))
+                .collect();
+            let leaves = InputValue::Vec(leaves);
+
+            let root_hash = tree_before.digest();
+
+            let mut inputs = InputMap::new();
+            inputs.insert(
+                "node".to_string(),
+                InputValue::Vec(node.as_bytes().to_vec()),
+            );
+            inputs.insert("leaves".to_string(), leaves);
+            inputs.insert(
+                "root_hash".to_string(),
+                InputValue::Vec(root_hash.as_bytes().to_vec()),
+            );
+
+            let proof = Proof::new(&backend, "sha256", dir.join("pkgs/merkle_insert"));
+            let proof_bytes = proof.run_and_prove(&inputs);
+
+            proofs.push(proof_bytes);
+            tree_before.insert(node);
+        }
+
+        proofs
+    });
+
+    // this isn't a real encoding, but it's probably close enough w.r.t. proof size/compressed size
+    let proof_bytes: Vec<_> = proofs.into_iter().flatten().collect();
+
     b.log("proof_size_bytes", proof_bytes.len());
     b.log(
         "compressed_proof_size_bytes",

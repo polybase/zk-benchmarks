@@ -2,13 +2,17 @@ use risc0_zkvm::sha::{self, Sha256};
 use serde::{Deserialize, Serialize};
 
 pub trait HashFn: Clone {
-    type Digest: Copy;
+    type Digest: Eq + Copy + 'static;
 
     fn merge(a: Self::Digest, b: Self::Digest) -> Self::Digest;
 
     fn random() -> Self::Digest;
 
     fn null() -> Self::Digest;
+}
+
+pub fn random_hashes<H: HashFn, const N: usize>() -> [H::Digest; N] {
+    core::array::from_fn(|_| H::random())
 }
 
 #[cfg(feature = "std")]

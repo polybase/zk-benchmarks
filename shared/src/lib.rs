@@ -94,6 +94,13 @@ impl<H: HashFn> Tree<H> {
         }
     }
 
+    pub fn leaves(&self) -> Box<dyn Iterator<Item = H::Digest>> {
+        match self {
+            Tree::Leaf(hash) => Box::new(once(*hash)),
+            Tree::Node { left, right, .. } => Box::new(left.leaves().chain(right.leaves())),
+        }
+    }
+
     pub fn to_json(&self) -> String
     where
         H::Digest: Serialize,
@@ -106,6 +113,31 @@ impl<H: HashFn> Tree<H> {
         H::Digest: for<'de> Deserialize<'de>,
     {
         serde_json::from_str(s).ok()
+    }
+
+    pub fn insert(&mut self, hash: H::Digest) -> bool {
+        match self {
+            Self::Leaf(leaf) if *leaf == H::null() => {
+                *leaf = hash;
+                true
+            }
+            Self::Leaf(_) => false,
+            Self::Node {
+                left,
+                right,
+                digest,
+            } => {
+                let result = if left.insert(hash) {
+                    false
+                } else {
+                    right.insert(hash)
+                };
+
+                *digest = H::merge(left.digest(), right.digest());
+
+                result
+            }
+        }
     }
 }
 
