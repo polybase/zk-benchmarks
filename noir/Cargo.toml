@@ -16,6 +16,7 @@ serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 tokio = { version = "1.0", features = ["io-std"] }
 zstd = "0.12.4"
+shared = { path = "../shared"}
 
 [dev-dependencies]
 benchy = "0.1.1"

@@ -5,9 +5,10 @@
     flake-utils.url = "github:numtide/flake-utils";
     rust-overlay.url = "github:oxalica/rust-overlay";
     noir.url = "github:noir-lang/noir";
+    barretenberg.url = "github:AztecProtocol/barretenberg";
   };
 
-  outputs = { nixpkgs, flake-utils, rust-overlay, ... } @ inputs:
+  outputs = { nixpkgs, flake-utils, rust-overlay, barretenberg, ... } @ inputs:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
@@ -22,13 +23,14 @@
 
       in {
         devShells.default = pkgs.mkShell {
+          # inputsFrom = [ noir.devShells.${system}.default ];
           packages = with pkgs; [
-            rustup
+            rustToolchain
 
             pkg-config
             openssl
-
-            noir.packages."${system}".noir-native
+            
+            noir.packages."${system}".default
           ];
 
           RUST_SRC_PATH = "${rustToolchain}/lib/rustlib/src/rust/library";
