@@ -1,6 +1,7 @@
 extern crate noir;
 extern crate rand;
 
+use acvm::FieldElement;
 use benchy::{benchmark, BenchmarkRun};
 use noir::{InputMap, InputValue, Proof};
 use rand::Rng;
@@ -108,21 +109,18 @@ fn merkle_insert(b: &mut BenchmarkRun, (tree1, tree2): (Tree<Sha>, Tree<Sha>)) {
 
             let leaves = leaves
                 .into_iter()
-                .map(|hash| InputValue::Vec(hash.as_bytes().to_vec()))
+                .map(|hash| slice_to_input(hash.as_bytes()))
                 .collect();
             let leaves = InputValue::Vec(leaves);
 
             let root_hash = tree_before.digest();
 
             let mut inputs = InputMap::new();
-            inputs.insert(
-                "node".to_string(),
-                InputValue::Vec(node.as_bytes().to_vec()),
-            );
+            inputs.insert("node".to_string(), slice_to_input(node.as_bytes()));
             inputs.insert("leaves".to_string(), leaves);
             inputs.insert(
                 "root_hash".to_string(),
-                InputValue::Vec(root_hash.as_bytes().to_vec()),
+                slice_to_input(root_hash.as_bytes()),
             );
 
             let proof = Proof::new(&backend, "sha256", dir.join("pkgs/merkle_insert"));
@@ -180,6 +178,18 @@ fn generate_random_u8_slice(len: usize) -> Vec<u8> {
         vec.push(rng.gen::<u8>());
     }
     vec
+}
+
+fn slice_to_input(slice: &[u8]) -> InputValue {
+    let vec = slice
+        .iter()
+        .map(|i| {
+            let i = u128::from(*i);
+            InputValue::Field(i.into())
+        })
+        .collect();
+
+    InputValue::Vec(vec)
 }
 
 benchy::main!("noir", assert, fibonacci, sha256, merkle_membership);
