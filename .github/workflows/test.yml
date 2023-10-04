@@ -58,7 +58,7 @@ jobs:
       - name: Cache cargo bin
         uses: actions/cache@v3
         with:
-          path: ~/.cargo/bin
+          path: /home/runner/.cargo/bin
           key: ${{ runner.os }}-cargo-bin-${{ hashFiles('**/Cargo.lock') }}
     
       - name: Install risczero
