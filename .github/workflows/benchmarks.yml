@@ -58,6 +58,7 @@ jobs:
 
     - name: Cargo check
       run:  cargo check --all-targets
+      working-directory: ./polylang
   
     - name: Run Polylang Multi CPU benchmarks
       working-directory: ./polylang
@@ -100,6 +101,7 @@ jobs:
 
     - name: Cargo check
       run:  cargo check --all-targets
+      working-directory: ./miden
   
     - name: Run Miden Multi CPU benchmarks
       working-directory: ./miden
@@ -140,9 +142,6 @@ jobs:
 
       - uses: Swatinem/rust-cache@v2
 
-      - name: Cargo check
-        run:  cargo check --all-targets
-
       - name: Cache cargo bin
         uses: actions/cache@v2
         with:
@@ -153,6 +152,10 @@ jobs:
         run: cargo install cargo-risczero && cargo risczero install
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cargo check
+        run:  cargo check --all-targets
+        working-directory: ./risc-zero/host
 
       - name: Run Risc-Zero Multi CPU benchmarks
         working-directory: ./risc-zero/host
@@ -193,13 +196,14 @@ jobs:
 
       - uses: Swatinem/rust-cache@v2
 
-      - name: Cargo check
-        run:  cargo check --all-targets
-
       - name: Install Nix
         run: |
           sh <(curl -L https://nixos.org/nix/install)
           source $HOME/.nix-profile/etc/profile.d/nix.sh
+
+      - name: Cargo check
+        run:  cargo check --all-targets
+        working-directory: ./noir
 
       - name: Run cargo bench in Nix shell
         working-directory: ./noir
@@ -234,6 +238,7 @@ jobs:
 
     - name: Cargo check
       run:  cargo check --all-targets
+      working-directory: ./leo
   
     - name: Run Leo benchmarks
       working-directory: ./leo
