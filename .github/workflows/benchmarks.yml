@@ -55,6 +55,9 @@ jobs:
         override: true
 
     - uses: Swatinem/rust-cache@v2
+
+    - name: Cargo check
+      run:  cargo check --all-targets
   
     - name: Run Polylang Multi CPU benchmarks
       working-directory: ./polylang
@@ -94,6 +97,9 @@ jobs:
         override: true
 
     - uses: Swatinem/rust-cache@v2
+
+    - name: Cargo check
+      run:  cargo check --all-targets
   
     - name: Run Miden Multi CPU benchmarks
       working-directory: ./miden
@@ -133,6 +139,9 @@ jobs:
           override: true
 
       - uses: Swatinem/rust-cache@v2
+
+      - name: Cargo check
+        run:  cargo check --all-targets
 
       - name: Cache cargo bin
         uses: actions/cache@v2
@@ -184,6 +193,9 @@ jobs:
 
       - uses: Swatinem/rust-cache@v2
 
+      - name: Cargo check
+        run:  cargo check --all-targets
+
       - name: Install Nix
         run: |
           sh <(curl -L https://nixos.org/nix/install)
@@ -219,6 +231,9 @@ jobs:
         override: true
 
     - uses: Swatinem/rust-cache@v2
+
+    - name: Cargo check
+      run:  cargo check --all-targets
   
     - name: Run Leo benchmarks
       working-directory: ./leo
