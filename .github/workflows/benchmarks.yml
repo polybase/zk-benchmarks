@@ -202,8 +202,10 @@ jobs:
           source $HOME/.nix-profile/etc/profile.d/nix.sh
 
       - name: Cargo check
-        run:  cargo check --all-targets
         working-directory: ./noir
+        run:  |
+          source $HOME/.nix-profile/etc/profile.d/nix.sh
+          nix-shell --run "nix-shell -p clang --run 'cargo check --all-targets'"
 
       - name: Run cargo bench in Nix shell
         working-directory: ./noir
