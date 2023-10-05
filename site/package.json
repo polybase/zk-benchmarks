@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\" --fix",
-    "fix": "eslint \"./src/**/*.{ts,tsx}\" --fix"
+    "lint": "eslint \".//**/*.{ts,tsx}\"",
+    "fix": "eslint \".//**/*.{ts,tsx}\" --fix"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
