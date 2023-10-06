@@ -15,9 +15,6 @@ on:
       - risc-zero/host/benches/bench.rs
       - noir/benches/bench.rs
       - noir/Cargo.lock
-      - site/**/*.tsx
-      - site/**/*.ts
-      - site/yarn.lock
 
 env:
   AWS_REGION: us-east-1
@@ -40,26 +37,6 @@ jobs:
         aws ec2 start-instances --instance-ids ${INSTANCE_ID}
         echo "Waiting for instance to be ready..."
         aws ec2 wait instance-running --instance-ids ${INSTANCE_ID}
-
-  eslint:
-    runs-on: ubuntu-latest-64-cores
-    needs: start-runner
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16.x
-
-      - name: Install dependencies
-        run: npm install
-        working-directory: ./site
-
-      - name: Run eslint
-        run: npm run lint
-        working-directory: ./site
 
   polylang:
     runs-on: ${{ matrix.runner }}
