@@ -9,28 +9,28 @@ import { PostHogPageview } from '@/components/PostHogPageview'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-    title: 'ZK Bench',
-    description: 'Benchmarks for your favourite ZK frameworks',
+  title: 'ZK Bench',
+  description: 'Benchmarks for your favourite ZK frameworks',
 }
 
 export default function RootLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode
+  children: React.ReactNode
 }) {
-    return (
-        <html lang='en'>
-            <Head>
-                <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-            </Head>
-            <Suspense>
-                <PostHogPageview />
-            </Suspense>
-            <body className={inter.className}>
-                <Providers>
-                    {children}
-                </Providers>
-            </body>
-        </html>
-    )
+  return (
+    <html lang='en'>
+      <Head>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+      </Head>
+      <Suspense>
+        <PostHogPageview />
+      </Suspense>
+      <body className={inter.className}>
+        <Providers>
+          {children}
+        </Providers>
+      </body>
+    </html>
+  )
 }
