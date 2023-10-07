@@ -56,10 +56,6 @@ jobs:
 
     - uses: Swatinem/rust-cache@v2
 
-    - name: Cargo check
-      run:  cargo check --all-targets
-      working-directory: ./polylang
-  
     - name: Run Polylang Multi CPU benchmarks
       working-directory: ./polylang
       if: matrix.runner != 'macos-dedicated'
@@ -99,10 +95,6 @@ jobs:
 
     - uses: Swatinem/rust-cache@v2
 
-    - name: Cargo check
-      run:  cargo check --all-targets
-      working-directory: ./miden
-  
     - name: Run Miden Multi CPU benchmarks
       working-directory: ./miden
       if: matrix.runner != 'macos-dedicated'
@@ -153,10 +145,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Cargo check
-        run:  cargo check --all-targets
-        working-directory: ./risc-zero/host
-
       - name: Run Risc-Zero Multi CPU benchmarks
         working-directory: ./risc-zero/host
         if: matrix.runner != 'macos-dedicated'
@@ -201,12 +189,6 @@ jobs:
           sh <(curl -L https://nixos.org/nix/install)
           source $HOME/.nix-profile/etc/profile.d/nix.sh
 
-      - name: Cargo check
-        working-directory: ./noir
-        run:  |
-          source $HOME/.nix-profile/etc/profile.d/nix.sh
-          nix-shell --run "nix-shell -p clang --run 'cargo check --all-targets'"
-
       - name: Run cargo bench in Nix shell
         working-directory: ./noir
         env:
@@ -237,10 +219,6 @@ jobs:
         override: true
 
     - uses: Swatinem/rust-cache@v2
-
-    - name: Cargo check
-      run:  cargo check --all-targets
-      working-directory: ./leo
   
     - name: Run Leo benchmarks
       working-directory: ./leo
