@@ -20,9 +20,9 @@ jobs:
           node-version: 16.x
 
       - name: Install dependencies
-        run: npm install
+        run: yarn install
         working-directory: ./site
 
       - name: Run eslint
-        run: npm run lint
+        run: yarn lint
         working-directory: ./site
