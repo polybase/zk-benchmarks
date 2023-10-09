@@ -84,7 +84,7 @@ jobs:
 
       - name: Cargo fmt check
         run:  cargo fmt --check
-        working-directory: ./polylang
+        working-directory: ./risc-zero
 
       - name: Cargo check
         run:  cargo check --all-targets
