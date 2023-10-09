@@ -49,7 +49,7 @@ jobs:
 
     - name: Cargo fmt check
       run:  cargo fmt --check
-      working-directory: ./polylang
+      working-directory: ./miden
 
     - name: Cargo check
       run:  cargo check --all-targets
