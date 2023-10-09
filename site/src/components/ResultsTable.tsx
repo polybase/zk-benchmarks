@@ -4,7 +4,7 @@ import NextLink from 'next/link'
 import {
   TableContainer, Box, Table, Thead, Tbody, Th, Tr, Td, Stack, HStack, Text, Button, IconButton,
   Popover, PopoverTrigger, PopoverContent, PopoverArrow, Portal, PopoverBody, Icon, Spacer, Link,
-  useColorModeValue, Tooltip
+  useColorModeValue, Tooltip,
 } from '@chakra-ui/react'
 import { WarningIcon, InfoIcon } from '@chakra-ui/icons'
 // import { MdInfo } from 'react-icons/md'
@@ -98,7 +98,7 @@ const properties: ResultTableProperty[] = [{
     miden: 'Miden does support loading library modules, but these must also be written in Miden. There is no existing library ecosystem for Miden.',
     risc_zero: 'Risc Zero supports most crates in the Rust ecosystem. This is one of the powerful features of Risc Zero.',
     noir: 'Noir does support loading library modules, but these must also be written in Noir. There is no existing library ecosystem for Noir.',
-  }
+  },
 }, {
   name: 'EVM Verifier',
   desc: 'Does the framework provide a verifier that can be used on the Ethereum Virtual Machine?',
@@ -106,31 +106,31 @@ const properties: ResultTableProperty[] = [{
   annotations: {
     polylang: 'Polylang is scheduled to have an EVM verifier in Q1 2023.',
     miden: 'Miden is scheduled to have an EVM verifier in Q1 2023.',
-  }
+  },
 }, {
   name: 'GPU',
   prop: 'gpu',
   desc: 'Does the framework support GPU acceleration? Metal is specific to Apple devices.',
-  value: (val?: string[]) => val ? `✅ ${val.join(', ')}` : "❌",
+  value: (val?: string[]) => val ? `✅ ${val.join(', ')}` : '❌',
 }, {
   name: 'Assert',
-  desc: `A very simple assertion a != b, this can be used to test the framework's minimum proving performance.`,
+  desc: 'A very simple assertion a != b, this can be used to test the framework\'s minimum proving performance.',
   prop: 'metrics.$machine.assert.results.0.$metric',
   value: metricFormatter(),
   annotations: {
     risc_zero: 'Risc Zero is significantly slower for this test, as the minimum number of cycles for all Risc Zero programs is 64k. Therefore this very small program still requires a large number of cycles.',
-  }
+  },
 }, {
   name: 'Optimised Hashes',
   prop: 'optimisedHash',
-  desc: `Hashes that have been optimised by the framework and therefore should perform faster. SHA-256 and Blake are not optimised for ZK in general, but may still be optimised by a framework.`,
+  desc: 'Hashes that have been optimised by the framework and therefore should perform faster. SHA-256 and Blake are not optimised for ZK in general, but may still be optimised by a framework.',
   value: (val) => val.length > 1 ? <MoreInfo count={val.length - 1} more={val.slice(1).join(', ')}>{val[0]}</MoreInfo> : val?.[0],
   annotations: {
-    risc_zero: 'SHA-256 is the most optimised hash for Risc Zero, but SHA-256 is in general not ZK optimised.'
-  }
+    risc_zero: 'SHA-256 is the most optimised hash for Risc Zero, but SHA-256 is in general not ZK optimised.',
+  },
 }, {
   name: 'SHA-256 Hash',
-  desc: `Calculating the SHA-256 hash for given input size. SHA-256 is NOT zk optimised so it's normal to see degraded performance compared to other hashes. You SHOULD use an alterantive ZK-optimised hash if your use case allows and the framework provides it.`,
+  desc: 'Calculating the SHA-256 hash for given input size. SHA-256 is NOT zk optimised so it\'s normal to see degraded performance compared to other hashes. You SHOULD use an alterantive ZK-optimised hash if your use case allows and the framework provides it.',
   // prop: 'metrics.$machine.SHA256.results.0.time',
   // value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
 },
@@ -140,8 +140,8 @@ const properties: ResultTableProperty[] = [{
   prop: 'metrics.$machine.SHA256.results.0.$metric',
   value: metricFormatter(),
   annotations: {
-    leo: 'We used SHA3, as no SHA2 was available'
-  }
+    leo: 'We used SHA3, as no SHA2 was available',
+  },
 },
 {
   name: '10k bytes',
@@ -149,11 +149,11 @@ const properties: ResultTableProperty[] = [{
   prop: 'metrics.$machine.SHA256.results.1.$metric',
   value: metricFormatter(),
   annotations: {
-    leo: 'We used SHA3, as no SHA2 was available'
-  }
+    leo: 'We used SHA3, as no SHA2 was available',
+  },
 }, {
   name: 'Pedersen Hash',
-  desc: `A ZK optimised hash, this should perform better than SHA-256.`,
+  desc: 'A ZK optimised hash, this should perform better than SHA-256.',
 },
 {
   name: '1k bytes',
@@ -164,7 +164,7 @@ const properties: ResultTableProperty[] = [{
     risc_zero: 'Risc Zero does not support Pedersen',
     polylang: 'Miden does not support Pedersen',
     miden: 'Miden does not support Pedersen',
-  }
+  },
 },
 {
   name: '10k bytes',
@@ -175,10 +175,10 @@ const properties: ResultTableProperty[] = [{
     polylang: 'Miden does not support Pedersen',
     risc_zero: 'Risc Zero does not support Pedersen',
     miden: 'Miden does not support Pedersen',
-  }
+  },
 }, {
   name: 'RPO Hash',
-  desc: `A ZK optimised hash, this should perform better than SHA-256.`,
+  desc: 'A ZK optimised hash, this should perform better than SHA-256.',
 },
 {
   name: '1k bytes',
@@ -188,7 +188,7 @@ const properties: ResultTableProperty[] = [{
   annotations: {
     risc_zero: 'Risc Zero does not support RPO',
     noir: 'Noir does not support RPO, but does support Pederson which is a ZK optimised hash.',
-  }
+  },
 },
 {
   name: '10k bytes',
@@ -198,11 +198,11 @@ const properties: ResultTableProperty[] = [{
   annotations: {
     risc_zero: 'Risc Zero does not support RPO',
     noir: 'Noir does not support RPO, but does support Pederson which is a ZK optimised hash.',
-  }
+  },
 }, {
   name: 'Fibonacci',
   // TODO: use markdown for this
-  desc: `A fibonacci sequence is calculated for a given input size. This is a good test of the framework's ability to handle a looping data-strcuture.`,
+  desc: 'A fibonacci sequence is calculated for a given input size. This is a good test of the framework\'s ability to handle a looping data-strcuture.',
   // prop: 'metrics.$machine.SHA256.results.0.time',
   // value: (val?: Duration) => val ? `${(val.secs + val?.nanos / 1000000000).toFixed(2)}s` : null,
 },
@@ -215,7 +215,7 @@ const properties: ResultTableProperty[] = [{
     risc_zero: 'Slower due to minimum 64k cycles, regardless of program complexity',
     noir: 'We use bounded program, which is probably not a fair comparison.',
     leo: 'We use bounded program, which is probably not a fair comparison.',
-  }
+  },
 },
 {
   name: '10',
@@ -226,7 +226,7 @@ const properties: ResultTableProperty[] = [{
     risc_zero: 'Slower due to minimum 64k cycles, regardless of program complexity',
     noir: 'We use bounded program, which is probably not a fair comparison. This will be updated to use recursive proofs.',
     leo: 'We use bounded program, which is probably not a fair comparison.',
-  }
+  },
 },
 {
   name: '100',
@@ -237,7 +237,7 @@ const properties: ResultTableProperty[] = [{
     risc_zero: 'Slower due to minimum 64k cycles, regardless of program complexity',
     noir: 'We use bounded program, which is probably not a fair comparison.',
     leo: 'We use bounded program, which is probably not a fair comparison.',
-  }
+  },
 },
 {
   name: '1,000',
@@ -248,7 +248,7 @@ const properties: ResultTableProperty[] = [{
     risc_zero: 'Slower due to minimum 64k cycles, regardless of program complexity',
     noir: 'We use bounded program, which is probably not a fair comparison.',
     leo: 'We use bounded program, which is probably not a fair comparison.',
-  }
+  },
 }, {
   name: '10,000',
   indent: 4,
@@ -257,7 +257,7 @@ const properties: ResultTableProperty[] = [{
   annotations: {
     noir: 'We use bounded program, which is probably not a fair comparison.',
     leo: 'We use bounded program, which is probably not a fair comparison.',
-  }
+  },
 },
 {
   name: '100,000',
@@ -266,7 +266,7 @@ const properties: ResultTableProperty[] = [{
   value: metricFormatter('🚧'),
   annotations: {
     noir: 'We use bounded program, which is probably not a fair comparison.',
-  }
+  },
 }, {
   name: 'Merkle Tree',
 }, {
@@ -318,7 +318,7 @@ export function ResultsTable() {
       <HStack>
         <HStack>
           {machines.map(({ name, prop }) => {
-            const selected = machine === prop;
+            const selected = machine === prop
             return (
               <Button size='sm' variant={selected ? 'solid' : 'ghost'} key={prop} onClick={() => {
                 setMachine(prop)
@@ -338,7 +338,7 @@ export function ResultsTable() {
         <Spacer />
         <HStack>
           {metrics.map(({ name, prop, id }) => {
-            const selected = metric === id;
+            const selected = metric === id
             return (
               <Button size='sm' variant={selected ? 'solid' : 'ghost'} key={id} onClick={() => {
                 setMetric(id)
@@ -348,7 +348,7 @@ export function ResultsTable() {
         </HStack>
       </HStack>
       <Box border='1px solid' borderBottomWidth={0} borderColor='bw.100' borderRadius={5}>
-        <TableContainer overflowX="unset" overflowY="unset">
+        <TableContainer overflowX='unset' overflowY='unset'>
           <Table>
             <Thead>
               <Tr>
@@ -402,7 +402,7 @@ export function ResultsTable() {
                     </Td>
                     {
                       frameworks.map((fw: any) => {
-                        let value = prop.value ? prop.value(getPathValue(fw, prop.prop, vars), vars) : getPathValue(fw, prop.prop, vars);
+                        let value = prop.value ? prop.value(getPathValue(fw, prop.prop, vars), vars) : getPathValue(fw, prop.prop, vars)
                         const annotation = prop.annotations?.[fw.id]
                         return (
                           <Td key={fw.name}>
@@ -454,9 +454,9 @@ export function ResultsTable() {
 
 function getPathValue(data: any, path?: string, vars?: Record<string, any>) {
   if (!path) return
-  let current = data;
+  let current = data
   for (let part of path.split('.')) {
-    if (!current) return undefined;
+    if (!current) return undefined
     if (part.startsWith('$')) {
       part = vars?.[part.slice(1)]
       if (part.split('.').length > 1) {
@@ -468,24 +468,24 @@ function getPathValue(data: any, path?: string, vars?: Record<string, any>) {
     }
     current = current[part]
   }
-  return current;
+  return current
 }
 
 function formatToTwoSignificantDigits(num: number): string {
   if (num === 0) {
-    return "0.00";
+    return '0.00'
   }
 
-  const magnitude = Math.floor(Math.log10(Math.abs(num)));
-  const power = 1 - magnitude;
-  const roundedNumber = Math.round(num * Math.pow(10, power)) * Math.pow(10, -power);
+  const magnitude = Math.floor(Math.log10(Math.abs(num)))
+  const power = 1 - magnitude
+  const roundedNumber = Math.round(num * Math.pow(10, power)) * Math.pow(10, -power)
 
   // When the number is less than 1
   if (magnitude < 0) {
-    const placesAfterDecimal = Math.abs(magnitude) + 1;
-    return roundedNumber.toFixed(placesAfterDecimal);
+    const placesAfterDecimal = Math.abs(magnitude) + 1
+    return roundedNumber.toFixed(placesAfterDecimal)
   } else {
-    const factor = Math.pow(10, magnitude - 1);
-    return (roundedNumber * factor).toFixed(Math.max(0, magnitude - 1));
+    const factor = Math.pow(10, magnitude - 1)
+    return (roundedNumber * factor).toFixed(Math.max(0, magnitude - 1))
   }
 }

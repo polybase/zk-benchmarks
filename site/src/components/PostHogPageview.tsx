@@ -5,8 +5,8 @@ import posthog from 'posthog-js'
 import { usePathname, useSearchParams } from 'next/navigation'
 
 export function PostHogPageview() {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
   // Track pageviews
   useEffect(() => {
     if (pathname) {

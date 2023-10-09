@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import Image from 'next/image'
 import { Flex, Center, Text, Container, Heading, Button, useColorModeValue, HStack, Box, Spacer, Stack, Link, Divider, Alert, AlertIcon, Icon } from '@chakra-ui/react'
@@ -14,21 +14,12 @@ import x from '@/img/X.png'
 import vitalik from '@/img/vitalik-zk-bench.gif'
 
 
-const rounded = M_PLUS_Rounded_1c({ subsets: ['latin'], weight: ["700"], fallback: ['SF Rounded'] })
+const rounded = M_PLUS_Rounded_1c({ subsets: ['latin'], weight: ['700'], fallback: ['SF Rounded'] })
 
 export default function Home() {
   return (
     <main>
       <Box mb={20}>
-        <Link href='https://polybase.notion.site/Halo2-Engineer-Rust-ccea568bbfd64afa81d548d5c6fc429e'>
-          <Box py={2} maxW='100%' bgGradient='linear(to-l, #7928CA, #FF0080)'>
-            <Container maxW='container.md'>
-              <Text fontWeight='bold' color='#fff' textAlign='center'>
-                We&apos;re hiring a ZK (Halo 2) engineer 👀 -&gt;
-              </Text>
-            </Container>
-          </Box>
-        </Link>
         <Flex>
           <Spacer />
           <HStack p={3}>
@@ -41,7 +32,7 @@ export default function Home() {
             </Button>
             <Box pr={2}>
               <Link as='a' href='https://github.com/polybase/zk-benchmarks' target='_blank' fontWeight='600'>
-                github
+                                github
               </Link>
             </Box>
             <Box>

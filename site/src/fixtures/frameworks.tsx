@@ -16,7 +16,7 @@ export const frameworks = [
       src: {
         light: polylangLogo,
         dark: polylangLogo,
-      }
+      },
     },
     url: 'https://polylang.dev',
     frontend: 'Typescript-like',
@@ -38,7 +38,7 @@ export const frameworks = [
       src: {
         light: midenLogo,
         dark: midenLogo,
-      }
+      },
     },
     url: 'https://wiki.polygon.technology/docs/miden/',
     frontend: 'MASM (Assembly)',
@@ -60,7 +60,7 @@ export const frameworks = [
       src: {
         light: riscZeroLogo,
         dark: riscZeroLogo,
-      }
+      },
     },
     url: 'https://risczero.com',
     frontend: 'Rust, C, C++',
@@ -114,5 +114,5 @@ export const frameworks = [
     evmVerifier: '❌',
     optimisedHash: ['Pedersen', 'SHA3-256', 'Keccak256', 'Poseidon', 'BHP'],
     metrics: benchmarks.frameworks.leo,
-  }
+  },
 ]

@@ -1,4 +1,4 @@
-import type { MDXComponents } from 'mdx/types';
+import type { MDXComponents } from 'mdx/types'
 import NextLink from 'next/link'
 import {
   Heading,
@@ -16,7 +16,7 @@ import {
   Tr,
   Th,
   Td,
-} from '@chakra-ui/react';
+} from '@chakra-ui/react'
 
 const CustomHeading = ({ as, id, ...props }: any) => {
   if (id) {
@@ -42,10 +42,10 @@ const CustomHeading = ({ as, id, ...props }: any) => {
         />
         {/* </NextLink> */}
       </Link>
-    );
+    )
   }
-  return <Heading as={as} {...props} />;
-};
+  return <Heading as={as} {...props} />
+}
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -58,8 +58,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h6: ({ children, ...props }) => <CustomHeading as='h6' size='xs' mt={2} mb={1}{...props}>{children}</CustomHeading>,
 
     // Table support
-    table: ({ children }) => <Box fontSize='sm' my={4} border='1px solid' borderColor='bw.100' borderRadius={5} overflowX='auto'><Table variant="simple" >{children}</Table></Box>,
-    thead: ({ children }) => <Thead bg="bw.100">{children}</Thead>,
+    table: ({ children }) => <Box fontSize='sm' my={4} border='1px solid' borderColor='bw.100' borderRadius={5} overflowX='auto'><Table variant='simple' >{children}</Table></Box>,
+    thead: ({ children }) => <Thead bg='bw.100'>{children}</Thead>,
     tbody: ({ children }) => <Tbody>{children}</Tbody>,
     tr: ({ children }) => <Tr>{children}</Tr>,
     th: ({ children }) => <Th fontSize='sm' px={4} py={2}>{children}</Th>,
@@ -94,7 +94,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 
     // Merge with passed components
     ...components,
-  };
+  }
 }
 
 
