@@ -22,6 +22,14 @@ jobs:
       uses: actions/checkout@v2
 
     - uses: Swatinem/rust-cache@v2
+
+    - name: Cargo fmt check
+      run:  cargo fmt --check
+      working-directory: ./polylang
+
+    - name: Cargo check
+      run:  cargo check --all-targets
+      working-directory: ./polylang
   
     - name: Run Polylang benchmarks
       working-directory: ./polylang
@@ -38,6 +46,14 @@ jobs:
       uses: actions/checkout@v2
 
     - uses: Swatinem/rust-cache@v2
+
+    - name: Cargo fmt check
+      run:  cargo fmt --check
+      working-directory: ./miden
+
+    - name: Cargo check
+      run:  cargo check --all-targets
+      working-directory: ./miden
   
     - name: Run Miden benchmarks
       working-directory: ./miden
@@ -65,6 +81,14 @@ jobs:
         run: cargo install cargo-risczero && cargo risczero install
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cargo fmt check
+        run:  cargo fmt --check
+        working-directory: ./risc-zero
+
+      - name: Cargo check
+        run:  cargo check --all-targets
+        working-directory: ./risc-zero/host
   
       - name: Run Risc-Zero benchmarks
         working-directory: ./risc-zero/host
@@ -100,6 +124,18 @@ jobs:
           sh <(curl -L https://nixos.org/nix/install)
           source $HOME/.nix-profile/etc/profile.d/nix.sh
 
+      - name: Cargo fmt check
+        working-directory: ./noir
+        run:  |
+          source $HOME/.nix-profile/etc/profile.d/nix.sh
+          nix-shell --run "nix-shell -p clang --run 'cargo fmt --check'"
+
+      - name: Cargo check
+        working-directory: ./noir
+        run:  |
+          source $HOME/.nix-profile/etc/profile.d/nix.sh
+          nix-shell --run "nix-shell -p clang --run 'cargo check --all-targets'"
+
       - name: Run cargo bench in Nix shell
         working-directory: ./noir
         env:
@@ -116,6 +152,14 @@ jobs:
       uses: actions/checkout@v2
 
     - uses: Swatinem/rust-cache@v2
+
+    - name: Cargo fmt check
+      run:  cargo fmt --check
+      working-directory: ./leo
+
+    - name: Cargo check
+      run:  cargo check --all-targets
+      working-directory: ./leo
   
     - name: Run Leo benchmarks
       working-directory: ./leo

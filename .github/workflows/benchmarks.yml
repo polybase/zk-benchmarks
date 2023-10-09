@@ -55,7 +55,7 @@ jobs:
         override: true
 
     - uses: Swatinem/rust-cache@v2
-  
+
     - name: Run Polylang Multi CPU benchmarks
       working-directory: ./polylang
       if: matrix.runner != 'macos-dedicated'
@@ -94,7 +94,7 @@ jobs:
         override: true
 
     - uses: Swatinem/rust-cache@v2
-  
+
     - name: Run Miden Multi CPU benchmarks
       working-directory: ./miden
       if: matrix.runner != 'macos-dedicated'
