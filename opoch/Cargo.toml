@@ -1,0 +1,16 @@
+[package]
+name = "opoch-bench"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+opoch-poc-sha = { git = "https://github.com/chetannothingness/opoch-hash.git", package = "opoch-poc-sha" }
+serde_json = "1.0"
+
+[dev-dependencies]
+benchy = "0.1.1"
+zstd = "0.13"
+
+[[bench]]
+harness = false
+name = "bench"
