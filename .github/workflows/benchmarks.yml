@@ -15,6 +15,8 @@ on:
       - risc-zero/host/benches/bench.rs
       - noir/benches/bench.rs
       - noir/Cargo.lock
+      - opoch/Cargo.lock
+      - opoch/benches/bench.rs
 
 env:
   AWS_REGION: us-east-1
@@ -110,6 +112,36 @@ jobs:
         BENCHY_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
       run: |
         cargo bench -F metal
+
+    - name: Upload .benchmarks as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        path: .benchmarks/
+
+  opoch:
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        runner: ['ubuntu-16-shared', 'ubuntu-latest-64-cores']
+    needs: start-runner
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+
+    - uses: Swatinem/rust-cache@v2
+
+    - name: Run OPOCH benchmarks
+      working-directory: ./opoch
+      env:
+        BENCHY_OUTPUT_DIR: "../.benchmarks/${{ matrix.runner }}"
+      run: |
+        cargo bench
 
     - name: Upload .benchmarks as artifact
       uses: actions/upload-artifact@v3
@@ -234,7 +266,7 @@ jobs:
   
   commit:
     runs-on: ubuntu-latest
-    needs: [polylang, miden, risc_zero, noir]
+    needs: [polylang, miden, opoch, risc_zero, noir]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -261,7 +293,7 @@ jobs:
 
   clean-up:
     runs-on: ubuntu-latest
-    needs: [polylang, miden, risc_zero, noir]
+    needs: [polylang, miden, opoch, risc_zero, noir]
     if: always()
     steps:
     - name: Configure AWS credentials
